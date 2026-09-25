@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parts Catalog — Christian Gehrke</title>
+<link rel="stylesheet" href="css/catalog.css">
+</head>
+<body>
+
+<header class="cat-head">
+  <a class="cat-brand" href="../new/"><span class="cat-mark" aria-hidden="true"></span>Parts Catalog</a>
+  <p class="cat-tagline">Every object the scene engine knows how to build — searchable, grouped, and demoed live with the same code that runs in production.</p>
+</header>
+
+<div class="cat-toolbar">
+  <div class="cat-search">
+    <svg viewBox="0 0 20 20" class="cat-search-icon" aria-hidden="true"><circle cx="9" cy="9" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="13.8" y1="13.8" x2="18" y2="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <input type="search" id="catSearch" placeholder="Search parts: fox, pine, snow…" autocomplete="off" aria-label="Search parts">
+    <button type="button" class="cat-clear" id="catClear" aria-label="Clear search" hidden>×</button>
+  </div>
+  <button type="button" class="cat-copy" id="catCopy" title="Copy a link to this view (filter and search included)"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8.5 11.5a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 0 0-5-5l-1 1M11.5 8.5a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 0 0 5 5l1-1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Copy link</span></button>
+  <div class="cat-tabs" id="catTabs" role="tablist" aria-label="Categories"></div>
+</div>
+
+<main class="cat-grid" id="catGrid"></main>
+
+<p class="cat-empty" id="catEmpty" hidden></p>
+
+<footer class="cat-foot">
+  <p>Each card runs the actual builder function from the live engine (<code>components.js</code>) or the actual asset file, not a hand-copied approximation — what you see here is what the scene shows. See <code>js/catalog-data.js</code> to add a new part.</p>
+</footer>
+
+<script src="js/components.js?v=1790640000"></script>
+<script src="js/reference-parts.js?v=1790640000"></script>
+<script src="js/mountain-shapes.js?v=1790640000"></script>
+<script src="js/creature-shapes.js?v=1790640000"></script>
+<script src="js/origami-art.js?v=1790640000"></script>
+<script src="js/creatures.js?v=1790640000"></script>
+<script src="js/catalog-data.js?v=1790640000"></script>
+<script src="js/catalog-app.js?v=1790640000"></script>
+</body>
+</html>

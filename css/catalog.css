@@ -1,0 +1,288 @@
+*{box-sizing:border-box}
+:root{
+  --paper: 250,250,247;
+  --ink: 30,42,38;
+  --accent: 216,97,143;
+  --accent2: 124,179,66;
+  --line: 226,222,212;
+  --font-display: "Nunito","Poppins","Arial Rounded MT Bold","Avenir Next Rounded","Avenir Next","Segoe UI",Arial,sans-serif;
+  --font-body: "Nunito","Avenir Next","Avenir","Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
+html,body{margin:0;background:rgb(var(--paper));color:rgb(var(--ink));font-family:var(--font-body)}
+
+/* ── header ─────────────────────────────────────────────────────────── */
+.cat-head{padding:28px clamp(20px,5vw,64px) 8px}
+.cat-brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:22px;color:#0f4d47;text-decoration:none}
+.cat-mark{width:14px;height:14px;border-radius:50%;background:rgb(var(--accent2))}
+.cat-tagline{margin:10px 0 0;max-width:62ch;color:#5a6b62;font-size:15px;line-height:1.5}
+
+/* ── toolbar: search, copy link, pills ──────────────────────────────
+   Row 1: search + copy link. Row 2: the pills, one line; on narrow screens the row scrolls
+   sideways instead of wrapping into a tall block. Counts follow the search. */
+.cat-toolbar{
+  position:sticky;top:0;z-index:5;background:rgba(var(--paper),0.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  padding:12px clamp(16px,5vw,64px);border-bottom:1px solid rgb(var(--line));
+  display:grid;grid-template-columns:minmax(0,340px) auto 1fr;gap:10px 10px;align-items:center;
+}
+.cat-search{position:relative;min-width:0}
+.cat-search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:#8a9990;pointer-events:none}
+.cat-search input{
+  width:100%;padding:9px 34px 9px 33px;border-radius:10px;border:1px solid rgb(var(--line));
+  font:inherit;font-size:14px;background:#fff;color:rgb(var(--ink));-webkit-appearance:none;appearance:none
+}
+.cat-search input::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+.cat-search input:focus{outline:2px solid rgb(var(--accent2));outline-offset:1px}
+.cat-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:24px;height:24px;border:0;border-radius:50%;
+  background:#eef0ea;color:#5a6b62;font:600 16px/1 var(--font-body);cursor:pointer}
+.cat-clear:hover{background:#e2e6dc}
+.cat-copy{display:inline-flex;align-items:center;gap:6px;justify-self:start;border:1px solid rgb(var(--line));background:#fff;
+  border-radius:10px;padding:8px 12px;font:600 13px var(--font-body);color:#4a5850;cursor:pointer;white-space:nowrap}
+.cat-copy svg{width:15px;height:15px}
+.cat-copy:hover{border-color:rgb(var(--accent2));color:#0f4d47}
+.cat-copy.is-done{background:#eef6e6;border-color:rgb(var(--accent2));color:#3d6b1a}
+.cat-tabs{grid-column:1 / -1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  margin:0 calc(-1 * clamp(16px,5vw,64px));padding:2px clamp(16px,5vw,64px)}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-tab{
+  flex:0 0 auto;appearance:none;border:1px solid rgb(var(--line));background:#fff;border-radius:99px;
+  padding:6px 8px 6px 13px;font:inherit;font-size:13px;font-weight:600;color:#4a5850;cursor:pointer;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:6px;transition:background .15s,color .15s,border-color .15s,opacity .15s
+}
+.cat-count{min-width:20px;padding:1px 6px;border-radius:99px;background:#f0f1ec;color:#7a887f;font-size:11px;font-weight:700;text-align:center}
+.cat-tab:hover{border-color:rgb(var(--accent2));color:#0f4d47}
+.cat-tab[aria-selected="true"]{background:#0f4d47;border-color:#0f4d47;color:#fff}
+.cat-tab[aria-selected="true"] .cat-count{background:rgba(255,255,255,.18);color:#fff}
+.cat-tab.is-empty:not([aria-selected="true"]){opacity:.45}
+.cat-empty-link{border:0;background:none;padding:0;font:inherit;color:#0f4d47;font-weight:700;text-decoration:underline;cursor:pointer}
+@media (max-width:560px){
+  .cat-toolbar{grid-template-columns:1fr auto}
+  .cat-copy span{display:none}
+  .cat-copy{padding:8px 10px}
+}
+
+/* ── grid + cards ──────────────────────────────────────────────────── */
+.cat-grid{
+  padding:24px clamp(20px,5vw,64px) 60px;
+  display:grid;gap:22px;
+  grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+}
+.cat-empty{text-align:center;color:#8a9990;padding:40px;font-size:14px}
+
+.cat-card{
+  border:1px solid rgb(var(--line));border-radius:14px;background:#fff;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.cat-scene-wrap{position:relative;aspect-ratio:1/1;background:#eef1ea;overflow:hidden}
+.cat-scene-wrap svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cat-scene-wrap img{position:absolute;pointer-events:none}
+
+.cat-body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px}
+.cat-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.cat-title{margin:0;font-family:var(--font-display);font-weight:800;font-size:15px;color:#0f4d47}
+.cat-status{
+  flex:0 0 auto;font-size:10px;font-weight:800;padding:3px 8px;border-radius:99px;white-space:nowrap;
+}
+.cat-status[data-state="live"]{background:rgba(124,179,66,.16);color:#4a7a1e}
+.cat-status[data-state="progress"]{background:rgba(216,97,143,.14);color:rgb(var(--accent))}
+.cat-status[data-state="reference"]{background:#eef1ea;color:#7a8a80}
+
+.cat-tags{display:flex;flex-wrap:wrap;gap:5px}
+.cat-tag{font-size:11px;color:#7a8a80;background:#f3f5ef;border-radius:6px;padding:2px 7px}
+
+.cat-controls{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.cat-control-group{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.cat-control-label{font-size:10px;font-weight:800;letter-spacing:.02em;color:#9aa89f;width:100%}
+.cat-btn{
+  appearance:none;border:1px solid rgb(var(--line));background:#fff;border-radius:7px;
+  padding:5px 10px;font:inherit;font-size:12px;font-weight:700;color:#4a5850;cursor:pointer;
+  transition:background .12s, color .12s, border-color .12s
+}
+.cat-btn:hover{border-color:rgb(var(--accent))}
+.cat-btn[aria-pressed="true"]{background:rgb(var(--accent));border-color:rgb(var(--accent));color:#fff}
+
+.cat-foot{padding:10px clamp(20px,5vw,64px) 50px;color:#8a9990;font-size:12.5px;max-width:70ch}
+.cat-foot code{background:#f3f5ef;border-radius:4px;padding:1px 5px;font-size:11.5px}
+
+/* ── reused verbatim from the live engine's scene.css: same classes,     ─
+   same keyframes, so a demo here means the same thing it means live —    ─
+   EXCEPT the keyframes below now scale by --wind-mult so a real 4-level  ─
+   wind control (None/Light/Breezy/Heavy) can vary actual swing amplitude ─
+   and speed, not just play/pause. Production's scene.css keyframes are   ─
+   still the fixed-amplitude versions; porting the scalable version back  ─
+   there is a separate step, not done here.                              ── */
+.pine-tier{
+  transform-box: fill-box; transform-origin: 50% 100%;
+  animation-name: pineTier; animation-timing-function: cubic-bezier(.37,0,.63,1);
+  animation-iteration-count: infinite; animation-direction: alternate;
+  animation-duration: calc(var(--dur, 3.2s) * var(--wind-speed, 1));
+  animation-delay: var(--delay, 0s);
+}
+@keyframes pineTier{
+  from{ transform: rotate(calc(-1deg * var(--wind-mult, 1))); }
+  to  { transform: rotate(calc(1.6deg * var(--wind-mult, 1))); }
+}
+
+.leaf-flutter{
+  transform-box: fill-box; transform-origin: 50% 100%;
+  animation-name: leafFlutter; animation-timing-function: cubic-bezier(.65,0,.35,1);
+  animation-iteration-count: infinite; animation-direction: alternate;
+  animation-duration: calc(var(--dur, 0.9s) * var(--wind-speed, 1));
+  animation-delay: var(--delay, 0s);
+}
+@keyframes leafFlutter{
+  from{ transform: rotate(calc(-5deg * var(--wind-mult, 1))); }
+  to  { transform: rotate(calc(5deg * var(--wind-mult, 1))); }
+}
+
+.grass-bend{
+  transform-box: fill-box; transform-origin: 50% 100%;
+  animation-name: grassBend; animation-timing-function: cubic-bezier(.5,0,.3,1.4);
+  animation-iteration-count: infinite; animation-direction: alternate;
+  animation-duration: calc(var(--dur, 2.4s) * var(--wind-speed, 1));
+  animation-delay: var(--delay, 0s);
+}
+@keyframes grassBend{
+  from{ transform: rotate(calc(-2deg * var(--wind-mult, 1))) skewX(calc(-1deg * var(--wind-mult, 1))); }
+  to  { transform: rotate(calc(4deg * var(--wind-mult, 1))) skewX(calc(1.5deg * var(--wind-mult, 1))); }
+}
+
+.flower-nod{
+  transform-box: fill-box; transform-origin: 50% 100%;
+  animation-name: flowerNod; animation-timing-function: cubic-bezier(.65,0,.35,1);
+  animation-iteration-count: infinite; animation-direction: alternate;
+  animation-duration: calc(var(--dur, 3.6s) * var(--wind-speed, 1));
+  animation-delay: var(--delay, 0s);
+}
+@keyframes flowerNod{
+  from{ transform: rotate(calc(-1.5deg * var(--wind-mult, 1))); }
+  to  { transform: rotate(calc(2.5deg * var(--wind-mult, 1))); }
+}
+
+.pine-detailed-sway{
+  transform-box: fill-box; transform-origin: 50% 100%;
+  animation-name: pineDetailedSway; animation-timing-function: cubic-bezier(.65,0,.35,1);
+  animation-iteration-count: infinite; animation-direction: alternate;
+  animation-duration: calc(var(--dur, 5.5s) * var(--wind-speed, 1));
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+@keyframes pineDetailedSway{
+  from{ transform: rotate(calc(-0.6deg * var(--wind-mult, 1))); }
+  to  { transform: rotate(calc(0.9deg * var(--wind-mult, 1))); }
+}
+
+.tree-isolated-sway{
+  /* Applied to a plain HTML <img> (aspen-cutout), not an SVG element --
+     fill-box only applies to SVG per spec, so border-box is the correct
+     reference box here (bottom-center of the rendered image box, which is
+     the trunk base since the image uses object-position:bottom). */
+  transform-box: border-box; transform-origin: 50% 100%;
+  animation-name: treeIsolatedSway; animation-timing-function: cubic-bezier(.65,0,.35,1);
+  animation-iteration-count: infinite; animation-direction: alternate;
+  animation-duration: calc(var(--dur, 6s) * var(--wind-speed, 1));
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+@keyframes treeIsolatedSway{
+  from{ transform: rotate(calc(-0.4deg * var(--wind-mult, 1))); }
+  to  { transform: rotate(calc(0.5deg * var(--wind-mult, 1))); }
+}
+
+/* Same leafFlutter motion as the inline-SVG leaf-flutter class above, but
+   for a plain <img> (single-leaf-01.svg), so border-box (not fill-box,
+   which is SVG-only) is the correct reference box. Pivot explicitly set to
+   the bottom-center -- this was previously left unset and defaulting to
+   the CSS default of 50% 50% (dead center), which is why the leaf looked
+   like it was spinning around its own middle instead of hanging and
+   swinging from its stem the way a real leaf does. */
+.leaf-img-flutter{
+  transform-box: border-box; transform-origin: 50% 100%;
+  animation-name: leafFlutter; animation-timing-function: cubic-bezier(.65,0,.35,1);
+  animation-iteration-count: infinite; animation-direction: alternate;
+  animation-duration: calc(var(--dur, 0.9s) * var(--wind-speed, 1));
+  animation-delay: var(--delay, 0s);
+}
+
+/* Card-local wind field, now a real 4-level control instead of one on/off
+   toggle: None (paused entirely), Light, Breezy (matches the old default
+   amplitude/speed), Heavy. --wind-mult scales swing ANGLE, --wind-speed
+   scales animation DURATION (so Heavy is both wider and faster, not just
+   one or the other). */
+.cat-scene-wrap{ --wind: 0.35; --wind-mult: 1; --wind-speed: 1; }
+.cat-scene-wrap[data-wind-level="light"]  { --wind-mult: 0.45; --wind-speed: 1.35; }
+.cat-scene-wrap[data-wind-level="breezy"] { --wind-mult: 1;    --wind-speed: 1; }
+.cat-scene-wrap[data-wind-level="heavy"]  { --wind-mult: 3.4;  --wind-speed: 0.42; }
+.cat-scene-wrap[data-wind-level="none"] .pine-tier,
+.cat-scene-wrap[data-wind-level="none"] .leaf-flutter,
+.grass-clump-sway{
+  transform-box: fill-box; transform-origin: 50% 100%; /* pivot at the clump's own base, where it roots into the ground */
+  animation: grassClumpSway 1.4s cubic-bezier(.65,0,.35,1) infinite alternate;
+  animation-duration: calc(var(--dur, 1.4s) * var(--wind-speed, 1));
+}
+@keyframes grassClumpSway{
+  from{ transform: rotate(calc(-3deg * var(--wind-mult, 1))); }
+  to  { transform: rotate(calc(4deg * var(--wind-mult, 1))); }
+}
+
+.cat-scene-wrap[data-wind-level="none"] .grass-bend,
+.cat-scene-wrap[data-wind-level="none"] .flower-nod,
+.cat-scene-wrap[data-wind-level="none"] .pine-detailed-sway,
+.cat-scene-wrap[data-wind-level="none"] .tree-isolated-sway,
+.cat-scene-wrap[data-wind-level="none"] .leaf-img-flutter,
+.cat-scene-wrap[data-wind-level="none"] .grass-clump-sway,
+.cat-scene-wrap[data-wind="off"] .pine-tier,
+.cat-scene-wrap[data-wind="off"] .leaf-flutter,
+.cat-scene-wrap[data-wind="off"] .grass-bend,
+.cat-scene-wrap[data-wind="off"] .flower-nod,
+.cat-scene-wrap[data-wind="off"] .pine-detailed-sway,
+.cat-scene-wrap[data-wind="off"] .tree-isolated-sway,
+.cat-scene-wrap[data-wind="off"] .snow-flake{ animation-play-state: paused; }
+
+/* Fill/stroke color changes (season swaps) transition smoothly instead of
+   snapping instantly -- applies broadly to every procedural shape so any
+   object's in-place recolor (setSeason/setColor methods in components.js)
+   fades rather than jumps, without needing per-object CSS. */
+.cat-scene-wrap .obj path,
+.cat-scene-wrap .obj circle,
+.cat-scene-wrap .obj ellipse,
+.cat-scene-wrap .obj line{
+  transition: fill 0.6s ease, stroke 0.6s ease, opacity 0.4s ease;
+}
+
+/* Falling snow — demo-only SVG version (production should stay canvas-based
+   like the existing rain implementation, for the same performance reasons
+   at real scene scale). Each flake drifts down and sideways, looping. */
+.snow-flake{
+  animation: snowFall var(--fall-dur, 8s) linear infinite;
+  animation-delay: var(--fall-delay, 0s);
+}
+@keyframes snowFall{
+  from{ transform: translate(0, -20px); }
+  to  { transform: translate(var(--drift, 0px), 320px); }
+}
+
+.rain-drop{
+  animation: rainFall var(--fall-dur, 1s) linear infinite;
+  animation-delay: var(--fall-delay, 0s);
+}
+@keyframes rainFall{
+  from{ transform: translateY(-10px); }
+  to  { transform: translateY(320px); }
+}
+
+@media (max-width:520px){
+  .cat-grid{grid-template-columns:1fr 1fr}
+}
+
+/* Boids-based birds are entirely JS-driven (their motion depends on
+   neighbors' live positions each frame) -- no CSS animation needed here. */
+
+.water-ripple{transform-box:fill-box;transform-origin:50% 50%}
+.water-ripple-rain{animation:waterRippleGrow var(--dur) cubic-bezier(.15,.6,.35,1) forwards}
+.water-ripple-snow{stroke:#ffffff!important;animation:waterRippleGrowSnow var(--dur) cubic-bezier(.2,.5,.4,1) forwards}
+@keyframes waterRippleGrow{0%{opacity:.95;stroke-width:3;transform:scale(.08)}100%{opacity:0;stroke-width:.4;transform:scale(1)}}
+@keyframes waterRippleGrowSnow{0%{opacity:1;stroke-width:3;transform:scale(.08)}55%{opacity:.75;stroke-width:1.6}100%{opacity:0;stroke-width:.4;transform:scale(1)}}
+.water-drop-rain{animation:waterFallRain var(--dur) linear forwards}
+.water-drop-snow{animation:waterFallSnow var(--dur) ease-in-out forwards}
+@keyframes waterFallRain{from{transform:translateY(0)}to{transform:translateY(var(--dist))}}
+@keyframes waterFallSnow{0%{transform:translate(0,0)}50%{transform:translate(calc(var(--sway) * -1),calc(var(--dist) * .5))}100%{transform:translate(0,var(--dist))}}
