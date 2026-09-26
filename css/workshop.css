@@ -1,0 +1,64 @@
+/* WORKSHOP -- prompt builder and PNG tracer (workshop.html / js/workshop.js).
+   Uses catalog.css's tokens and header; everything here is prefixed ws-. */
+.ws-steps{display:flex;gap:8px;padding:12px clamp(16px,5vw,64px);border-bottom:1px solid rgb(var(--line));
+  position:sticky;top:0;z-index:5;background:rgba(var(--paper),.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow-x:auto}
+.ws-step{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:6px 13px 6px 7px;border-radius:99px;border:1px solid rgb(var(--line));
+  background:#fff;color:#4a5850;font:600 13px var(--font-body);text-decoration:none;white-space:nowrap}
+.ws-step b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#0f4d47;color:#fff;font-size:11px}
+.ws-step:hover{border-color:rgb(var(--accent2));color:#0f4d47}
+.ws-step.is-soon{opacity:.55}
+.ws-step.is-soon b{background:#9aa59e}
+.ws-step i{font-style:normal;font-size:11px;color:#7a887f}
+
+.ws{max-width:1100px;margin:0 auto;padding:20px clamp(16px,5vw,64px) 80px;display:grid;gap:22px}
+.ws-card{background:#fff;border:1px solid rgb(var(--line));border-radius:16px;padding:20px clamp(16px,3vw,28px);scroll-margin-top:64px}
+.ws-card h2{margin:0 0 6px;font:800 20px var(--font-display);color:#0f4d47}
+.ws-lede{margin:0 0 16px;color:#5a6b62;font-size:14px;line-height:1.55;max-width:70ch}
+.ws-lede code,.ws-note code{font-size:12px;background:#f3f4ef;padding:1px 5px;border-radius:5px}
+
+.ws-form{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px 14px;margin-bottom:12px}
+.ws-form label{display:grid;gap:5px;font:700 12px var(--font-body);color:#5a6b62;text-transform:uppercase;letter-spacing:.04em}
+.ws-form label.ws-wide{grid-column:1 / -1}
+.ws-form input[type=text],.ws-form select,.ws-figure select{font:500 15px var(--font-body);color:rgb(var(--ink));text-transform:none;letter-spacing:0;
+  padding:9px 11px;border:1px solid rgb(var(--line));border-radius:10px;background:#fff;min-width:0;width:100%}
+.ws-form input:focus,.ws-form select:focus{outline:2px solid rgb(var(--accent2));outline-offset:1px}
+.ws-form input[type=range]{width:100%;accent-color:#0f4d47}
+.ws-form output{font:600 13px var(--font-body);color:rgb(var(--ink));text-transform:none}
+
+.ws-swatches{display:flex;flex-wrap:wrap;gap:6px;min-height:0;margin:0 0 12px}
+.ws-swatches:empty{margin:0}
+.ws-swatches span{width:26px;height:26px;border-radius:7px;border:1px solid rgba(0,0,0,.12)}
+
+.ws-out textarea{width:100%;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgb(var(--ink));background:#f7f8f4;
+  border:1px solid rgb(var(--line));border-radius:12px;padding:12px 14px;resize:vertical}
+.ws-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0 0}
+.ws-btn{appearance:none;border:0;border-radius:10px;padding:10px 16px;background:#0f4d47;color:#fff;font:700 14px var(--font-display);cursor:pointer}
+.ws-btn:hover{filter:brightness(1.12)}
+.ws-btn:disabled{opacity:.4;cursor:default;filter:none}
+.ws-btn.is-done{background:rgb(var(--accent2))}
+.ws-btn-quiet{background:#fff;color:#0f4d47;border:1px solid rgb(var(--line))}
+.ws-note{font-size:13px;color:#7a887f;line-height:1.5}
+.ws-parts{margin-top:14px;font-size:14px;color:#5a6b62}
+.ws-parts summary{cursor:pointer;font-weight:700;color:#0f4d47}
+
+.ws-drop{display:grid;place-items:center;min-height:110px;margin-bottom:14px;border:2px dashed rgb(var(--line));border-radius:14px;
+  color:#5a6b62;font-size:15px;text-align:center;padding:16px;cursor:pointer;transition:border-color .15s,background .15s}
+.ws-drop:hover,.ws-drop.is-over{border-color:rgb(var(--accent2));background:#f6f9f1}
+.ws-drop b{color:#0f4d47}
+.ws-status{min-height:1.4em;margin:0 0 10px;font-size:13px;color:#5a6b62}
+.ws-status.is-error{color:#b3261e}
+
+.ws-views{display:grid;grid-template-columns:1fr 1fr 2fr;gap:12px}
+.ws-views figure{margin:0;min-width:0}
+.ws-views figcaption{display:flex;align-items:center;gap:8px;font:700 12px var(--font-body);color:#5a6b62;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.ws-views figcaption select{font:500 13px var(--font-body);padding:3px 6px;border:1px solid rgb(var(--line));border-radius:7px;background:#fff;text-transform:none}
+.ws-view{aspect-ratio:1;border-radius:12px;border:1px solid rgb(var(--line));
+  background:#fff linear-gradient(45deg,#f3f4ef 25%,transparent 25%,transparent 75%,#f3f4ef 75%) 0 0/20px 20px;
+  display:grid;place-items:center;overflow:hidden}
+.ws-view-wide{aspect-ratio:2}
+.ws-view img,.ws-view svg{max-width:100%;max-height:100%;display:block}
+.ws-view svg{width:100%;height:100%}
+@media (max-width:760px){
+  .ws-views{grid-template-columns:1fr 1fr}
+  .ws-views figure:last-child{grid-column:1 / -1}
+}

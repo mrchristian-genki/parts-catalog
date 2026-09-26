@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop — Parts Catalog</title>
+<link rel="stylesheet" href="css/catalog.css">
+<link rel="stylesheet" href="css/workshop.css">
+</head>
+<body>
+
+<header class="cat-head">
+  <a class="cat-brand" href="./"><span class="cat-mark" aria-hidden="true"></span>Parts Catalog</a>
+  <p class="cat-tagline">Workshop: write a prompt for a new part, generate it anywhere, then bring the image back and trace it into the scene's origami format.</p>
+</header>
+
+<nav class="ws-steps" aria-label="Workshop steps">
+  <a href="#prompt" class="ws-step"><b>1</b> Prompt</a>
+  <a href="#trace" class="ws-step"><b>2</b> Import &amp; trace</a>
+  <span class="ws-step is-soon"><b>3</b> Cut &amp; rig <i>next</i></span>
+</nav>
+
+<main class="ws">
+
+<!-- 1. PROMPT BUILDER -->
+<section class="ws-card" id="prompt">
+  <h2>1 · Prompt</h2>
+  <p class="ws-lede">Describe the part the scene needs: a character, or a landscape piece for a new scene. The prompt asks for flat colours on plain white so it traces cleanly, in the cast's papercraft style or the lake scenery's flat vector style. Characters are posed so they can be cut into moving pieces; ground pieces (shores, streams, hills) come as wide strips with a flat bottom edge so they sit on a scene's ground line.</p>
+  <div class="ws-form">
+    <label>Subject <input id="pSubject" type="text" placeholder="raccoon, heron, canoe, cattail…" autocomplete="off"></label>
+    <label>Kind
+      <select id="pKind">
+        <optgroup label="Cast (moving pieces)">
+          <option value="animal">Four-legged animal</option>
+          <option value="bird">Bird</option>
+          <option value="person">Person</option>
+        </optgroup>
+        <optgroup label="Landscape">
+          <option value="tree">Tree</option>
+          <option value="plant">Plant / bush / flowers</option>
+          <option value="rock">Rock / boulder</option>
+          <option value="island">Island</option>
+          <option value="shore">Beach / shore / bank</option>
+          <option value="stream">Stream / river / waterfall</option>
+          <option value="hills">Hills / ground band</option>
+          <option value="mountain">Mountain / range</option>
+          <option value="sky">Cloud / sky piece</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option value="prop">Object / prop</option>
+        </optgroup>
+      </select>
+    </label>
+    <label>Style
+      <select id="pStyle">
+        <option value="origami">Origami papercraft (the cast)</option>
+        <option value="vector">Flat vector (the lake scenery)</option>
+      </select>
+    </label>
+    <label>Pose <select id="pPose"></select></label>
+    <label>Facing
+      <select id="pFacing"><option value="right">Right (like the cast)</option><option value="left">Left</option></select>
+    </label>
+    <label>Colours from
+      <select id="pPalette"><option value="">Natural colours</option></select>
+    </label>
+    <label class="ws-wide">Extra details <input id="pExtra" type="text" placeholder="winter coat, lantern in hand, holding a fish…" autocomplete="off"></label>
+  </div>
+  <div class="ws-swatches" id="pSwatches" aria-hidden="true"></div>
+  <div class="ws-out">
+    <textarea id="pOut" rows="7" readonly aria-label="Generated prompt"></textarea>
+    <div class="ws-actions">
+      <button type="button" class="ws-btn" id="pCopy">Copy prompt</button>
+      <span class="ws-note" id="pFile"></span>
+    </div>
+  </div>
+  <details class="ws-parts"><summary>Pieces this will be cut into</summary><p id="pParts"></p></details>
+</section>
+
+<!-- 2. IMPORT & TRACE -->
+<section class="ws-card" id="trace">
+  <h2>2 · Import &amp; trace</h2>
+  <p class="ws-lede">Drop the generated PNG (or JPG). It is traced here in your browser, the same way <code>puppet-refs/doe-pilot/trace.py</code> does it: every pixel snaps to a small palette, the white background drops out, and each colour becomes one flat path.</p>
+  <label class="ws-drop" id="tDrop">
+    <input type="file" id="tFile" accept="image/png,image/jpeg,image/webp" hidden>
+    <span id="tDropText"><b>Choose an image</b> or drop it here</span>
+  </label>
+  <div class="ws-form">
+    <label>Part id <input id="tId" type="text" placeholder="raccoon" autocomplete="off" spellcheck="false"></label>
+    <label>Colours <input id="tK" type="range" min="3" max="10" value="7"><output id="tKOut">7</output></label>
+    <label>Detail <input id="tEps" type="range" min="0.6" max="4" step="0.2" value="1.6"><output id="tEpsOut">1.6</output></label>
+    <label>Palette
+      <select id="tPalette"><option value="">From the image</option></select>
+    </label>
+  </div>
+  <div class="ws-swatches" id="tSwatches"></div>
+  <p class="ws-status" id="tStatus" role="status"></p>
+  <div class="ws-views">
+    <figure><figcaption>Original</figcaption><div class="ws-view" id="vOrig"></div></figure>
+    <figure><figcaption>Traced</figcaption><div class="ws-view" id="vTrace"></div></figure>
+    <figure><figcaption>Next to <select id="vCompare"></select></figcaption><div class="ws-view ws-view-wide" id="vCompareView"></div></figure>
+  </div>
+  <div class="ws-actions">
+    <button type="button" class="ws-btn" id="tSvg" disabled>Download traced SVG</button>
+    <button type="button" class="ws-btn" id="tJson" disabled>Download origami entry</button>
+    <button type="button" class="ws-btn ws-btn-quiet" id="tCopy" disabled>Copy entry</button>
+  </div>
+  <p class="ws-note">The origami entry is <code>{ vb, fills, body, parts }</code>, the shape <code>origami-art.js</code> uses. <code>parts</code> stays empty until step 3 cuts it; as it is, it draws as a still figure.</p>
+</section>
+
+</main>
+
+<script src="js/origami-art.js?v=1790640000"></script>
+<script src="js/workshop.js?v=1790640000"></script>
+</body>
+</html>
