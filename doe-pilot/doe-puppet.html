@@ -1,0 +1,135 @@
+<title>Origami Doe Puppet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f7f6f1; --card:#ffffff; --ink:#1e2a26; --muted:#5d6b64; --line:#e0ddd3;
+  --deep:#0f4d47; --leaf:#7cb342; --chip:#eef0e8;
+  --sky1:#cfe3ec; --sky2:#eef4ef; --grass:#b9cf95; --grass2:#a6bf7f;
+  --font:"Nunito","Avenir Next","Segoe UI",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  color-scheme:dark; --paper:#141a18; --card:#1c2421; --ink:#e7ece8; --muted:#9aa8a0; --line:#2c3632;
+  --deep:#8fd0c6; --leaf:#9ccc65; --chip:#26302c; --sky1:#2a3d4a; --sky2:#3a4b4c; --grass:#4d5e3c; --grass2:#435335;}}
+:root[data-theme="dark"]{color-scheme:dark; --paper:#141a18; --card:#1c2421; --ink:#e7ece8; --muted:#9aa8a0; --line:#2c3632;
+  --deep:#8fd0c6; --leaf:#9ccc65; --chip:#26302c; --sky1:#2a3d4a; --sky2:#3a4b4c; --grass:#4d5e3c; --grass2:#435335;}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:15px}
+.wrap{max-width:980px;margin:0 auto;padding-inline:max(16px,4vw);padding-block:28px 48px;display:grid;gap:18px}
+h1{font-weight:800;font-size:clamp(24px,4vw,32px);margin:0;color:var(--deep);text-wrap:balance}
+.lede{margin:6px 0 0;color:var(--muted);max-width:62ch;line-height:1.55}
+.stage{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;aspect-ratio:16/10;max-width:100%;
+  background:linear-gradient(var(--sky1),var(--sky2) 70%)}
+.stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:15%;background:linear-gradient(var(--grass),var(--grass2))}
+#doe{position:absolute;z-index:1;left:50%;bottom:9%;transform:translateX(-50%);height:88%;width:auto;overflow:visible;transition:height .5s ease}
+.stage.small #doe{height:14%}
+.jt{fill:#fff;stroke:#d8437a;stroke-width:9;display:none}
+.joints .jt{display:inline}
+.readout{position:absolute;z-index:2;left:12px;top:10px;font:500 12px var(--mono);color:var(--muted);background:color-mix(in srgb,var(--card) 80%,transparent);padding:4px 8px;border-radius:8px}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.group{display:grid;gap:8px}
+.label{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:6px}
+button{appearance:none;font:700 14px var(--font);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:7px 14px;cursor:pointer}
+button:hover{border-color:var(--leaf)}
+button[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:var(--paper)}
+button:focus-visible{outline:2px solid var(--leaf);outline-offset:2px}
+.notes{border-top:1px solid var(--line);padding-top:14px;display:grid;gap:10px;color:var(--muted);line-height:1.55;max-width:70ch}
+.notes b{color:var(--ink)}
+code{font:500 13px var(--mono);background:var(--chip);padding:1px 5px;border-radius:5px;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){#doe{transition:none}}
+</style>
+<div class="wrap">
+  <header>
+    <h1>Origami doe puppet</h1>
+    <p class="lede">A pilot for the lake scene's animals. It was traced from one AI image into flat SVG, then cut into 9 hinged parts: head, neck, 2 ears, tail and 4 legs. Every pose below is the same 6 KB of art turned at its joints.</p>
+  </header>
+  <div class="stage" id="stage">
+    <div class="readout" id="readout">graze</div>
+    <svg id="doe" viewBox="200 150 1800 1750" role="img" aria-label="Animated origami doe"><defs><g id="art"><path id="base" fill="#bc7f53" fill-rule="evenodd" d="M1643,220 1640,220 1532,303 1446,465 1443,468 1395,468 1390,463 1317,310 1208,236 1200,229 1183,218 1180,218 1162,327 1194,440 1337,583 1334,597 1318,641 1282,756 1261,816 1250,853 1247,855 1232,858 1147,857 1129,859 1073,872 1047,880 1011,886 927,885 870,880 756,866 699,862 665,862 630,866 598,874 560,888 520,908 515,908 462,817 398,776 373,762 372,835 390,898 452,947 452,952 434,971 422,988 415,1004 411,1021 414,1075 422,1152 425,1151 453,1112 457,1112 462,1123 478,1187 482,1197 491,1241 490,1276 484,1298 474,1320 455,1347 436,1366 406,1390 396,1400 391,1411 391,1482 386,1544 372,1663 360,1734 361,1741 375,1756 380,1765 385,1800 389,1808 404,1816 417,1820 432,1822 465,1821 459,1797 437,1741 433,1722 433,1661 439,1591 446,1554 459,1516 473,1490 486,1472 520,1437 552,1412 582,1385 586,1385 587,1390 563,1429 560,1441 560,1454 630,1613 666,1706 678,1746 681,1749 694,1751 699,1755 715,1790 722,1797 728,1800 746,1804 772,1804 797,1796 797,1792 787,1776 743,1717 721,1676 684,1590 671,1553 661,1511 663,1488 678,1454 751,1353 792,1287 798,1287 848,1307 885,1315 960,1315 1041,1310 1071,1306 1080,1307 1096,1401 1106,1499 1120,1569 1120,1636 1107,1759 1130,1778 1132,1795 1137,1814 1154,1825 1173,1830 1212,1829 1210,1818 1186,1769 1181,1754 1171,1697 1168,1661 1168,1611 1170,1591 1185,1517 1185,1447 1188,1396 1192,1359 1194,1356 1198,1356 1220,1451 1238,1544 1244,1585 1251,1670 1249,1743 1253,1747 1270,1756 1280,1790 1284,1798 1289,1802 1304,1808 1317,1810 1340,1809 1357,1806 1349,1786 1318,1733 1309,1699 1297,1626 1293,1580 1293,1552 1298,1503 1295,1434 1295,1377 1300,1327 1307,1292 1316,1260 1338,1251 1349,1244 1482,1018 1501,835 1510,767 1522,766 1623,778 1653,770 1665,754 1672,753 1687,712 1686,707 1587,601 1580,552 1531,512 1531,507 1616,427Z"/><path id="t1" fill="#d49b6e" fill-rule="evenodd" d="M1103,1471 1107,1505 1118,1553 1121,1587 1120,1636 1107,1758 1130,1778 1132,1795 1137,1795 1186,1769 1175,1724 1168,1661 1170,1591 1182,1532 1176,1530 1112,1476ZM395,1409 392,1410 390,1417 391,1482 384,1563 372,1663 360,1734 362,1742 375,1756 380,1765 383,1788 443,1759 433,1722 433,1661 438,1598 445,1558 453,1531 467,1500 476,1487 475,1482ZM1641,222 1636,224 1633,231 1549,334 1523,497 1520,501 1512,497 1478,469 1394,468 1394,472 1476,567 1476,571 1509,602 1505,605 1450,615 1423,584 1339,585 1347,609 1351,611 1411,735 1418,754 1451,756 1503,763 1511,766 1590,775 1584,759 1580,755 1567,750 1566,747 1580,746 1616,699 1616,696 1514,605 1520,601 1575,590 1574,578 1576,566 1580,562 1580,553 1532,513 1531,507 1616,426 1637,271ZM1182,220 1303,451 1332,502 1334,511 1340,517 1349,537 1352,538 1320,331 1321,319 1318,312 1186,220Z"/><path id="t2" fill="#ab7147" fill-rule="evenodd" d="M1296,1516 1293,1516 1249,1591 1245,1593 1248,1624 1254,1624 1260,1619 1261,1605 1258,1602 1262,1589 1267,1589 1274,1583 1292,1581 1292,1553ZM569,1460 565,1463 565,1466 570,1470 569,1475 576,1490 586,1490 586,1477 583,1475 583,1467 577,1462ZM689,902 742,1231 744,1231 755,1219 758,1206 764,1200 771,1198 777,1201 693,908 691,902ZM1251,860 1247,860 1074,1142 1067,1167 1071,1168 1076,1281 1080,1308 1083,1311 1094,1384 1103,1467 1179,1531 1182,1530 1185,1514 1183,1472 1191,1359 1193,1358 1196,1332 1204,1306 1221,1283 1381,1101ZM1371,680 1395,757 1400,759 1417,754 1416,748 1412,748 1408,744 1404,734 1407,729 1384,681 1376,683ZM1349,613 1365,665 1367,665 1368,661 1373,660 1352,614Z"/><path id="t3" fill="#f9e9d4" fill-rule="evenodd" d="M766,1212 753,1270 788,1283 791,1287 798,1287 858,1310 885,1315 935,1316 1043,1309 1053,1242 785,1213 780,1210ZM372,765 372,835 389,895 395,903 452,947 452,952 434,971 422,988 411,1021 422,1149 425,1150 450,1115 457,1111 450,1082 450,1072 475,933 464,926 436,899 374,765ZM1423,755 1419,756 1382,1101 1366,1120 1362,1131 1265,1273 1264,1278 1311,1261 1316,1262 1317,1259 1338,1251 1349,1244 1482,1017 1502,829 1499,829ZM1582,754 1592,774 1616,778 1652,770 1663,756 1663,754 1617,755 1588,751Z"/><path id="t4" fill="#65422d" fill-rule="evenodd" d="M1134,1798 1138,1814 1158,1826 1176,1830 1208,1829 1211,1826 1207,1812 1186,1771 1174,1775ZM463,1819 460,1801 442,1761 385,1790 388,1806 406,1816 439,1822 461,1821ZM707,1770 715,1789 729,1800 750,1804 767,1804 789,1799 796,1795 788,1778 757,1737 754,1737ZM1276,1773 1283,1795 1299,1806 1313,1809 1334,1809 1355,1805 1354,1797 1319,1734 1316,1734 1298,1753 1292,1755 1290,1761 1279,1773ZM789,1285 753,1271 722,1267 716,1264 709,1267 596,1373 563,1430 561,1439 561,1456 563,1460 571,1459 575,1452 709,1333 725,1333 753,1338 758,1341 790,1289ZM1313,1262 1268,1279 1262,1279 1255,1284 1219,1298 1209,1299 1197,1332 1196,1347 1213,1418 1223,1408 1300,1297 1307,1293 1314,1266ZM375,765 437,899 474,932 511,913 514,910 512,904 463,820 379,765ZM1686,709 1662,684 1638,692 1639,701 1635,705 1617,697 1595,728 1599,733 1591,741 1586,740 1580,747 1570,747 1569,750 1576,753 1582,753 1586,750 1615,753 1614,748 1620,746 1621,751 1617,754 1669,753 1675,745ZM1425,583 1425,587 1451,614 1507,603 1507,599 1473,571ZM1321,325 1353,539 1348,538 1338,516 1334,512 1205,445 1203,447 1335,581 1338,581 1353,552 1354,545 1358,542 1379,499 1392,466 1327,331ZM1632,228 1628,229 1532,304 1447,464 1448,468 1478,468 1516,499 1521,499 1549,331 1619,247Z"/><path id="t5" fill="#916240" fill-rule="evenodd" d="M1291,1583 1274,1584 1267,1590 1261,1591 1260,1603 1263,1609 1261,1619 1256,1624 1249,1626 1252,1664 1250,1742 1253,1746 1269,1753 1276,1772 1279,1772 1289,1761 1290,1756 1298,1752 1317,1732 1302,1666 1293,1610 1294,1589ZM711,1333 572,1456 584,1467 584,1475 587,1477 587,1487 589,1488 584,1492 579,1492 579,1496 635,1623 667,1706 678,1743 684,1749 696,1751 707,1769 752,1738 754,1733 731,1698 685,1595 666,1539 659,1499 666,1476 676,1455 755,1345 753,1339ZM1305,1295 1301,1297 1215,1419 1215,1428 1239,1542 1245,1591 1248,1591 1296,1510 1294,1378 1296,1349ZM776,1203 771,1199 764,1201 759,1206 757,1215 767,1210 776,1210ZM1067,1168 1055,1242 1073,1244 1070,1168ZM1623,696 1629,703 1635,704 1638,701 1635,693ZM1369,661 1368,666 1372,679 1381,681 1379,671Z"/><path id="t6" fill="#dec1a0" fill-rule="evenodd" d="M1055,1244 1053,1246 1044,1307 1055,1308 1077,1305 1079,1300 1075,1281 1074,1248 1071,1245ZM765,1214 761,1214 717,1261 717,1264 745,1270 751,1269ZM1362,1127 1356,1131 1212,1295 1212,1298 1257,1282 1262,1277ZM1424,755 1498,827 1502,827 1509,774 1507,765ZM1516,604 1518,609 1614,694 1622,696 1660,683 1577,592 1573,591Z"/></g><mask id="m-torso" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><rect width="2048" height="2048" fill="#fff"/><polygon points="700,1250 810,1262 815,1520 830,1830 600,1830 556,1452 592,1372 640,1330" fill="#000"/><polygon points="1198,1262 1330,1250 1370,1500 1370,1840 1238,1840 1226,1650 1196,1300" fill="#000"/><polygon points="350,730 560,730 530,905 480,940 440,955 350,960" fill="#000"/><polygon points="1236,860 1250,700 1330,300 1800,300 1800,900 1620,960 1500,1040 1420,1060 1330,1000" fill="#000"/><polygon points="1300,200 1800,200 1800,760 1560,780 1480,760 1420,740 1330,640 1310,560" fill="#000"/><polygon points="1393,466 1336,588 1140,450 1140,200 1320,200 1402,440" fill="#000"/><polygon points="1442,466 1535,510 1700,380 1790,170 1600,170 1452,440" fill="#000"/><polygon points="378,1396 526,1436 500,1500 470,1560 460,1830 330,1830 340,1400" fill="#000"/><polygon points="1068,1298 1196,1300 1226,1650 1238,1840 1100,1840 1090,1500" fill="#000"/></mask><mask id="m-farHind" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="700,1250 810,1262 815,1520 830,1830 600,1830 556,1452 592,1372 640,1330" fill="#fff"/><circle cx="752" cy="1300" r="60" fill="#fff"/></mask><mask id="m-farFront" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="1198,1262 1330,1250 1370,1500 1370,1840 1238,1840 1226,1650 1196,1300" fill="#fff"/><circle cx="1262" cy="1300" r="58" fill="#fff"/></mask><mask id="m-tail" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="350,730 560,730 530,905 480,940 440,955 350,960" fill="#fff"/><circle cx="500" cy="930" r="45" fill="#fff"/></mask><mask id="m-neck" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="1236,860 1250,700 1330,300 1800,300 1800,900 1620,960 1500,1040 1420,1060 1330,1000" fill="#fff"/><circle cx="1330" cy="1120" r="90" fill="#fff"/><polygon points="1236,860 1330,1000 1420,1060 1500,1040 1470,1170 1350,1260 1230,1160 1180,960" fill="#fff"/><polygon points="1300,200 1800,200 1800,760 1560,780 1480,760 1420,740 1330,640 1310,560" fill="#000"/><polygon points="1393,466 1336,588 1140,450 1140,200 1320,200 1402,440" fill="#000"/><polygon points="1442,466 1535,510 1700,380 1790,170 1600,170 1452,440" fill="#000"/></mask><mask id="m-head" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="1300,200 1800,200 1800,760 1560,780 1480,760 1420,740 1330,640 1310,560" fill="#fff"/><circle cx="1410" cy="670" r="70" fill="#fff"/><polygon points="1393,466 1336,588 1140,450 1140,200 1320,200 1402,440" fill="#000"/><polygon points="1442,466 1535,510 1700,380 1790,170 1600,170 1452,440" fill="#000"/></mask><mask id="m-earL" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="1393,466 1336,588 1140,450 1140,200 1320,200 1402,440" fill="#fff"/><circle cx="1372" cy="530" r="30" fill="#fff"/></mask><mask id="m-earR" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="1442,466 1535,510 1700,380 1790,170 1600,170 1452,440" fill="#fff"/><circle cx="1490" cy="494" r="28" fill="#fff"/></mask><mask id="m-nearHind" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="378,1396 526,1436 500,1500 470,1560 460,1830 330,1830 340,1400" fill="#fff"/><circle cx="470" cy="1410" r="52" fill="#fff"/></mask><mask id="m-nearFront" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="2048"><polygon points="1068,1298 1196,1300 1226,1650 1238,1840 1100,1840 1090,1500" fill="#fff"/><circle cx="1135" cy="1305" r="55" fill="#fff"/></mask></defs><g id="p-farHind" data-pivot="752,1290"><use href="#art" mask="url(#m-farHind)"/></g><g id="p-farFront" data-pivot="1262,1290"><use href="#art" mask="url(#m-farFront)"/></g><g id="p-tail" data-pivot="500,925"><use href="#art" mask="url(#m-tail)"/></g><g id="p-neck" data-pivot="1330,1120"><use href="#art" mask="url(#m-neck)"/><g id="p-head" data-pivot="1410,660"><g id="p-earL" data-pivot="1368,528"><use href="#art" mask="url(#m-earL)"/></g><g id="p-earR" data-pivot="1490,490"><use href="#art" mask="url(#m-earR)"/></g><use href="#art" mask="url(#m-head)"/></g></g><use href="#art" mask="url(#m-torso)"/><g id="p-nearHind" data-pivot="470,1405"><use href="#art" mask="url(#m-nearHind)"/></g><g id="p-nearFront" data-pivot="1135,1300"><use href="#art" mask="url(#m-nearFront)"/></g></svg>
+  </div>
+  <div class="controls">
+    <div class="group"><span class="label">Behaviour</span><div class="row" data-set="mode">
+      <button type="button" id="m-graze" data-v="graze" aria-pressed="true">Graze</button>
+      <button type="button" id="m-walk" data-v="walk" aria-pressed="false">Walk</button>
+      <button type="button" id="m-idle" data-v="idle" aria-pressed="false">Idle</button>
+      <button type="button" id="m-alert" data-v="alert" aria-pressed="false">Alert</button></div></div>
+    <div class="group"><span class="label">Coat</span><div class="row" data-set="coat">
+      <button type="button" id="c-summer" data-v="summer" aria-pressed="true">Summer red</button>
+      <button type="button" id="c-winter" data-v="winter" aria-pressed="false">Winter grey</button></div></div>
+    <div class="group"><span class="label">View</span><div class="row">
+      <button type="button" id="v-small" aria-pressed="false">Scene size</button>
+      <button type="button" id="v-joints" aria-pressed="false">Show joints</button></div></div>
+  </div>
+  <section class="notes">
+    <p><b>How the joints work.</b> Each part is cut from the art along a line plus a round overlap around its pivot, so turning it never opens a gap. The far legs, tail, neck and ears sit behind the body, so their cut ends stay hidden. The near legs sit in front.</p>
+    <p><b>Grazing.</b> The neck's hinge is low in the chest, hidden behind the shoulder, so the head can reach the grass (about 115°) instead of stopping at chest height. The head has its own joint to turn the muzzle down.</p>
+    <p><b>Coats.</b> The trace kept 7 flat colours. The winter coat swaps them for the mule deer's grey-brown. The scene can do the same by season, like the white winter hare.</p>
+  </section>
+</div>
+<script>
+(() => {
+  const svg = document.getElementById('doe'), stage = document.getElementById('stage');
+  const parts = {};
+  svg.querySelectorAll('g[id^="p-"]').forEach((g) => {
+    const [x, y] = g.dataset.pivot.split(',').map(Number);
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('class', 'jt'); c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 22);
+    g.appendChild(c);
+    parts[g.id.slice(2)] = { g, x, y, a: 0 };
+  });
+  // The whole doe (for the walk bob): wrap the top-level content in one group.
+  const root = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  [...svg.childNodes].filter((n) => n.nodeName !== 'defs').forEach((n) => root.appendChild(n));
+  svg.appendChild(root);
+
+  const TAU = Math.PI * 2, sin = Math.sin;
+  const ease = (u) => u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u);
+  const blip = (t, every, at, len) => { const u = ((t % every) + every) % every - at; return u > 0 && u < len ? sin(Math.PI * u / len) : 0; };
+  const BEHAVIOURS = {
+    idle: (t) => ({ neck: 2 * sin(t * 0.4), head: 1.5 * sin(t * 0.7), earL: -14 * blip(t, 5.2, 1, 0.35), earR: 12 * blip(t, 6.7, 3.2, 0.35),
+      tail: -22 * blip(t, 4.1, 2, 0.5), y: 3 * sin(t * 1.3) }),
+    alert: (t) => ({ neck: -9, head: -5 + 1.5 * blip(t, 3.3, 1.5, 0.6), earL: 8 + 6 * blip(t, 2.6, 0.4, 0.3), earR: -6 - 8 * blip(t, 3.1, 1.8, 0.3), tail: -12, y: 0 }),
+    walk: (t) => { const p = t * TAU * 1.05; return { nearFront: 15 * sin(p), farHind: 13 * sin(p), farFront: -15 * sin(p), nearHind: -11 * sin(p),
+      neck: 3 * sin(2 * p), head: -2 * sin(2 * p), tail: 6 * sin(p), earL: 3 * sin(2 * p), earR: -3 * sin(2 * p), y: -14 * Math.abs(sin(p)) }; },
+    graze: (t) => {
+      const c = t % 11;
+      let down = c < 1.8 ? ease(c / 1.8) : c < 6.5 ? 1 : c < 8.2 ? 1 - ease((c - 6.5) / 1.7) : 0;
+      const chew = c > 1.8 && c < 6.5 ? 1 : 0;
+      return { neck: 116 * down + 2 * sin(t * 0.5), head: -48 * down + chew * 3 * sin(t * 11) + (c > 8.2 ? -4 * sin((c - 8.2) * 1.6) : 0),
+        earL: -12 * blip(c, 11, 8.6, 0.35) + 5 * down, earR: 10 * blip(c, 11, 9.4, 0.35) - 5 * down, tail: -24 * blip(t, 3.7, 1.2, 0.5), y: 0 };
+    },
+  };
+  let mode = 'graze', t0 = performance.now(), cur = { y: 0 };
+  const coats = { summer: {}, winter: { '#bc7f53': '#8f7b69', '#d49b6e': '#ab9784', '#ab7147': '#7f6c5c', '#f9e9d4': '#f1ece4',
+    '#65422d': '#4a3c31', '#916240': '#6e5d4f', '#dec1a0': '#d3c8bb' } };
+  const artPaths = [...svg.querySelectorAll('#art path')];
+  artPaths.forEach((p) => { p.dataset.base = p.getAttribute('fill'); });
+  function setCoat(k) { artPaths.forEach((p) => p.setAttribute('fill', coats[k][p.dataset.base] || p.dataset.base)); }
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function frame(now) {
+    const t = reduce ? 0 : (now - t0) / 1000, target = BEHAVIOURS[mode](t);
+    for (const name in parts) {
+      const P = parts[name], want = target[name] || 0;
+      P.a += (want - P.a) * 0.18;                   // a quick blend so switching behaviour eases over
+      P.g.setAttribute('transform', `rotate(${P.a.toFixed(2)} ${P.x} ${P.y})`);
+    }
+    cur.y += ((target.y || 0) - cur.y) * 0.25;
+    root.setAttribute('transform', `translate(0 ${cur.y.toFixed(1)})`);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  document.querySelectorAll('[data-set]').forEach((row) => row.addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    row.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    if (row.dataset.set === 'mode') { mode = b.dataset.v; t0 = performance.now(); document.getElementById('readout').textContent = mode; }
+    else setCoat(b.dataset.v);
+  }));
+  const toggle = (id, cls, el) => document.getElementById(id).addEventListener('click', (e) => {
+    const on = e.currentTarget.getAttribute('aria-pressed') !== 'true';
+    e.currentTarget.setAttribute('aria-pressed', String(on)); el.classList.toggle(cls, on);
+  });
+  toggle('v-small', 'small', stage); toggle('v-joints', 'joints', svg);
+})();
+</script>
