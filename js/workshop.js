@@ -21,24 +21,24 @@
       shape: 'wings clearly outlined against the body, head and tail distinct', parts: 'body, head, near wing, far wing, tail' },
     person: { poses: ['standing', 'walking', 'sitting', 'holding something in front'], frame: 'figure',
       shape: 'arms separated from the body, head distinct, a simple calm face', parts: 'body, head, arm (or both arms)' },
-    tree: { poses: ['a pine / conifer', 'a leafy broadleaf tree', 'a birch or aspen', 'a palm', 'a bare winter tree', 'a small sapling'], frame: 'figure', noun: true,
+    tree: { kit: 'the tree in three sizes (small, medium, large), with small natural differences between them', poses: ['a pine / conifer', 'a leafy broadleaf tree', 'a birch or aspen', 'a palm', 'a bare winter tree', 'a small sapling'], frame: 'figure', noun: true,
       shape: 'one standalone tree from the base of the trunk to the top, trunk visible, no ground, no roots showing',
       parts: 'crown that sways in the wind from a pivot on the trunk, trunk' },
-    plant: { poses: ['a leafy bush', 'a clump of grass', 'reeds / cattails', 'wildflowers', 'a fern', 'a succulent / agave'], frame: 'figure', noun: true,
+    plant: { kit: 'three variations of different sizes and shapes', poses: ['a leafy bush', 'a clump of grass', 'reeds / cattails', 'wildflowers', 'a fern', 'a succulent / agave'], frame: 'figure', noun: true,
       shape: 'one standalone clump, cut off flat where it meets the ground, no soil', parts: 'one piece that sways from its base (or a few stems)' },
-    rock: { poses: ['a single boulder', 'a cluster of boulders', 'a flat stepping stone', 'a boulder with grass tufts'], frame: 'figure', noun: true,
+    rock: { kit: 'four rocks of different sizes and shapes, some flat-topped', poses: ['a single boulder', 'a cluster of boulders', 'a flat stepping stone', 'a boulder with grass tufts'], frame: 'figure', noun: true,
       shape: 'resting on a flat base, fully visible', parts: 'one still piece (grass tufts can sway)' },
-    island: { poses: ['a small tree-covered island', 'a rocky islet', 'a sandy island with a palm'], frame: 'figure', noun: true,
+    island: { kit: 'the island\'s land mass alone (flat along the waterline, no trees); its trees, each on its own; two or three rocks', poses: ['a small tree-covered island', 'a rocky islet', 'a sandy island with a palm'], frame: 'figure', noun: true,
       shape: 'seen from the side at water level, cut off flat along the waterline, no water drawn', parts: 'island, with its trees as separate swaying pieces' },
-    shore: { poses: ['a sandy beach', 'a grassy lake bank', 'a pebble shore', 'a muddy riverbank with reeds'], frame: 'strip', noun: true,
+    shore: { kit: 'the ground as one wide strip with a flat bottom edge and nothing growing on it; the water as its own separate wide strip, a few flat tones with simple highlight shapes; three trees that suit the place, of different heights; two or three small bush or flower clumps; one or two rocks', poses: ['a sandy beach', 'a grassy lake bank', 'a pebble shore', 'a muddy riverbank with reeds'], frame: 'strip', noun: true,
       shape: 'seen from the side, the top edge is the land\'s silhouette and the bottom edge is the flat waterline', parts: 'one ground piece' },
-    stream: { poses: ['a winding stream seen from a low angle', 'a small waterfall over rocks', 'a river bend', 'a creek with stones'], frame: 'strip', noun: true,
+    stream: { kit: 'the left bank as a strip; the right bank as a strip; the water on its own as a separate shape, a few flat blue tones with simple highlight shapes; three or four stones; a clump of reeds', poses: ['a winding stream seen from a low angle', 'a small waterfall over rocks', 'a river bend', 'a creek with stones'], frame: 'strip', noun: true,
       shape: 'the water in a few flat blue tones with simple highlight shapes, its banks included', parts: 'banks, with the water as a separate layer that can shimmer' },
-    hills: { poses: ['rolling green hills', 'a meadow band', 'dunes', 'a forested ridge', 'snowy slopes'], frame: 'strip', noun: true,
+    hills: { kit: 'three full-width hill bands (far, middle and near, the far one palest), each a strip with a flat bottom edge, stacked with white space between them; two small trees; a bush', poses: ['rolling green hills', 'a meadow band', 'dunes', 'a forested ridge', 'snowy slopes'], frame: 'strip', noun: true,
       shape: 'a layered band seen from the side, nearer layers darker', parts: 'one ground band per layer (for parallax)' },
-    mountain: { poses: ['a single peak', 'a range of peaks', 'a snow-capped peak', 'a desert butte'], frame: 'strip', noun: true,
+    mountain: { kit: 'a far mountain range as a strip (palest); a nearer range as a strip; one single peak', poses: ['a single peak', 'a range of peaks', 'a snow-capped peak', 'a desert butte'], frame: 'strip', noun: true,
       shape: 'a silhouette with a few flat shading facets, flat along the bottom', parts: 'one distant layer' },
-    sky: { poses: ['a fluffy cumulus cloud', 'a long thin cloud', 'a cloud bank', 'a sun', 'a crescent moon'], frame: 'figure', noun: true,
+    sky: { kit: 'three clouds of different sizes; the sun; a crescent moon', poses: ['a fluffy cumulus cloud', 'a long thin cloud', 'a cloud bank', 'a sun', 'a crescent moon'], frame: 'figure', noun: true,
       shape: 'one standalone piece, soft flat shading in two or three tones', parts: 'one piece that drifts' },
     prop: { poses: ['upright'], frame: 'figure', shape: 'one standalone object, fully visible', parts: 'one piece (or a few, if it has moving bits)' },
   };
@@ -79,7 +79,10 @@
     const colours = pal && ART[pal]
       ? `Use a palette of 6 to 8 flat colours close to these: ${ART[pal].fills.join(', ')}.`
       : 'Use a limited palette of 6 to 8 flat, natural colours.';
-    const view = k.frame === 'strip'
+    const kit = k.kit && $('pOutput').value === 'kit';
+    const view = kit
+      ? `Composition: a kit of separate parts for building a scene, laid out on the white background with wide white gaps between every part; no part touches or overlaps another. The parts: ${k.kit}. Every part in the same style, colours and light. Wide landscape image, 2048 x 1024.`
+      : k.frame === 'strip'
       ? `Composition: one wide horizontal strip across the full width of the image, ${k.shape}; the bottom edge is a straight horizontal line, and the left and right ends are cut off cleanly so it can sit on a scene's ground line or repeat side by side. Wide landscape image, 2048 x 1024.`
       : `Composition: ${kind === 'animal' || kind === 'bird' || kind === 'person' ? `in full side profile facing ${$('pFacing').value}, ` : ''}the whole piece in frame with a margin, ${k.shape}. Square image, 2048 x 2048.`;
     const text = [
@@ -88,19 +91,20 @@
       view,
       colours,
       extra ? `Details: ${extra}.` : '',
-      'Plain pure white background (#FFFFFF). No shadow, no text, no border, no other objects' + (k.frame === 'strip' ? ', no sky.' : ', no ground.'),
+      'Plain pure white background (#FFFFFF). No shadow, no text, no border, no labels, no other objects' + (kit || k.frame === 'strip' ? ', no sky.' : ', no ground.'),
     ].filter(Boolean).join(' ');
     $('pOut').value = text;
     swatches($('pSwatches'), pal && ART[pal] ? ART[pal].fills : []);
     $('pParts').textContent = `Pieces: ${k.parts}. The clearer the gaps between those pieces in the image, the cleaner the cut.`;
     $('pFacing').closest('label').hidden = !(kind === 'animal' || kind === 'bird' || kind === 'person');
+    $('pOutput').closest('label').hidden = !k.kit;
     const id = slug(k.noun ? [subject, pose.replace(/^an? /, '').split(/[ /]/).pop()].filter(Boolean).join(' ') : subject || 'fox');
-    $('pFile').textContent = `Save the result as ${id}-${k.noun ? 'art' : 'origami'}.png.`;
+    $('pFile').textContent = `Save the result as ${id}-${kit ? 'kit' : k.noun ? 'art' : 'origami'}.png.`;
     if (!$('tId').dataset.touched) $('tId').value = id;
   }
-  ['pSubject', 'pKind', 'pStyle', 'pPose', 'pFacing', 'pPalette', 'pExtra'].forEach((id) =>
+  ['pSubject', 'pKind', 'pStyle', 'pOutput', 'pPose', 'pFacing', 'pPalette', 'pExtra'].forEach((id) =>
     $(id).addEventListener(id === 'pKind' ? 'change' : 'input', () => { if (id === 'pKind') setPoses(); buildPrompt(); }));
-  ['pStyle', 'pPose', 'pFacing', 'pPalette'].forEach((id) => $(id).addEventListener('change', buildPrompt));
+  ['pStyle', 'pOutput', 'pPose', 'pFacing', 'pPalette'].forEach((id) => $(id).addEventListener('change', buildPrompt));
   $('pCopy').addEventListener('click', () => copy($('pOut').value, $('pCopy'), 'Copy prompt'));
   setPoses(); buildPrompt();
 
@@ -172,6 +176,7 @@
         $('vTrace').innerHTML = result.svg;
         renderCompare();
         ['tSvg', 'tJson', 'tCopy'].forEach((id) => { $(id).disabled = false; });
+        renderPieces();
         const kb = (result.svg.length / 1024).toFixed(0);
         status(`${result.entry.fills.length} colours · ${result.entry.body.length} paths · ${kb} KB · ${Math.round(performance.now() - t0)} ms`);
       } catch (e) { console.error(e); status('Tracing failed: ' + e.message, true); }
@@ -205,57 +210,112 @@
     sil = close(open(sil, w, h, 1), w, h, 2);              // 3x3 open, 5x5 close
     // Majority clean-up: the most common label within 7x7 (trace.py uses a 7 px median).
     const lab2 = modeFilter(lab, sil, w, h, 3, pal.length);
-    const counts = new Array(pal.length).fill(0);
-    for (let i = 0; i < N; i++) if (lab2[i] >= 0) counts[lab2[i]]++;
-    const order = counts.map((n, i) => [n, i]).filter(([n]) => n > 0).sort((a, b) => b[0] - a[0]).map(([, i]) => i);
-    if (!order.length) throw new Error('no figure found: the background must be white or transparent');
-    // Paths: the whole silhouette in the most common colour, then each other colour on top.
-    const inv = 1 / s, eps = opt.eps * s;
-    const fills = order.map((i) => hex(...pal[i]));
-    const body = [];
-    const base = outline(sil, w, h, Math.max(0.6, eps * 0.75), 200 * s * s, inv);
-    if (base) body.push([0, base]);
-    order.slice(1).forEach((ci, n) => {
-      const m = new Uint8Array(N);
-      for (let i = 0; i < N; i++) m[i] = lab2[i] === ci ? 1 : 0;
-      const d = outline(open(m, w, h, 1), w, h, eps, 60 * s * s, inv);
-      if (d) body.push([n + 1, d]);
-    });
-    // View box: the silhouette's bounds plus a small margin, in source pixels.
-    let x0 = w, y0 = h, x1 = 0, y1 = 0;
-    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (sil[y * w + x]) {
-      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    let total = 0; for (let i = 0; i < N; i++) total += sil[i];
+    if (!total) throw new Error('no figure found: the background must be white or transparent');
+    const whole = buildEntry(sil, lab2, pal, S, opt.eps);
+    // Pieces: separate islands on the page (a kit of parts). Islands are found on the silhouette
+    // grown by a few pixels, so a palm's fronds or a bush's flowers stay one piece; each piece
+    // keeps only its own pixels and gets its own view box and colours.
+    const grow = erodeDilate(sil, w, h, Math.max(2, Math.round(8 * s)), true);
+    const comp = new Int32Array(N).fill(-1), stack = new Int32Array(N);
+    const areas = [];
+    for (let i0 = 0; i0 < N; i0++) {
+      if (!grow[i0] || comp[i0] >= 0) continue;
+      const c = areas.length; let top = 0, area = 0; comp[i0] = c; stack[top++] = i0;
+      while (top) {
+        const i = stack[--top]; if (sil[i]) area++;
+        const x = i % w, y = (i / w) | 0;
+        if (x > 0 && grow[i - 1] && comp[i - 1] < 0) { comp[i - 1] = c; stack[top++] = i - 1; }
+        if (x < w - 1 && grow[i + 1] && comp[i + 1] < 0) { comp[i + 1] = c; stack[top++] = i + 1; }
+        if (y > 0 && grow[i - w] && comp[i - w] < 0) { comp[i - w] = c; stack[top++] = i - w; }
+        if (y < h - 1 && grow[i + w] && comp[i + w] < 0) { comp[i + w] = c; stack[top++] = i + w; }
+      }
+      areas.push(area);
     }
-    const pad = Math.round(0.02 * Math.max(x1 - x0, y1 - y0));
-    const vb = [Math.max(0, Math.round(x0 * inv) - pad), Math.max(0, Math.round(y0 * inv) - pad),
-      Math.round((x1 - x0 + 1) * inv) + 2 * pad, Math.round((y1 - y0 + 1) * inv) + 2 * pad];
-    const entry = { vb, fills, body, parts: [] };
-    const svg = `<svg xmlns="${NS}" viewBox="${vb.join(' ')}">` +
-      body.map(([f, d], i) => `<path id="${i ? 't' + i : 'base'}" fill="${fills[f]}" fill-rule="evenodd" d="${d}"/>`).join('') + '</svg>';
-    return { entry, svg, id: opt.id, W: S.W, H: S.H };
+    const minPiece = Math.max(0.002 * total, 300 * s * s);
+    let pieces = [];
+    areas.forEach((a, c) => {
+      if (a < minPiece) return;
+      const keep = new Uint8Array(N);
+      for (let i = 0; i < N; i++) keep[i] = sil[i] && comp[i] === c ? 1 : 0;
+      pieces.push(buildEntry(keep, lab2, pal, S, opt.eps));
+    });
+    // Reading order: rows top to bottom, then left to right, so ids stay stable.
+    const rowH = 0.12 * S.H;
+    pieces.sort((a, b) => Math.round((a.vb[1] + a.vb[3] / 2) / rowH) - Math.round((b.vb[1] + b.vb[3] / 2) / rowH) || a.vb[0] - b.vb[0]);
+    if (pieces.length < 2) pieces = [];
+    return { entry: whole, svg: toSvg(whole), pieces: pieces.map((e, n) => ({ id: `${opt.id}-${n + 1}`, entry: e, svg: toSvg(e) })), id: opt.id, W: S.W, H: S.H };
   }
 
-  // k-means++ over up to 30k silhouette pixels, seeded so the same image gives the same palette.
+  const toSvg = (e) => `<svg xmlns="${NS}" viewBox="${e.vb.join(' ')}">` +
+    e.body.map(([f, d], i) => `<path id="${i ? 't' + i : 'base'}" fill="${e.fills[f]}" fill-rule="evenodd" d="${d}"/>`).join('') + '</svg>';
+
+  // One origami-style entry from the pixels in `keep`: the whole kept shape in its most common
+  // colour, then each other colour on top, all cropped to the shape's bounds for speed.
+  function buildEntry(keep, lab2, pal, S, epsSrc) {
+    // Tolerance in working pixels, never under ~1 px: when a big image is traced at reduced size,
+    // one working pixel is several source pixels, and a smaller tolerance keeps every pixel
+    // step as a staircase in the output.
+    const { w, h, s } = S, inv = 1 / s, eps = Math.max(1.15, epsSrc * s);
+    let x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (keep[y * w + x]) {
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    const ox = x0 - 1, oy = y0 - 1, cw = x1 - x0 + 3, ch = y1 - y0 + 3, M = cw * ch;
+    const km = new Uint8Array(M), kl = new Int8Array(M).fill(-1);
+    const counts = new Array(pal.length).fill(0);
+    for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+      const i = y * w + x, j = (y - oy) * cw + (x - ox);
+      if (keep[i]) { km[j] = 1; kl[j] = lab2[i]; if (lab2[i] >= 0) counts[lab2[i]]++; }
+    }
+    const order = counts.map((n, i) => [n, i]).filter(([n]) => n > 0).sort((a, b) => b[0] - a[0]).map(([, i]) => i);
+    const fills = order.map((i) => hex(...pal[i]));
+    const body = [];
+    const base = outline(km, cw, ch, Math.max(1.05, eps * 0.75), 200 * s * s, inv, ox, oy);
+    if (base) body.push([0, base]);
+    order.slice(1).forEach((ci, n) => {
+      const m = new Uint8Array(M);
+      for (let j = 0; j < M; j++) m[j] = kl[j] === ci ? 1 : 0;
+      const d = outline(open(m, cw, ch, 1), cw, ch, eps, 60 * s * s, inv, ox, oy);
+      if (d) body.push([n + 1, d]);
+    });
+    // View box: the shape's bounds plus a small margin, in source pixels.
+    const pad = Math.round(0.02 * Math.max(x1 - x0, y1 - y0) * inv);
+    const vb = [Math.max(0, Math.round(x0 * inv) - pad), Math.max(0, Math.round(y0 * inv) - pad),
+      Math.round((x1 - x0 + 1) * inv) + 2 * pad, Math.round((y1 - y0 + 1) * inv) + 2 * pad];
+    return { vb, fills, body, parts: [] };
+  }
+
+  // k-means++ over colour buckets (4 bits a channel), each weighted by the square root of its
+  // pixel count: big areas still get their colour, but a small, clearly different one (a palm's
+  // green against acres of sand) is not outvoted. Seeded, so an image always gives one palette.
   function kmeans(data, mask, k) {
     let seed = 7; const rnd = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
-    const idx = []; for (let i = 0; i < mask.length; i++) if (mask[i]) idx.push(i);
-    if (!idx.length) throw new Error('no figure found: the background must be white or transparent');
-    const step = Math.max(1, Math.floor(idx.length / 30000));
-    const P = []; for (let j = 0; j < idx.length; j += step) { const i = idx[j] * 4; P.push([data[i], data[i + 1], data[i + 2]]); }
+    const acc = new Map();
+    for (let i = 0; i < mask.length; i++) {
+      if (!mask[i]) continue;
+      const r = data[i * 4], g = data[i * 4 + 1], b = data[i * 4 + 2], key = (r >> 4) << 8 | (g >> 4) << 4 | (b >> 4);
+      const a = acc.get(key); if (a) { a[0] += r; a[1] += g; a[2] += b; a[3]++; } else acc.set(key, [r, g, b, 1]);
+    }
+    if (!acc.size) throw new Error('no figure found: the background must be white or transparent');
+    const P = [], W = [];
+    acc.forEach((a) => { if (a[3] < 3) return; P.push([a[0] / a[3], a[1] / a[3], a[2] / a[3]]); W.push(Math.sqrt(a[3])); });
+    if (!P.length) acc.forEach((a) => { P.push([a[0] / a[3], a[1] / a[3], a[2] / a[3]]); W.push(1); });
     const d2 = (a, b) => (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2 + (a[2] - b[2]) ** 2;
-    const C = [P[Math.floor(rnd() * P.length)].slice()];
+    let first = 0; W.forEach((v, n) => { if (v > W[first]) first = n; });
+    const C = [P[first].slice()];
     const D = P.map((p) => d2(p, C[0]));
     while (C.length < Math.min(k, P.length)) {
-      let sum = 0; D.forEach((v) => { sum += v; });
-      let r = rnd() * sum, j = 0; while (j < P.length - 1 && (r -= D[j]) > 0) j++;
+      let sum = 0; D.forEach((v, n) => { sum += v * W[n]; });
+      let r = rnd() * sum, j = 0; while (j < P.length - 1 && (r -= D[j] * W[j]) > 0) j++;
       C.push(P[j].slice()); P.forEach((p, n) => { D[n] = Math.min(D[n], d2(p, C[C.length - 1])); });
     }
-    const A = new Uint8Array(P.length);
-    for (let it = 0; it < 14; it++) {
+    const A = new Uint16Array(P.length);
+    for (let it = 0; it < 20; it++) {
       P.forEach((p, n) => { let b = 0, bd = 1e12; C.forEach((c, ci) => { const d = d2(p, c); if (d < bd) { bd = d; b = ci; } }); A[n] = b; });
-      const acc = C.map(() => [0, 0, 0, 0]);
-      P.forEach((p, n) => { const a = acc[A[n]]; a[0] += p[0]; a[1] += p[1]; a[2] += p[2]; a[3]++; });
-      acc.forEach((a, ci) => { if (a[3]) C[ci] = [a[0] / a[3], a[1] / a[3], a[2] / a[3]]; });
+      const sums = C.map(() => [0, 0, 0, 0]);
+      P.forEach((p, n) => { const a = sums[A[n]], wt = W[n]; a[0] += p[0] * wt; a[1] += p[1] * wt; a[2] += p[2] * wt; a[3] += wt; });
+      sums.forEach((a, ci) => { if (a[3]) C[ci] = [a[0] / a[3], a[1] / a[3], a[2] / a[3]]; });
     }
     return C.map((c) => hex(...c));
   }
@@ -294,7 +354,7 @@
   // Outline a binary mask: walk the pixel-edge boundary into closed loops (outer edges and holes
   // alike; paths use evenodd), drop tiny loops, simplify with Douglas-Peucker, and write
   // "Mx,y x,y …Z" subpaths in source pixels, the format trace.py writes.
-  function outline(m, w, h, eps, minArea, inv) {
+  function outline(m, w, h, eps, minArea, inv, ox = 0, oy = 0) {
     const W1 = w + 1;
     const out = new Map();                               // vertex -> [edge dirs]
     const add = (vx, vy, dir) => { const k = vy * W1 + vx; const a = out.get(k); if (a) a.push(dir); else out.set(k, [dir]); };
@@ -333,7 +393,7 @@
         pts.forEach(([x, y], i) => { const dd = (x - pts[0][0]) ** 2 + (y - pts[0][1]) ** 2; if (dd > fd) { fd = dd; f = i; } });
         const sp = rdp(pts.slice(0, f + 1), eps).concat(rdp(pts.slice(f).concat([pts[0]]), eps).slice(1, -1));
         if (sp.length < 3) continue;
-        d += 'M' + sp.map(([x, y]) => `${Math.round(x * inv)},${Math.round(y * inv)}`).join(' ') + 'Z';
+        d += 'M' + sp.map(([x, y]) => `${Math.round((x + ox) * inv)},${Math.round((y + oy) * inv)}`).join(' ') + 'Z';
       }
     }
     return d;
@@ -374,6 +434,32 @@
     svg.setAttribute('viewBox', `0 ${top - 40} ${x - gap} ${bottom - top + 80}`);
     view.appendChild(svg);
   }
+
+  // ── pieces of a kit sheet ──
+  function renderPieces() {
+    const box = $('tPieces'), grid = $('tPieceGrid'), P = result.pieces;
+    box.hidden = !P.length; grid.textContent = '';
+    $('tPiecesCount').textContent = P.length ? `· ${P.length} found` : '';
+    P.forEach((p) => {
+      const card = document.createElement('div'); card.className = 'ws-piece';
+      const view = document.createElement('div'); view.className = 'ws-view'; view.innerHTML = p.svg;
+      const name = document.createElement('input'); name.value = p.id; name.setAttribute('aria-label', 'Piece id'); name.spellcheck = false;
+      name.addEventListener('input', () => { p.id = slug(name.value) || p.id; });
+      const info = document.createElement('small');
+      info.textContent = `${p.entry.fills.length} colours · ${p.entry.vb[2]} × ${p.entry.vb[3]} px`;
+      const act = document.createElement('div'); act.className = 'ws-actions';
+      const b1 = document.createElement('button'); b1.type = 'button'; b1.className = 'ws-btn'; b1.textContent = 'SVG';
+      b1.addEventListener('click', () => download(`${p.id}-traced.svg`, p.svg, 'image/svg+xml'));
+      const b2 = document.createElement('button'); b2.type = 'button'; b2.className = 'ws-btn ws-btn-quiet'; b2.textContent = 'Copy entry';
+      b2.addEventListener('click', () => copy(`  ${JSON.stringify(p.id)}: ${JSON.stringify(p.entry)},\n`, b2, 'Copy entry'));
+      act.append(b1, b2); card.append(view, name, info, act); grid.appendChild(card);
+    });
+  }
+  $('tAll').addEventListener('click', () => {
+    if (!result || !result.pieces.length) return;
+    const all = {}; result.pieces.forEach((p) => { all[p.id] = p.entry; });
+    download(`${result.id}-pieces.json`, JSON.stringify(all), 'application/json');
+  });
 
   // ── exports ──
   function download(name, text, type) {

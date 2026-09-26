@@ -57,6 +57,12 @@
         <option value="vector">Flat vector (the lake scenery)</option>
       </select>
     </label>
+    <label>Output
+      <select id="pOutput">
+        <option value="kit">Kit of separate pieces (traces into parts)</option>
+        <option value="single">One finished piece</option>
+      </select>
+    </label>
     <label>Pose <select id="pPose"></select></label>
     <label>Facing
       <select id="pFacing"><option value="right">Right (like the cast)</option><option value="left">Left</option></select>
@@ -99,6 +105,12 @@
     <figure><figcaption>Original</figcaption><div class="ws-view" id="vOrig"></div></figure>
     <figure><figcaption>Traced</figcaption><div class="ws-view" id="vTrace"></div></figure>
     <figure><figcaption>Next to <select id="vCompare"></select></figcaption><div class="ws-view ws-view-wide" id="vCompareView"></div></figure>
+  </div>
+  <div class="ws-pieces" id="tPieces" hidden>
+    <h3>Pieces <span id="tPiecesCount"></span></h3>
+    <p class="ws-note">Separate objects on the page become separate parts, in reading order. Rename any of them before downloading.</p>
+    <div class="ws-piece-grid" id="tPieceGrid"></div>
+    <div class="ws-actions"><button type="button" class="ws-btn" id="tAll">Download all pieces</button></div>
   </div>
   <div class="ws-actions">
     <button type="button" class="ws-btn" id="tSvg" disabled>Download traced SVG</button>

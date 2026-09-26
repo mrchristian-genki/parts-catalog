@@ -62,3 +62,15 @@
   .ws-views{grid-template-columns:1fr 1fr}
   .ws-views figure:last-child{grid-column:1 / -1}
 }
+
+/* Pieces found on a kit sheet: one card each. */
+.ws-pieces{margin-top:18px}
+.ws-pieces h3{margin:0 0 4px;font:800 16px var(--font-display);color:#0f4d47}
+.ws-pieces h3 span{font:600 13px var(--font-body);color:#7a887f}
+.ws-piece-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:10px}
+.ws-piece{border:1px solid rgb(var(--line));border-radius:12px;padding:8px;display:grid;gap:6px;background:#fff}
+.ws-piece .ws-view{aspect-ratio:4/3}
+.ws-piece input{font:600 13px var(--font-body);padding:6px 8px;border:1px solid rgb(var(--line));border-radius:8px;min-width:0;width:100%}
+.ws-piece small{color:#7a887f;font-size:12px}
+.ws-piece .ws-actions{margin:0;gap:6px}
+.ws-piece .ws-btn{padding:6px 10px;font-size:12px}
