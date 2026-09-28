@@ -50,6 +50,8 @@
       }
     }
     if (l.set) outer.dataset.set = l.set;
+    if (l.time) outer.dataset.time = l.time;                 // only shown at that time of day
+    if (l.grade) for (const t in l.grade) outer.style.setProperty(`--grade-${t}`, l.grade[t]);  // colour grade per time
     outer.appendChild(inner); world.appendChild(outer);
     els.push({ l, el: outer });
     return outer;
@@ -61,6 +63,13 @@
   document.getElementById('ref').addEventListener('change', (e) => ref.classList.toggle('on', e.target.checked));
 
   // layer sets: a recipe can offer alternatives (painted vs drawn in code) to compare
+  // time of day: layers tagged with a time fade in or out, the rest take that time's colour grade
+  const time = document.getElementById('time');
+  if (time) {
+    const pick = () => { stage.dataset.time = time.value; };
+    time.addEventListener('change', pick); pick();
+  }
+
   const sets = document.getElementById('sets');
   if (sets) {
     const pick = () => { stage.dataset.set = sets.value; };

@@ -1,0 +1,304 @@
+[
+ {
+  "id": "day-01",
+  "file": "day-01.webp",
+  "w": 803,
+  "h": 544,
+  "tone": "day",
+  "touches": [
+   "left"
+  ]
+ },
+ {
+  "id": "day-02",
+  "file": "day-02.webp",
+  "w": 707,
+  "h": 199,
+  "tone": "day",
+  "touches": []
+ },
+ {
+  "id": "day-03",
+  "file": "day-03.webp",
+  "w": 674,
+  "h": 439,
+  "tone": "day",
+  "touches": [
+   "right"
+  ]
+ },
+ {
+  "id": "day-04",
+  "file": "day-04.webp",
+  "w": 884,
+  "h": 544,
+  "tone": "day",
+  "touches": [
+   "left"
+  ]
+ },
+ {
+  "id": "day-05",
+  "file": "day-05.webp",
+  "w": 774,
+  "h": 163,
+  "tone": "day",
+  "touches": []
+ },
+ {
+  "id": "day-06",
+  "file": "day-06.webp",
+  "w": 714,
+  "h": 498,
+  "tone": "day",
+  "touches": [
+   "right"
+  ]
+ },
+ {
+  "id": "day-07",
+  "file": "day-07.webp",
+  "w": 895,
+  "h": 616,
+  "tone": "day",
+  "touches": [
+   "left",
+   "bottom"
+  ]
+ },
+ {
+  "id": "day-08",
+  "file": "day-08.webp",
+  "w": 845,
+  "h": 350,
+  "tone": "day",
+  "touches": []
+ },
+ {
+  "id": "day-09",
+  "file": "day-09.webp",
+  "w": 869,
+  "h": 557,
+  "tone": "day",
+  "touches": [
+   "right"
+  ]
+ },
+ {
+  "id": "dusk-01",
+  "file": "dusk-01.webp",
+  "w": 1037,
+  "h": 600,
+  "tone": "dusk",
+  "touches": [
+   "left"
+  ]
+ },
+ {
+  "id": "dusk-02",
+  "file": "dusk-02.webp",
+  "w": 724,
+  "h": 197,
+  "tone": "dusk",
+  "touches": []
+ },
+ {
+  "id": "dusk-03",
+  "file": "dusk-03.webp",
+  "w": 771,
+  "h": 456,
+  "tone": "dusk",
+  "touches": [
+   "right"
+  ]
+ },
+ {
+  "id": "dusk-04",
+  "file": "dusk-04.webp",
+  "w": 1131,
+  "h": 572,
+  "tone": "dusk",
+  "touches": [
+   "left"
+  ]
+ },
+ {
+  "id": "dusk-05",
+  "file": "dusk-05.webp",
+  "w": 808,
+  "h": 185,
+  "tone": "dusk",
+  "touches": []
+ },
+ {
+  "id": "dusk-06",
+  "file": "dusk-06.webp",
+  "w": 812,
+  "h": 536,
+  "tone": "dusk",
+  "touches": [
+   "right"
+  ]
+ },
+ {
+  "id": "dusk-07",
+  "file": "dusk-07.webp",
+  "w": 1400,
+  "h": 445,
+  "tone": "dusk",
+  "touches": [
+   "left",
+   "right",
+   "bottom"
+  ]
+ },
+ {
+  "id": "sunset-01",
+  "file": "sunset-01.webp",
+  "w": 1400,
+  "h": 448,
+  "tone": "sunset",
+  "touches": [
+   "left",
+   "right"
+  ]
+ },
+ {
+  "id": "sunset-02",
+  "file": "sunset-02.webp",
+  "w": 864,
+  "h": 611,
+  "tone": "sunset",
+  "touches": [
+   "left"
+  ]
+ },
+ {
+  "id": "sunset-03",
+  "file": "sunset-03.webp",
+  "w": 880,
+  "h": 310,
+  "tone": "sunset",
+  "touches": []
+ },
+ {
+  "id": "sunset-04",
+  "file": "sunset-04.webp",
+  "w": 720,
+  "h": 224,
+  "tone": "sunset",
+  "touches": []
+ },
+ {
+  "id": "sunset-05",
+  "file": "sunset-05.webp",
+  "w": 968,
+  "h": 598,
+  "tone": "sunset",
+  "touches": [
+   "left"
+  ]
+ },
+ {
+  "id": "sunset-06",
+  "file": "sunset-06.webp",
+  "w": 716,
+  "h": 360,
+  "tone": "sunset",
+  "touches": []
+ },
+ {
+  "id": "sunset-07",
+  "file": "sunset-07.webp",
+  "w": 927,
+  "h": 516,
+  "tone": "sunset",
+  "touches": [
+   "right"
+  ]
+ },
+ {
+  "id": "puff-01",
+  "file": "puff-01.webp",
+  "w": 919,
+  "h": 585,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "puff-02",
+  "file": "puff-02.webp",
+  "w": 456,
+  "h": 162,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "puff-03",
+  "file": "puff-03.webp",
+  "w": 732,
+  "h": 463,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "puff-04",
+  "file": "puff-04.webp",
+  "w": 925,
+  "h": 452,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "puff-05",
+  "file": "puff-05.webp",
+  "w": 669,
+  "h": 174,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "puff-06",
+  "file": "puff-06.webp",
+  "w": 799,
+  "h": 509,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "puff-07",
+  "file": "puff-07.webp",
+  "w": 903,
+  "h": 508,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "puff-08",
+  "file": "puff-08.webp",
+  "w": 470,
+  "h": 221,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "puff-09",
+  "file": "puff-09.webp",
+  "w": 757,
+  "h": 535,
+  "tone": "puff",
+  "touches": []
+ },
+ {
+  "id": "sunset-bank",
+  "file": "sunset-bank.webp",
+  "w": 1400,
+  "h": 459,
+  "tone": "sunset-bank",
+  "touches": [
+   "left",
+   "right",
+   "bottom"
+  ]
+ }
+]

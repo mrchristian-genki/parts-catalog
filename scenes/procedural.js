@@ -34,7 +34,7 @@
     const defs = el('defs', {}, svg);
     const fill = gradient(defs, id, o.colors || [[0, '#0a9fc4'], [0.06, '#0ec2d9'], [0.4, '#2bc9e0'], [0.75, '#5fd5e7'], [1, '#86e0ed']]);
     el('rect', { x: 0, y: 0, width: w, height: h, fill }, svg);
-    el('rect', { x: 0, y: 0, width: w, height: 1.5, fill: '#0b8fb3', opacity: 0.8 }, svg);
+    el('rect', { x: 0, y: 0, width: w, height: 1.5, fill: o.horizon || '#0b8fb3', opacity: 0.8 }, svg);
 
     const streaks = el('g', { class: 'pr-streaks' }, svg);
     for (let i = 0; i < (o.streaks || 46); i++) {
@@ -44,7 +44,7 @@
       g.style.setProperty('--dx', `${(8 + 26 * t) * (r() < 0.5 ? -1 : 1)}px`);
       g.style.animationDuration = `${7 + r() * 9}s`;
       g.style.animationDelay = `${-r() * 16}s`;
-      el('line', { x1: x, y1: y, x2: x + len, y2: y, stroke: '#fff', 'stroke-opacity': (0.14 + r() * 0.22).toFixed(2),
+      el('line', { x1: x, y1: y, x2: x + len, y2: y, stroke: o.streak || '#fff', 'stroke-opacity': (0.14 + r() * 0.22).toFixed(2),
         'stroke-width': (0.8 + t * 3.2).toFixed(1), 'stroke-linecap': 'round' }, g);
     }
     // glints in a loose column under the sun
@@ -52,7 +52,7 @@
     for (let i = 0; i < (o.glints || 16); i++) {
       const t = r(), y = 6 + t * t * (h * 0.8), x = cx + (r() - 0.5) * (60 + t * 260), s = 2 + t * 5;
       const g = el('path', { d: `M${x} ${y - s}L${x + s * 0.3} ${y}L${x} ${y + s}L${x - s * 0.3} ${y}Z M${x - s * 1.4} ${y}L${x} ${y - s * 0.22}L${x + s * 1.4} ${y}L${x} ${y + s * 0.22}Z`,
-        fill: '#fff', class: 'pr-glint' }, svg);
+        fill: o.glint || '#fff', class: 'pr-glint' }, svg);
       g.style.animationDelay = `${-r() * 4}s`;
       g.style.animationDuration = `${2.5 + r() * 2.5}s`;
     }
@@ -117,17 +117,17 @@
     const lipAt = (k, shift) => (x) => edge(x) + 4 + k * reach + wob(x, shift);
     const lips = [lipAt(0, 0), lipAt(1, 0.9), lipAt(0.95, 1.4), lipAt(0, 0)];
 
-    const wet = el('path', { d: bandD(edge, lipAt(1, 1.1)), fill: '#dcaa6c', opacity: 0 }, svg);
+    const wet = el('path', { d: bandD(edge, lipAt(1, 1.1)), fill: o.wet || '#dcaa6c', opacity: 0 }, svg);
     el('animate', { attributeName: 'opacity', dur: period + 's', repeatCount: 'indefinite', values: '0;0;.5;0', keyTimes: '0;.38;.55;1' }, wet);
 
     const top = (x) => edge(x) - surf * 0.5;
     const sheetF = lips.map((l) => bandD(top, l));
     morph(el('path', { d: sheetF[0], fill: washFill }, svg), sheetF, times);
     const rimF = lips.map((l) => bandD((x) => l(x) - 3, (x) => l(x) + 4 + Math.abs(Math.sin(x / 23)) * 3));
-    morph(el('path', { d: rimF[0], fill: '#fff', 'fill-opacity': 0.92 }, svg), rimF, times, -0.04);
+    morph(el('path', { d: rimF[0], fill: o.foam || '#fff', 'fill-opacity': 0.92 }, svg), rimF, times, -0.04);
 
     // the breaking surf: a pale back row and a white front row of foam blobs
-    const rows = [[surf * 1.15, '#d8f3f6', 0.9, 'pr-surf-b'], [surf, '#ffffff', 1, 'pr-surf']];
+    const rows = [[surf * 1.15, o.foamBack || '#d8f3f6', 0.9, 'pr-surf-b'], [surf, o.foam || '#ffffff', 1, 'pr-surf']];
     rows.forEach(([hgt, fill, op, cls]) => {
       const line = waveLine(w, shore - hgt * 0.55, h * 0.02, r);
       const foot = waveLine(w, shore + h * 0.02, h * 0.012, r);
@@ -137,5 +137,44 @@
     return svg;
   }
 
-  window.PROC = { sea, beach };
+  /* A sky: a vertical gradient over the whole box. o.stops = [[offset, colour], ...]. */
+  function sky(w, h, o = {}) {
+    const svg = el('svg', { viewBox: `0 0 ${w} ${h}`, preserveAspectRatio: 'none', class: 'pr-sky' });
+    const fill = gradient(el('defs', {}, svg), 'sky' + uid++, o.stops || [[0, '#0590cf'], [1, '#a9d8e4']]);
+    el('rect', { width: w, height: h, fill }, svg);
+    return svg;
+  }
+
+  /* A low sun: a disc with two soft halos, sitting on (or sinking into) the horizon.
+     The box is the glow's extent; the disc is o.r units across the middle. */
+  function sun(w, h, o = {}) {
+    const svg = el('svg', { viewBox: `0 0 ${w} ${h}`, preserveAspectRatio: 'xMidYMid meet', class: 'pr-sun' });
+    const defs = el('defs', {}, svg), id = 'sun' + uid++;
+    const g = el('radialGradient', { id }, defs);
+    [[0, o.core || '#fff4c9', 0.95], [0.18, o.core || '#fff4c9', 0.8], [0.4, o.glow || '#ffb86b', 0.35], [1, o.glow || '#ffb86b', 0]]
+      .forEach(([off, c, a]) => el('stop', { offset: off, 'stop-color': c, 'stop-opacity': a }, g));
+    el('circle', { cx: w / 2, cy: h / 2, r: Math.min(w, h) / 2, fill: `url(#${id})`, class: 'pr-halo' }, svg);
+    el('circle', { cx: w / 2, cy: h / 2, r: o.r || 40, fill: o.disc || '#fff1c2' }, svg);
+    return svg;
+  }
+
+  /* The sun's path on the water: short bright dashes in a column under the sun,
+     narrow at the horizon and spreading toward the viewer, each drifting a little. */
+  function sunpath(w, h, o = {}) {
+    const r = rng(o.seed || 5);
+    const svg = el('svg', { viewBox: `0 0 ${w} ${h}`, preserveAspectRatio: 'none', class: 'pr-sunpath' });
+    const cx = (o.x ?? 0.5) * w;
+    for (let i = 0; i < (o.dashes || 70); i++) {
+      const t = Math.pow(r(), 0.8), y = 2 + t * (h - 4), spread = 12 + t * w * 0.22;
+      const len = (6 + r() * 40) * (0.3 + t), x = cx + (r() - 0.5) * 2 * spread * (0.4 + r() * 0.6) - len / 2;
+      const g = el('g', { class: 'pr-streak' }, svg);
+      g.style.setProperty('--dx', `${(3 + 10 * t) * (r() < 0.5 ? -1 : 1)}px`);
+      g.style.animationDuration = `${2.5 + r() * 3}s`; g.style.animationDelay = `${-r() * 5}s`;
+      el('line', { x1: x, y1: y, x2: x + len, y2: y, stroke: r() < 0.3 ? (o.hot || '#fff3c4') : (o.color || '#ffc27a'),
+        'stroke-opacity': (0.5 + r() * 0.45 - t * 0.2).toFixed(2), 'stroke-width': (1 + t * 3).toFixed(1), 'stroke-linecap': 'round' }, g);
+    }
+    return svg;
+  }
+
+  window.PROC = { sea, beach, sky, sun, sunpath };
 })();

@@ -61,3 +61,12 @@ html,body{margin:0;background:#0d1b1f;color:#e8efe9;font:15px/1.45 system-ui,-ap
 .pr-surf-b{animation:pr-surf 4.4s ease-in-out -1.7s infinite reverse}
 @keyframes pr-surf{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 @media (prefers-reduced-motion:reduce){.pr-surf,.pr-surf-b,.pr-streak,.pr-glint{animation:none}}
+
+/* time of day: tagged layers cross-fade; every layer eases into the time's colour grade */
+.st-layer{transition:opacity 1.6s ease,filter 1.6s ease}
+.st-stage[data-time] .st-layer[data-time]{opacity:0;pointer-events:none}
+.st-stage[data-time="day"] .st-layer[data-time="day"],.st-stage[data-time="sunset"] .st-layer[data-time="sunset"]{opacity:1}
+.st-stage[data-time="sunset"] .st-layer{filter:var(--grade-sunset,none)}
+.pr-halo{transform-box:fill-box;transform-origin:center;animation:pr-halo 6s ease-in-out infinite}
+@keyframes pr-halo{50%{transform:scale(1.06);opacity:.85}}
+@media (prefers-reduced-motion:reduce){.pr-halo{animation:none}.st-layer{transition:none}}
