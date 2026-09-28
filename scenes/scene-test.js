@@ -70,6 +70,14 @@
     time.addEventListener('change', pick); pick();
   }
 
+  // options: a <select data-opt="group"> shows the layers whose opt is [group, value]
+  document.querySelectorAll('select[data-opt]').forEach((sel) => {
+    const pick = () => els.forEach(({ l, el }) => {
+      if (l.opt && l.opt[0] === sel.dataset.opt) el.hidden = l.opt[1] !== sel.value;
+    });
+    sel.addEventListener('change', pick); pick();
+  });
+
   const sets = document.getElementById('sets');
   if (sets) {
     const pick = () => { stage.dataset.set = sets.value; };

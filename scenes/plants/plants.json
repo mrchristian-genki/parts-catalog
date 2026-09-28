@@ -1,0 +1,182 @@
+[
+ {
+  "id": "frame-flowers",
+  "file": "frame-flowers.webp",
+  "w": 2000,
+  "h": 655,
+  "kind": "frame",
+  "note": "tropical flowers and leaves framing both lower corners",
+  "src": [
+   2000,
+   655
+  ],
+  "offset": [
+   0,
+   0
+  ]
+ },
+ {
+  "id": "frame-flowers-b",
+  "file": "frame-flowers-b.webp",
+  "w": 2000,
+  "h": 655,
+  "kind": "frame",
+  "note": "same frame, fewer flowers",
+  "src": [
+   2000,
+   655
+  ],
+  "offset": [
+   0,
+   0
+  ]
+ },
+ {
+  "id": "leaves-left",
+  "file": "leaves-left.webp",
+  "w": 690,
+  "h": 784,
+  "kind": "corner",
+  "note": "leaf clump for a lower left corner"
+ },
+ {
+  "id": "leaves-right",
+  "file": "leaves-right.webp",
+  "w": 654,
+  "h": 878,
+  "kind": "corner",
+  "note": "leaf clump for a lower right corner"
+ },
+ {
+  "id": "bird-of-paradise",
+  "file": "bird-of-paradise.webp",
+  "w": 251,
+  "h": 400,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   128,
+   240
+  ]
+ },
+ {
+  "id": "ohia-lehua",
+  "file": "ohia-lehua.webp",
+  "w": 247,
+  "h": 432,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   385,
+   254
+  ]
+ },
+ {
+  "id": "plumeria",
+  "file": "plumeria.webp",
+  "w": 349,
+  "h": 459,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   651,
+   260
+  ]
+ },
+ {
+  "id": "yellow-hibiscus",
+  "file": "yellow-hibiscus.webp",
+  "w": 265,
+  "h": 371,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   952,
+   239
+  ]
+ },
+ {
+  "id": "jade-vine",
+  "file": "jade-vine.webp",
+  "w": 188,
+  "h": 452,
+  "kind": "flower",
+  "origin": "50% 0%",
+  "center": [
+   1210,
+   245
+  ]
+ },
+ {
+  "id": "anthurium",
+  "file": "anthurium.webp",
+  "w": 225,
+  "h": 493,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   144,
+   703
+  ]
+ },
+ {
+  "id": "orchid",
+  "file": "orchid.webp",
+  "w": 312,
+  "h": 511,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   388,
+   721
+  ]
+ },
+ {
+  "id": "ixora",
+  "file": "ixora.webp",
+  "w": 242,
+  "h": 436,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   695,
+   707
+  ]
+ },
+ {
+  "id": "yellow-allamanda",
+  "file": "yellow-allamanda.webp",
+  "w": 272,
+  "h": 257,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   841,
+   851
+  ]
+ },
+ {
+  "id": "white-ginger",
+  "file": "white-ginger.webp",
+  "w": 236,
+  "h": 359,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   962,
+   629
+  ]
+ },
+ {
+  "id": "red-ginger",
+  "file": "red-ginger.webp",
+  "w": 309,
+  "h": 474,
+  "kind": "flower",
+  "origin": "50% 100%",
+  "center": [
+   1179,
+   743
+  ]
+ }
+]

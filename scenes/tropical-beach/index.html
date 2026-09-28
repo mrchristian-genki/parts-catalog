@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tropical Beach — Scene Test</title>
-<link rel="stylesheet" href="../scene-test.css?v=1791280000">
+<link rel="stylesheet" href="../scene-test.css?v=1791310000">
 </head>
 <body>
 
@@ -16,6 +16,7 @@
     <b>Tropical beach</b>
     <span class="st-note">Drag or move the mouse to look around. Layers are placed by the recipe, not the source image.</span>
     <label class="st-toggle">Time <select id="time"><option value="day">Day</option><option value="sunset">Sunset</option></select></label>
+    <label class="st-toggle">Foreground <select data-opt="front" id="front"><option value="flowers">Flowers</option><option value="leaves">Leaves &amp; single flowers</option><option value="original">Original</option></select></label>
     <label class="st-toggle">Sea &amp; sand <select id="sets"><option value="code">drawn in code</option><option value="painted">painted layers</option></select></label>
     <label class="st-toggle"><input type="checkbox" id="ref"> Compare with the source image</label>
   </div>
@@ -67,14 +68,23 @@ window.SCENE = {
     { id: 'birds',   svg: 'birds',            box: [380, 0, 600, 190],    depth: 0.6,  anim: 'glide', grade: { sunset: 'brightness(.22)' } },
     { id: 'palmL',   src: 'palm-left.webp',   box: [20, 8, 392, 475],     depth: 1.0,  anim: 'sway', origin: '6% 100%', grade: { sunset: BACKLIT } },
     { id: 'palmR',   src: 'palm-right.webp',  box: [954, 4, 420, 463],    depth: 1.0,  anim: 'sway-b', origin: '94% 100%', grade: { sunset: BACKLIT } },
-    { id: 'front',   src: 'foreground.webp',  box: [-30, 342, 1436, 443], depth: 1.12, anim: 'rustle', origin: '50% 100%', grade: { sunset: BACKLIT } }
+    // foreground: pick one (the Foreground menu). Plant art lives in ../plants/
+    { id: 'front',   src: 'foreground.webp',  box: [-30, 342, 1436, 443], depth: 1.12, anim: 'rustle', origin: '50% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'original'] },
+    { id: 'frontF',  src: '../plants/frame-flowers.webp', box: [-60, 300, 1496, 490], depth: 1.12, anim: 'rustle', origin: '50% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'flowers'] },
+    // single flowers stand behind the leaf clumps, so their stems disappear into the leaves
+    { id: 'bop',     src: '../plants/bird-of-paradise.webp', box: [290, 500, 130, 206], depth: 1.12, anim: 'sway', origin: '72% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'hibiscus',src: '../plants/yellow-hibiscus.webp',  box: [185, 470, 150, 211], depth: 1.12, anim: 'sway-b', origin: '40% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'ginger',  src: '../plants/red-ginger.webp',       box: [1030, 470, 140, 214], depth: 1.12, anim: 'sway-b', origin: '50% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'plumeria',src: '../plants/plumeria.webp',         box: [1115, 420, 160, 211], depth: 1.12, anim: 'sway', origin: '20% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'leavesL', src: '../plants/leaves-left.webp',  box: [-10, 330, 470, 535], depth: 1.12, anim: 'rustle', origin: '20% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'leavesR', src: '../plants/leaves-right.webp', box: [935, 270, 460, 618], depth: 1.12, anim: 'rustle', origin: '80% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] }
   ],
   // gulls as [x, y, size] inside the birds box, traced by eye from the source
   birds: [[22, 44, 13], [106, 18, 11], [130, 38, 11], [160, 20, 9], [95, 72, 11], [126, 96, 10],
           [200, 124, 12], [325, 50, 10], [420, 130, 8], [420, 168, 8], [575, 98, 12]]
 };
 </script>
-<script src="../procedural.js?v=1791280000"></script>
-<script src="../scene-test.js?v=1791280000"></script>
+<script src="../procedural.js?v=1791310000"></script>
+<script src="../scene-test.js?v=1791310000"></script>
 </body>
 </html>

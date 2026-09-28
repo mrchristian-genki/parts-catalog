@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plant Library — Scene Parts</title>
+<style>
+  :root { --bg: #10201f; --fg: #e6efec; --muted: #93aba4; --line: #28403c; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, -apple-system, sans-serif; }
+  header { padding: 20px 16px 8px; max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; }
+  h1 { font-size: 22px; margin: 0; }
+  p { margin: 0; color: var(--muted); font-size: 14px; flex: 1 1 320px; }
+  label { font-size: 13px; color: var(--muted); display: flex; gap: 6px; align-items: center; }
+  select { font: inherit; padding: 3px 6px; border-radius: 7px; border: 1px solid var(--line); background: #15282a; color: var(--fg); }
+  main { max-width: 1200px; margin: 0 auto; padding: 12px 16px 48px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  figure { margin: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+  .sky { aspect-ratio: 3 / 2; display: grid; place-items: center; padding: 12px; transition: background .6s; }
+  .sky img { max-width: 100%; max-height: 100%; display: block; }
+  figcaption { padding: 8px 10px; font-size: 13px; display: flex; justify-content: space-between; gap: 8px; }
+  figcaption span { color: var(--muted); font-variant-numeric: tabular-nums; }
+  body[data-sky="day"] .sky { background: linear-gradient(180deg, #0590cf, #7cc4e0); }
+  body[data-sky="sunset"] .sky { background: linear-gradient(180deg, #3b2c63, #a9527a 55%, #f4a56c); }
+  body[data-sky="sand"] .sky { background: linear-gradient(180deg, #f8dcae, #f2c287); }
+  body[data-sky="night"] .sky { background: linear-gradient(180deg, #0b1330, #2a2f5c); }
+</style>
+</head>
+<body data-sky="day">
+<header>
+  <h1>Plant Library</h1>
+  <p>Tropical flowers, leaf clumps and full-width foreground frames, cut from the OpenArt art with the white background removed. A scene recipe places any of them by path, for example <code>../plants/red-ginger.webp</code>. Flowers sway from the foot of the stem (the jade vine hangs from its top).</p>
+  <label>Kind <select id="tone"><option value="">All</option></select></label>
+  <label>Behind <select id="sky"><option value="day">Day sky</option><option value="sand">Sand</option><option value="sunset">Sunset sky</option><option value="night">Night sky</option></select></label>
+</header>
+<main id="grid"></main>
+<script>
+(async () => {
+  const list = await (await fetch('plants.json')).json();
+  const grid = document.getElementById('grid'), tone = document.getElementById('tone');
+  [...new Set(list.map((c) => c.kind))].forEach((t) => tone.add(new Option(t, t)));
+  const draw = () => {
+    grid.textContent = '';
+    list.filter((c) => !tone.value || c.kind === tone.value).forEach((c) => {
+      const f = document.createElement('figure');
+      f.innerHTML = `<div class="sky"><img loading="lazy" alt="" src="${c.file}"></div>
+        <figcaption><b>${c.id}</b><span>${c.w}×${c.h}${c.note ? ' · ' + c.note : ''}</span></figcaption>`;
+      grid.appendChild(f);
+    });
+  };
+  tone.addEventListener('change', draw);
+  document.getElementById('sky').addEventListener('change', (e) => { document.body.dataset.sky = e.target.value; });
+  draw();
+})();
+</script>
+</body>
+</html>
