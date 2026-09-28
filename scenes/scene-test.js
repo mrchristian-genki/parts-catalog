@@ -38,6 +38,7 @@
     inner.className = 'st-inner' + (l.anim && !reduced ? ' a-' + l.anim : '');
     if (l.origin) inner.style.transformOrigin = l.origin;
     if (l.svg === 'birds') inner.appendChild(gulls(S.birds));
+    else if (l.proc) inner.appendChild(window.PROC[l.proc](l.box[2], l.box[3], l.opts));
     else {
       const img = new Image(); img.src = l.src; img.alt = ''; img.decoding = 'async';
       inner.appendChild(img);
@@ -48,6 +49,7 @@
         inner.appendChild(sh);
       }
     }
+    if (l.set) outer.dataset.set = l.set;
     outer.appendChild(inner); world.appendChild(outer);
     els.push({ l, el: outer });
     return outer;
@@ -57,6 +59,13 @@
   const ref = add({ id: 'ref', src: 'reference.webp', box: [0, 0, S.world.w, S.world.h], depth: 1 });
   ref.classList.add('st-ref');
   document.getElementById('ref').addEventListener('change', (e) => ref.classList.toggle('on', e.target.checked));
+
+  // layer sets: a recipe can offer alternatives (painted vs drawn in code) to compare
+  const sets = document.getElementById('sets');
+  if (sets) {
+    const pick = () => { stage.dataset.set = sets.value; };
+    sets.addEventListener('change', pick); pick();
+  }
 
   let sc = 1, range = 0, cam = 0, target = 0, raf = 0;
 

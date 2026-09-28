@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tropical Beach — Scene Test</title>
-<link rel="stylesheet" href="../scene-test.css?v=1791210000">
+<link rel="stylesheet" href="../scene-test.css?v=1791250000">
 </head>
 <body>
 
@@ -15,6 +15,7 @@
   <div class="st-bar">
     <b>Tropical beach</b>
     <span class="st-note">Drag or move the mouse to look around. Layers are placed by the recipe, not the source image.</span>
+    <label class="st-toggle">Sea &amp; sand <select id="sets"><option value="code">drawn in code</option><option value="painted">painted layers</option></select></label>
     <label class="st-toggle"><input type="checkbox" id="ref"> Compare with the source image</label>
   </div>
 </main>
@@ -31,9 +32,12 @@ window.SCENE = {
   layers: [
     { id: 'clouds',  src: 'clouds-bank.webp', box: [-40, 0, 1455, 452],  depth: 0.45, anim: 'drift-slow' },
     { id: 'cloud',   src: 'cloud-drift.webp', box: [246, 90, 423, 96],   depth: 0.5,  anim: 'drift' },
-    { id: 'sand',    src: 'sand.webp',        box: [-60, 590, 1495, 189], depth: 0.9 },
-    { id: 'sea',     src: 'sea.webp',         box: [-60, 425, 1495, 234], depth: 0.75, anim: 'shimmer' },
-    { id: 'foam',    src: 'foam.webp',        box: [-40, 560, 1455, 120], depth: 0.85, anim: 'lap' },
+    // sea and sand: the painted OpenArt layers, or the same drawn in code (procedural.js)
+    { id: 'sand',    src: 'sand.webp',        box: [-60, 590, 1495, 189], depth: 0.9,  set: 'painted' },
+    { id: 'sea',     src: 'sea.webp',         box: [-60, 425, 1495, 234], depth: 0.75, anim: 'shimmer', set: 'painted' },
+    { id: 'foam',    src: 'foam.webp',        box: [-40, 560, 1455, 120], depth: 0.85, anim: 'lap', set: 'painted' },
+    { id: 'seaC',    proc: 'sea',             box: [-120, 425, 1615, 260], depth: 0.75, set: 'code', opts: { sunX: 0.52 } },
+    { id: 'beachC',  proc: 'beach',           box: [-80, 560, 1535, 240], depth: 0.9,  set: 'code', opts: { shore: 0.37, reach: 0.26, surf: 0.17 } },
     { id: 'boat',    src: 'boat.webp',        box: [408, 348, 73, 97],    depth: 0.75, anim: 'bob' },
     { id: 'birds',   svg: 'birds',            box: [380, 0, 600, 190],    depth: 0.6,  anim: 'glide' },
     { id: 'palmL',   src: 'palm-left.webp',   box: [20, 8, 392, 475],     depth: 1.0,  anim: 'sway', origin: '6% 100%' },
@@ -45,6 +49,7 @@ window.SCENE = {
           [200, 124, 12], [325, 50, 10], [420, 130, 8], [420, 168, 8], [575, 98, 12]]
 };
 </script>
-<script src="../scene-test.js?v=1791210000"></script>
+<script src="../procedural.js?v=1791250000"></script>
+<script src="../scene-test.js?v=1791250000"></script>
 </body>
 </html>
