@@ -1,0 +1,47 @@
+/* SCENE TEST -- stage, layers and idle animations for scenes/<name>/index.html. */
+*{box-sizing:border-box}
+html,body{margin:0;background:#0d1b1f;color:#e8efe9;font:15px/1.45 system-ui,-apple-system,sans-serif}
+.st{min-height:100svh;display:flex;flex-direction:column}
+.st-stage{position:relative;overflow:hidden;height:min(calc(100svh - 64px),56.25vw);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+@media (orientation:portrait){.st-stage{height:72svh}}
+.st-world{position:absolute;left:0}
+.st-layer{position:absolute;will-change:transform}
+.st-inner{position:absolute;inset:0}
+.st-inner img,.st-inner svg{display:block;width:100%;height:100%;pointer-events:none;-webkit-user-drag:none}
+.st-ref{opacity:0;transition:opacity .3s;pointer-events:none}
+.st-ref.on{opacity:.55}
+.st-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;padding:12px 16px}
+.st-note{color:#9fb3a9;font-size:13px}
+.st-toggle{margin-left:auto;font-size:13px;color:#cfdcd4;display:flex;gap:6px;align-items:center}
+
+/* idle motion */
+.a-drift{animation:st-drift 38s ease-in-out infinite alternate}
+.a-drift-slow{animation:st-drift-slow 60s ease-in-out infinite alternate}
+@keyframes st-drift{from{transform:translateX(-4%)}to{transform:translateX(9%)}}
+@keyframes st-drift-slow{from{transform:translateX(-1%)}to{transform:translateX(1%)}}
+
+.a-sway{animation:st-sway 6.5s ease-in-out infinite}
+.a-sway-b{animation:st-sway-b 7.3s ease-in-out infinite}
+@keyframes st-sway{0%,100%{transform:rotate(-.6deg)}50%{transform:rotate(1.1deg)}}
+@keyframes st-sway-b{0%,100%{transform:rotate(.6deg)}50%{transform:rotate(-1.1deg)}}
+
+.a-rustle{animation:st-rustle 5.2s ease-in-out infinite}
+@keyframes st-rustle{0%,100%{transform:skewX(0)}40%{transform:skewX(.8deg)}70%{transform:skewX(-.4deg)}}
+
+.a-bob{animation:st-bob 4.8s ease-in-out infinite}
+@keyframes st-bob{0%,100%{transform:translate(0,0) rotate(-1deg)}50%{transform:translate(6px,2px) rotate(1.2deg)}}
+
+.a-lap{animation:st-lap 5.5s ease-in-out infinite}
+@keyframes st-lap{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(3%);opacity:.86}}
+
+.a-glide{animation:st-glide 30s ease-in-out infinite alternate}
+@keyframes st-glide{from{transform:translate(0,0)}to{transform:translate(5%,-2%)}}
+.st-gull{fill:#fff;
+  transform-box:fill-box;transform-origin:center;animation:st-flap 1.4s ease-in-out infinite}
+@keyframes st-flap{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.35)}}
+
+/* sea shimmer: pale streaks sliding across, clipped to the sea's own shape */
+.st-shimmer{position:absolute;inset:0;-webkit-mask-size:100% 100%;mask-size:100% 100%;mix-blend-mode:screen;opacity:.5;
+  background:repeating-linear-gradient(100deg,transparent 0 60px,rgba(255,255,255,.22) 70px,transparent 90px 170px);
+  background-size:340px 100%;animation:st-shimmer 9s linear infinite}
+@keyframes st-shimmer{to{background-position:340px 0}}

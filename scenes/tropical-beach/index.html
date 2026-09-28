@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tropical Beach — Scene Test</title>
+<link rel="stylesheet" href="../scene-test.css?v=1791210000">
+</head>
+<body>
+
+<main class="st">
+  <div class="st-stage" id="stage" aria-label="Tropical beach scene. Drag sideways to look around.">
+    <div class="st-world" id="world"></div>
+  </div>
+  <div class="st-bar">
+    <b>Tropical beach</b>
+    <span class="st-note">Drag or move the mouse to look around. Layers are placed by the recipe, not the source image.</span>
+    <label class="st-toggle"><input type="checkbox" id="ref"> Compare with the source image</label>
+  </div>
+</main>
+
+<script>
+/* The scene recipe: every layer is a slot with a box in world units (the source
+   image's pixels, 1375 x 767), a depth for parallax (1 = moves with the ground,
+   less = farther away) and an optional idle animation. The renderer below knows
+   nothing about beaches; a new scene is a new recipe. */
+window.SCENE = {
+  world: { w: 1375, h: 767 },
+  openPhone: 0.22,                 // phones open on the left palm and the boat
+  sky: ['#028fce 0%', '#1b9dd4 16%', '#33aad8 30%', '#4fb7dc 44%', '#76c4df 58%', '#98cfe1 72%', '#a9d6e3 100%'],
+  layers: [
+    { id: 'clouds',  src: 'clouds-bank.webp', box: [-40, 0, 1455, 452],  depth: 0.45, anim: 'drift-slow' },
+    { id: 'cloud',   src: 'cloud-drift.webp', box: [246, 90, 423, 96],   depth: 0.5,  anim: 'drift' },
+    { id: 'sand',    src: 'sand.webp',        box: [-60, 590, 1495, 189], depth: 0.9 },
+    { id: 'sea',     src: 'sea.webp',         box: [-60, 425, 1495, 234], depth: 0.75, anim: 'shimmer' },
+    { id: 'foam',    src: 'foam.webp',        box: [-40, 560, 1455, 120], depth: 0.85, anim: 'lap' },
+    { id: 'boat',    src: 'boat.webp',        box: [408, 348, 73, 97],    depth: 0.75, anim: 'bob' },
+    { id: 'birds',   svg: 'birds',            box: [380, 0, 600, 190],    depth: 0.6,  anim: 'glide' },
+    { id: 'palmL',   src: 'palm-left.webp',   box: [20, 8, 392, 475],     depth: 1.0,  anim: 'sway', origin: '6% 100%' },
+    { id: 'palmR',   src: 'palm-right.webp',  box: [954, 4, 420, 463],    depth: 1.0,  anim: 'sway-b', origin: '94% 100%' },
+    { id: 'front',   src: 'foreground.webp',  box: [-30, 342, 1436, 443], depth: 1.12, anim: 'rustle', origin: '50% 100%' }
+  ],
+  // gulls as [x, y, size] inside the birds box, traced by eye from the source
+  birds: [[22, 44, 13], [106, 18, 11], [130, 38, 11], [160, 20, 9], [95, 72, 11], [126, 96, 10],
+          [200, 124, 12], [325, 50, 10], [420, 130, 8], [420, 168, 8], [575, 98, 12]]
+};
+</script>
+<script src="../scene-test.js?v=1791210000"></script>
+</body>
+</html>
