@@ -142,7 +142,7 @@
       // Natural coats (shared with the scene); the silhouette palette stays as the rig default.
       // Story: the animal's whole scene routine (walk in, graze, look up, walk off...), looped.
       const story = st.behavior === 'story' ? STORIES[entry.creature] : null;
-      const c = window.Creatures.build(entry.creature, { season: st.season, night: st.night, behavior: story ? story[0].b : st.behavior, silhouette: st.style === 'silhouette',
+      const c = window.Creatures.build(entry.creature, { season: st.season, night: st.night, behavior: story ? story[0].b : st.behavior, silhouette: false,
         paint: window.Creatures.naturalPaint ? window.Creatures.naturalPaint(entry.creature, false) : undefined });
       const [, , vw, vh] = c.viewBox;
       const maxW = entry.maxW || 230, maxH = entry.maxH || 170;
