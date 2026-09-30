@@ -286,3 +286,9 @@ html,body{margin:0;background:rgb(var(--paper));color:rgb(var(--ink));font-famil
 .water-drop-snow{animation:waterFallSnow var(--dur) ease-in-out forwards}
 @keyframes waterFallRain{from{transform:translateY(0)}to{transform:translateY(var(--dist))}}
 @keyframes waterFallSnow{0%{transform:translate(0,0)}50%{transform:translate(calc(var(--sway) * -1),calc(var(--dist) * .5))}100%{transform:translate(0,var(--dist))}}
+
+/* Weather on a card (js/weather.js): falling rain / snow canvas over the card, lightning flash. */
+.cat-scene-wrap .wx-canvas{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.cat-scene-wrap .wx-flash{ position:absolute; inset:0; pointer-events:none; background:rgba(235,242,255,.85); opacity:0; }
+.cat-scene-wrap .wx-flash.on{ animation: wxBolt 1.1s ease-out; }
+@keyframes wxBolt{ 0%{opacity:0} 4%{opacity:.8} 9%{opacity:.1} 14%{opacity:.6} 100%{opacity:0} }

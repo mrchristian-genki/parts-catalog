@@ -16,6 +16,8 @@
   const state = {};
   const CLOUD_WIND_VALUES = { still: 0, breeze: 1, gust: 2, blizzard: 3 };
   CATALOG.forEach((entry) => {
+    // Every animal (and the Weather card) gets the scene's weather: clear or one of three levels.
+    if (entry.kind === 'creature' && !(entry.controls || []).some((c) => c.type === 'weather')) (entry.controls = entry.controls || []).push({ type: 'weather', default: 0 });
     const s = { windLevel: 'breezy' };
     (entry.controls || []).forEach((c) => {
       if (c.type === 'season') s.season = c.default || c.options[0];
@@ -28,6 +30,7 @@
       if (c.type === 'time') s.night = c.default === 'night';
       if (c.type === 'behavior') s.behavior = c.default || c.options[0];
       if (c.type === 'style') s.style = c.default || 'origami';
+      if (c.type === 'weather') s.weather = c.default || 0;
     });
     state[entry.id] = s;
   });
@@ -159,6 +162,17 @@
       holder.appendChild(c.svg);
       svg.appendChild(holder);
       wrap.appendChild(svg);
+      // Weather on the card and on the animal (js/weather.js): the drops ride in the animal's
+      // mirror group and follow its x each frame; its outline is re-read when its pose changes.
+      const wx = window.CatalogWeather ? window.CatalogWeather.card(wrap, svg, { parent: holder, target: () => {
+        const cl = c.svg.cloneNode(true);
+        cl.setAttribute('xmlns', 'http://www.w3.org/2000/svg'); ['x', 'y', 'style'].forEach((a) => cl.removeAttribute(a));
+        cl.setAttribute('width', w.toFixed(1)); cl.setAttribute('height', h.toFixed(1));
+        return { svgText: new XMLSerializer().serializeToString(cl), w, h };
+      } }) : null;
+      if (wx) { wx.follow(x, y); wx.set(st.season === 'winter' ? 'snow' : 'rain', st.weather || 0); }
+      const setB = c.setBehavior.bind(c);
+      c.setBehavior = (b) => { setB(b); if (wx && st.weather) setTimeout(() => wx.rebuild(), 400); };
       let raf = 0, last = 0;
       const centre = (300 - w) / 2;
       let si = 0, sT = 0, face = 1;
@@ -190,6 +204,7 @@
       };
       const step = (ms) => {
         const dt = last ? Math.min(0.1, (ms - last) / 1000) : 0; last = ms;
+        if (wx) wx.follow(x, y);
         if (story) { storyStep(dt); raf = requestAnimationFrame(step); return; }
         const v = c.travelSpeed() * w; // body-widths per second -> card px
         if (v) {
@@ -205,7 +220,28 @@
       raf = requestAnimationFrame(step);
       wrap._creature = c;
       wrap._backdrop = bd;
-      wrap._stopCreature = () => { cancelAnimationFrame(raf); c.destroy(); wrap._stopCreature = null; };
+      wrap._wx = wx;
+      wrap._stopCreature = () => { cancelAnimationFrame(raf); c.destroy(); if (wx) wx.stop(); wrap._stopCreature = null; };
+      return;
+    }
+
+    // 'weather' -- the scene's rain and snow at each level, landing on a headline and a button.
+    if (entry.kind === 'weather') {
+      if (wrap._wx) wrap._wx.stop();
+      const st = state[entry.id];
+      const svg = svgEl('svg', { viewBox: '0 0 300 300', preserveAspectRatio: 'xMidYMax meet' });
+      const bd = buildCreatureBackdrop(svg, entry, {});
+      bd.update(st.season, false);
+      const copy = `<text x="150" y="128" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="800" font-size="38" fill="#fff">Sixty-eight</text>`
+        + `<text x="150" y="170" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="800" font-size="38" fill="#fff">books</text>`
+        + `<rect x="95" y="192" width="110" height="30" rx="10" fill="#1d4f91"/>`
+        + `<text x="150" y="212" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="700" font-size="12" fill="#fff">Browse the catalog</text>`;
+      const g = svgEl('g', {}); g.innerHTML = copy; svg.appendChild(g);
+      wrap.appendChild(svg);
+      const wx = window.CatalogWeather.card(wrap, svg, { target: () => ({ svgText: `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">${copy}</svg>`, w: 300, h: 300 }) });
+      wx.follow(0, 0);
+      wx.set(st.season === 'winter' ? 'snow' : 'rain', st.weather);
+      wrap._wx = wx; wrap._backdrop = bd;
       return;
     }
 
@@ -461,6 +497,12 @@
               state[entry.id].season = opt;
               group.querySelectorAll('.cat-btn').forEach((b) => b.setAttribute('aria-pressed', 'false'));
               btn.setAttribute('aria-pressed', 'true');
+              if (wrap._wx) {
+                wrap._wx.set(opt === 'winter' ? 'snow' : 'rain', state[entry.id].weather || 0);
+                const names = window.CatalogWeather.LEVELS[opt === 'winter' ? 'snow' : 'rain'];
+                card.querySelectorAll('.cat-wx-btn').forEach((b) => { const lv = +b.dataset.lv; if (lv) b.textContent = names[lv - 1]; });
+                if (entry.kind === 'weather') wrap._backdrop.update(opt, false);
+              }
               if (entry.kind === 'creature' && wrap._creature) {
                 wrap._creature.setSeason(opt);
                 wrap._backdrop.update(opt, state[entry.id].night);
@@ -626,6 +668,28 @@
               // Story drives position and pose itself: entering or leaving it rebuilds the card.
               if (opt === 'story' || wasStory) renderPreview(entry, wrap);
               else if (wrap._creature) wrap._creature.setBehavior(opt);
+            });
+            group.appendChild(btn);
+          });
+        }
+
+        if (c.type === 'weather') {
+          // Clear, or the scene's three levels: drizzle / shower / tempest, or in winter
+          // flurries / snow / blizzard.
+          label.textContent = 'Weather';
+          group.appendChild(label);
+          const names = window.CatalogWeather ? window.CatalogWeather.LEVELS[state[entry.id].season === 'winter' ? 'snow' : 'rain'] : ['1', '2', '3'];
+          [0, 1, 2, 3].forEach((lv) => {
+            const btn = document.createElement('button');
+            btn.className = 'cat-btn cat-wx-btn';
+            btn.type = 'button'; btn.dataset.lv = lv;
+            btn.textContent = lv ? names[lv - 1] : 'Clear';
+            btn.setAttribute('aria-pressed', String((state[entry.id].weather || 0) === lv));
+            btn.addEventListener('click', () => {
+              state[entry.id].weather = lv;
+              group.querySelectorAll('.cat-btn').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+              btn.setAttribute('aria-pressed', 'true');
+              if (wrap._wx) wrap._wx.set(state[entry.id].season === 'winter' ? 'snow' : 'rain', lv);
             });
             group.appendChild(btn);
           });

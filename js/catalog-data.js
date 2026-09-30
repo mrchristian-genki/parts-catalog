@@ -1069,6 +1069,20 @@ const CATALOG = [
     ],
   },
   {
+    id: 'weather-levels',
+    name: 'Weather: rain and snow',
+    category: 'Sky & Weather',
+    status: 'live',
+    tags: ['weather', 'rain', 'snow', 'storm', 'drizzle', 'shower', 'tempest', 'flurries', 'blizzard', 'drops', 'flakes'],
+    zones: ['sky', 'ui'],
+    kind: 'weather',
+    note: "The scene's weather in three levels, the same as its links: rain is drizzle, shower, tempest; in winter snow is flurries, snow, blizzard. Everything turns up with the level: the darker sky, the amount falling, the wind (gusts in bursts at a blizzard), lightning at a tempest. Rain beads sit on the headline and button and drip off their lower edges; snowflakes drift down, stick to the tops of the letters and the button, then melt (flurries melt almost as they land). The shapes' outlines are read once from a raster, so the weather lands on the real ink. Every animal card has the same Weather control.",
+    controls: [
+      { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'fall' },
+      { type: 'weather', default: 2 },
+    ],
+  },
+  {
     id: 'water-shimmer',
     name: 'Water shimmer',
     category: 'Land & Water',
