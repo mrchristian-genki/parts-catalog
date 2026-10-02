@@ -207,3 +207,11 @@
 .ws-hslot svg{display:block;width:100%;height:100%;scale:1.35;transform-origin:50% 100%;mix-blend-mode:screen;filter:drop-shadow(0 0 calc(var(--u) * 10) rgba(110,240,255,.9));
   animation:ws-turn 9s ease-in-out infinite,ws-holoflick 7s steps(1) infinite}
 @media (prefers-reduced-motion:reduce){.ws-holo .ws-hslot{animation:none}.ws-holo .hs-0{opacity:1}}
+
+/* Christian is the subject and the mark: he stands at the left beside the title (no separate logo),
+   shaping the hologram; Marley sleeps at the right end of the bench. */
+.ws-me{position:absolute;bottom:0;height:var(--h);width:calc(var(--u) * 2000);left:calc(var(--u) * -690 + clamp(0px,2vw,40px))}
+.ws-text{margin-left:calc(var(--u) * 1060 + clamp(0px,2vw,40px));padding-left:12px!important}
+.ws-hero .cat-brand{gap:0}
+@media (max-width:640px){.ws-text{margin-left:0;padding-left:clamp(20px,5vw,64px)!important}
+  .ws-me{left:calc(var(--u) * -700)}}
