@@ -646,6 +646,7 @@
                 wrap._creature.setNight(state[entry.id].night);
                 wrap._backdrop.update(state[entry.id].season, state[entry.id].night);
               }
+              else if (wrap._obj && typeof entry.onTimeChange === 'function') entry.onTimeChange(wrap._obj, state[entry.id].night);
             });
             group.appendChild(btn);
           });
@@ -788,6 +789,7 @@
     { label: 'Animals', slug: 'animals', alias: ['animal', 'fauna', 'wildlife', 'mammals'] },
     { label: 'Birds', slug: 'birds', alias: ['bird'] },
     { label: 'People', slug: 'people', alias: ['person', 'human', 'humans'] },
+    { label: 'Logos', slug: 'logos', alias: ['logo', 'badge', 'brand', 'icon'] },
   ].filter((p) => p.slug === 'all' || CATALOG.some((e) => e.category === p.label));
   const pillFor = (word) => {
     const w = String(word || '').toLowerCase().trim().replace(/\s*&\s*/g, '-').replace(/\s+/g, '-');

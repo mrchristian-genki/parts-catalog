@@ -1219,4 +1219,34 @@ const CATALOG = [
       { type: 'season', options: ['winter', 'spring', 'summer', 'fall'], default: 'summer' },
     ],
   },
+  // ── LOGOS ──────────────────────────────────────────────────────────
+  {
+    id: 'logo-canyon-portrait',
+    name: 'Logo: Marley and Christian at the canyon edge',
+    category: 'Logos',
+    status: 'live',
+    tags: ['logo', 'badge', 'portrait', 'person', 'christian', 'dog', 'marley', 'animal', 'canyon', 'season', 'night'],
+    zones: [],
+    kind: 'composite',
+    note: 'The site logo, used at 120px in the homepage, catalog and Workshop headers and larger on About. Five low-poly layers (canyon, dog body, Christian, calm-eye lids, dog head) in a ring: one slow 6 s loop where he slips down and his eyes go wide, she eases him back up and he relaxes. Seasonal overlays and ring colours follow the page (html[data-season], html.night-page); here the card sets data-season / data-night on the logo itself. The card clones the header logo, so it is always the same art. Files: assets/logo/*.webp (+ -2x), css/logo.css.',
+    controls: [
+      { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
+      { type: 'time', default: 'day' },
+    ],
+    build(state) {
+      const src = document.querySelector('.cat-brand .logo');
+      const box = document.createElement('div');
+      box.className = 'cat-logo-card';
+      if (!src) return box;
+      const logo = src.cloneNode(true);
+      logo.classList.remove('cat-logo');
+      logo.dataset.season = state.season;
+      logo.dataset.night = state.night ? '1' : '0';
+      logo.querySelectorAll('img[sizes]').forEach((i) => i.setAttribute('sizes', '190px'));
+      box.appendChild(logo);
+      return box;
+    },
+    onSeasonChange(box, season) { const l = box.querySelector('.logo'); if (l) l.dataset.season = season; },
+    onTimeChange(box, night) { const l = box.querySelector('.logo'); if (l) l.dataset.night = night ? '1' : '0'; },
+  },
 ];
