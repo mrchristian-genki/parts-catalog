@@ -14,6 +14,7 @@ html,body{margin:0;background:rgb(var(--paper));color:rgb(var(--ink));font-famil
 .cat-head{padding:28px clamp(20px,5vw,64px) 8px}
 .cat-brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:22px;color:#0f4d47;text-decoration:none}
 .cat-mark{width:14px;height:14px;border-radius:50%;background:rgb(var(--accent2))}
+.cat-brand .cat-logo{--lg:56px;margin-right:4px}
 .cat-tagline{margin:10px 0 0;max-width:62ch;color:#5a6b62;font-size:15px;line-height:1.5}
 
 /* ── toolbar: search, copy link, pills ──────────────────────────────
