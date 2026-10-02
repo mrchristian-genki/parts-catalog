@@ -449,10 +449,11 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 
 /* "Water in the text" title (after codepen.io/techgirldiaries/pen/LYWPJPN), kept subtle: the word
    is a dim, outlined glass shape, and a bright copy shows only below a slowly rocking waterline. */
-.wave-title{position:relative;display:inline-block;color:rgba(160,236,255,.28);
-  -webkit-text-stroke:1px rgba(170,240,255,.55);text-shadow:none}
-.wave-title::after{content:attr(data-text);position:absolute;inset:0;color:#a5f1ff;-webkit-text-stroke:0;
-  text-shadow:0 0 18px rgba(79,216,232,.55),0 2px 10px rgba(0,0,0,.5);clip-path:polygon(0% 45.0%,10% 48.1%,20% 49.5%,30% 48.5%,40% 45.6%,50% 42.4%,60% 40.6%,70% 41.2%,80% 43.9%,90% 47.2%,100% 49.3%,100% 100%,0 100%);
+/* two shades from inside the jellyfish: its deep teal above the waterline, its aqua below */
+.wave-title{position:relative;display:inline-block;color:#1aa6b2;-webkit-text-stroke:0;
+  text-shadow:0 0 16px rgba(2,170,177,.35),0 2px 10px rgba(0,0,0,.5)}
+.wave-title::after{content:attr(data-text);position:absolute;inset:0;color:#4fcfcb;-webkit-text-stroke:0;
+  text-shadow:0 0 18px rgba(65,200,200,.45),0 2px 10px rgba(0,0,0,.5);clip-path:polygon(0% 45.0%,10% 48.1%,20% 49.5%,30% 48.5%,40% 45.6%,50% 42.4%,60% 40.6%,70% 41.2%,80% 43.9%,90% 47.2%,100% 49.3%,100% 100%,0 100%);
   animation:wave-title 8s ease-in-out infinite}
 @keyframes wave-title{0%,100%{clip-path:polygon(0% 45.0%,10% 48.1%,20% 49.5%,30% 48.5%,40% 45.6%,50% 42.4%,60% 40.6%,70% 41.2%,80% 43.9%,90% 47.2%,100% 49.3%,100% 100%,0 100%)}25%{clip-path:polygon(0% 48.0%,10% 46.6%,20% 43.3%,30% 39.8%,40% 38.0%,50% 39.0%,60% 42.1%,70% 45.7%,80% 47.8%,90% 47.4%,100% 44.5%,100% 100%,0 100%)}50%{clip-path:polygon(0% 45.0%,10% 41.9%,20% 40.5%,30% 41.5%,40% 44.4%,50% 47.6%,60% 49.4%,70% 48.8%,80% 46.1%,90% 42.8%,100% 40.7%,100% 100%,0 100%)}75%{clip-path:polygon(0% 42.0%,10% 43.4%,20% 46.7%,30% 50.2%,40% 52.0%,50% 51.0%,60% 47.9%,70% 44.3%,80% 42.2%,90% 42.6%,100% 45.5%,100% 100%,0 100%)}}
 @media (prefers-reduced-motion:reduce){.wave-title::after{animation:none}}
