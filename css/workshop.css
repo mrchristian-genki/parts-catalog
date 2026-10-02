@@ -146,7 +146,7 @@
 .ws-shelf{position:absolute;bottom:0;height:var(--h);width:calc(var(--u) * 2000);right:calc(var(--u) * -7 + clamp(0px,(100vw - 900px) * .4,640px))}
 .ws-b{position:absolute;display:block;height:auto;filter:brightness(.88)}
 .ws-b-jar,.ws-b-cat{transform:scaleX(-1)}
-@media (max-width:1000px){.ws-b-coil{display:none}}
+@media (max-width:1100px){.ws-b-coil{display:none}}
 @media (max-width:640px){.ws-shelf{display:none}}
 
 /* Sunbeams slanting in from a high window on the left, with glittering dust drifting through them.
@@ -165,3 +165,45 @@
 @keyframes ws-twinkle{0%,100%{scale:.7}50%{scale:1.25}}
 @media (max-width:640px){.ws-ray:nth-child(3){display:none}}
 @media (prefers-reduced-motion:reduce){.ws-ray,.ws-motes i{animation:none}.ws-motes i{opacity:.5}}
+
+/* Trophies: finished cast animals from origami-art.js in their own paper colours, standing on
+   the bench, lit up in gold and pulsing so they stand out, with a contact shadow and a soft shadow cast away from the lamp. Each
+   turns a little back and forth, as if on a turntable. They move with the back wall. */
+.ws-ohs{position:absolute;bottom:0;height:var(--h);width:calc(var(--u) * 2000);right:calc(var(--u) * -7 + clamp(0px,(100vw - 900px) * .4,640px))}
+.ws-oh{position:absolute;display:block;width:calc(var(--u) * var(--w));bottom:calc(var(--u) * 92)}
+.ws-oh::before{content:"";position:absolute;left:-30%;width:110%;bottom:calc(var(--u) * -12);height:calc(var(--u) * 34);border-radius:50%;
+  background:radial-gradient(ellipse at 60% 50%,rgba(20,10,4,.5),rgba(20,10,4,0) 70%);transform:skewX(30deg)}
+.ws-oh::after{content:"";position:absolute;left:4%;right:4%;bottom:calc(var(--u) * -6);height:calc(var(--u) * 14);border-radius:50%;
+  background:radial-gradient(ellipse,rgba(10,5,2,.7),rgba(10,5,2,0) 70%)}
+.ws-oh-spin{position:relative;z-index:1;display:block;transform-origin:50% 100%;animation:ws-ohturn 9s ease-in-out infinite;
+  filter:brightness(1.22) saturate(1.15) drop-shadow(0 0 calc(var(--u) * 3) rgba(255,236,190,.95)) drop-shadow(0 0 calc(var(--u) * 14) rgba(255,190,90,.6))}
+/* the trophy glow: a warm halo behind each figure and a pool of light on the wood, breathing */
+.ws-oh-halo{position:absolute;left:-35%;right:-35%;top:-45%;bottom:-10%;z-index:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 60%,rgba(255,214,140,.55) 0%,rgba(255,170,70,.22) 38%,rgba(255,150,50,0) 68%);
+  mix-blend-mode:screen;animation:ws-trophy 3.6s ease-in-out infinite}
+.ws-oh::before{background:radial-gradient(ellipse at 50% 50%,rgba(255,200,120,.55),rgba(255,170,80,0) 70%)!important;transform:none!important;left:-25%!important;width:150%!important;
+  height:calc(var(--u) * 40)!important;bottom:calc(var(--u) * -16)!important;mix-blend-mode:screen;animation:ws-trophy 3.6s ease-in-out infinite}
+@keyframes ws-trophy{0%,100%{opacity:.45}50%{opacity:1}}
+.ws-oh svg{display:block;width:100%;height:auto}
+@keyframes ws-ohturn{0%,100%{transform:scaleX(1) rotate(0)}30%{transform:scaleX(.9) rotate(-1.2deg)}60%{transform:scaleX(1) rotate(.6deg)}80%{transform:scaleX(.95) rotate(0)}}
+.oh-5{--w:600;left:calc(var(--u) * -1960)}.oh-5 .ws-oh-halo,.oh-5::before{animation-delay:-0s}.oh-5 .ws-oh-spin{animation-delay:-2s}
+.oh-3{--w:450;left:calc(var(--u) * -1330)}.oh-3 .ws-oh-halo,.oh-3::before{animation-delay:-.9s}.oh-3 .ws-oh-spin{animation-duration:11s;animation-delay:-6s}
+.oh-2{--w:360;left:calc(var(--u) * -610)}.oh-2 .ws-oh-halo,.oh-2::before{animation-delay:-1.8s}.oh-2 .ws-oh-spin{animation-duration:8s;animation-delay:-4s}
+.oh-1{--w:260;left:calc(var(--u) * -95)}.oh-1 .ws-oh-halo,.oh-1::before{animation-delay:-2.7s}.oh-1 .ws-oh-spin{animation-duration:10s;animation-delay:-1s}
+.oh-4{--w:200;left:calc(var(--u) * -170)}.oh-4 .ws-oh-spin{animation-duration:9.5s;animation-delay:-7s}
+.oh-6,.oh-4{display:none}
+@media (max-width:1800px){.oh-5{display:none}}
+@media (max-width:1100px){.oh-3{display:none}}
+@media (max-width:900px){.oh-2,.oh-1{display:none}}
+@media (max-width:640px){.ws-ohs{display:none}}
+@media (prefers-reduced-motion:reduce){.ws-oh-spin,.ws-oh-halo,.ws-oh::before{animation:none}}
+
+/* The hologram in his hands: the part being worked on, cycling through blue meshes (the fox, then
+   hare, owl, wolf), each fading in, turning and flickering, then handing over to the next. */
+.ws-holo .ws-hslot{position:absolute;inset:0;display:block;opacity:0;animation:ws-hcycle 24s ease-in-out infinite}
+.ws-holo .hs-0{position:relative}
+.hs-1{animation-delay:-18s!important}.hs-2{animation-delay:-12s!important}.hs-3{animation-delay:-6s!important}
+@keyframes ws-hcycle{0%{opacity:0;filter:blur(3px)}5%{opacity:1;filter:blur(0)}22%{opacity:1;filter:blur(0)}27%{opacity:0;filter:blur(3px)}100%{opacity:0}}
+.ws-hslot svg{display:block;width:100%;height:100%;scale:1.35;transform-origin:50% 100%;mix-blend-mode:screen;filter:drop-shadow(0 0 calc(var(--u) * 10) rgba(110,240,255,.9));
+  animation:ws-turn 9s ease-in-out infinite,ws-holoflick 7s steps(1) infinite}
+@media (prefers-reduced-motion:reduce){.ws-holo .ws-hslot{animation:none}.ws-holo .hs-0{opacity:1}}
