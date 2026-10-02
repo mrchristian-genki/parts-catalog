@@ -175,7 +175,7 @@
   background:radial-gradient(ellipse at 60% 50%,rgba(20,10,4,.5),rgba(20,10,4,0) 70%);transform:skewX(30deg)}
 .ws-oh::after{content:"";position:absolute;left:4%;right:4%;bottom:calc(var(--u) * -6);height:calc(var(--u) * 14);border-radius:50%;
   background:radial-gradient(ellipse,rgba(10,5,2,.7),rgba(10,5,2,0) 70%)}
-.ws-oh-spin{position:relative;z-index:1;display:block;transform-origin:50% 100%;animation:ws-ohturn 9s ease-in-out infinite;
+.ws-oh-spin{position:relative;z-index:1;display:block;transform-origin:50% 100%;
   filter:brightness(1.22) saturate(1.15) drop-shadow(0 0 calc(var(--u) * 3) rgba(255,236,190,.95)) drop-shadow(0 0 calc(var(--u) * 14) rgba(255,190,90,.6))}
 /* the trophy glow: a warm halo behind each figure and a pool of light on the wood, breathing */
 .ws-oh-halo{position:absolute;left:-35%;right:-35%;top:-45%;bottom:-10%;z-index:0;border-radius:50%;pointer-events:none;
@@ -186,10 +186,10 @@
 @keyframes ws-trophy{0%,100%{opacity:.45}50%{opacity:1}}
 .ws-oh svg{display:block;width:100%;height:auto}
 @keyframes ws-ohturn{0%,100%{transform:scaleX(1) rotate(0)}30%{transform:scaleX(.9) rotate(-1.2deg)}60%{transform:scaleX(1) rotate(.6deg)}80%{transform:scaleX(.95) rotate(0)}}
-.oh-5{--w:600;left:calc(var(--u) * -1960)}.oh-5 .ws-oh-halo,.oh-5::before{animation-delay:-0s}.oh-5 .ws-oh-spin{animation-delay:-2s}
-.oh-3{--w:450;left:calc(var(--u) * -1330)}.oh-3 .ws-oh-halo,.oh-3::before{animation-delay:-.9s}.oh-3 .ws-oh-spin{animation-duration:11s;animation-delay:-6s}
-.oh-2{--w:360;left:calc(var(--u) * -610)}.oh-2 .ws-oh-halo,.oh-2::before{animation-delay:-1.8s}.oh-2 .ws-oh-spin{animation-duration:8s;animation-delay:-4s}
-.oh-1{--w:260;left:calc(var(--u) * -95)}.oh-1 .ws-oh-halo,.oh-1::before{animation-delay:-2.7s}.oh-1 .ws-oh-spin{animation-duration:10s;animation-delay:-1s}
+.oh-5{--w:400;left:calc(var(--u) * -1960)}.oh-5 .ws-oh-halo,.oh-5::before{animation-delay:-0s}.oh-5 .ws-oh-spin{animation-delay:-2s}
+.oh-3{--w:240;left:calc(var(--u) * -1300)}.oh-3 .ws-oh-halo,.oh-3::before{animation-delay:-.9s}.oh-3 .ws-oh-spin{animation-duration:11s;animation-delay:-6s}
+.oh-2{--w:380;left:calc(var(--u) * -640)}.oh-2 .ws-oh-halo,.oh-2::before{animation-delay:-1.8s}.oh-2 .ws-oh-spin{animation-duration:8s;animation-delay:-4s}
+.oh-1{--w:215;left:calc(var(--u) * -95)}.oh-1 .ws-oh-halo,.oh-1::before{animation-delay:-2.7s}.oh-1 .ws-oh-spin{animation-duration:10s;animation-delay:-1s}
 .oh-4{--w:200;left:calc(var(--u) * -170)}.oh-4 .ws-oh-spin{animation-duration:9.5s;animation-delay:-7s}
 .oh-6,.oh-4{display:none}
 @media (max-width:1800px){.oh-5{display:none}}
