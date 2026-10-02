@@ -1,0 +1,14 @@
+# Clean address for the Workshop: /catalog/workshop
+RewriteEngine On
+RewriteBase /catalog/
+
+# Old address -> new one (301, permanent). THE_REQUEST only matches what the browser asked for,
+# so the internal rewrite below can't loop back into this redirect.
+RewriteCond %{THE_REQUEST} \s/+catalog/workshop\.html[\s?] [NC]
+RewriteRule ^workshop\.html$ /catalog/workshop [R=301,L]
+
+# A trailing slash would break the page's relative links (css/, js/, assets/): drop it.
+RewriteRule ^workshop/$ /catalog/workshop [R=301,L]
+
+# Serve the clean address from the real file.
+RewriteRule ^workshop$ workshop.html [L]
