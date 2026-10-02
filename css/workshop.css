@@ -182,13 +182,14 @@
 .ws-ohs{left:calc(var(--u) * 1380)!important;right:calc(var(--u) * 1150)!important;width:auto!important}
 .ws-oh{left:auto;transform:translateX(-50%)}
 /* in proportion: widths follow each animal's art (viewBox widths 1327 / 1327 / 1366 / 1520) at one scale */
-.mini-deer{--w:470;left:8%}
-.mini-doe{--w:470;left:31%}
-.mini-elk{--w:485;left:54%}
-.mini-bear{--w:635;left:77%}
-@media (max-width:1500px){.mini-doe{display:none}.mini-deer{left:10%}.mini-elk{left:42%}.mini-bear{left:73%}}
-@media (max-width:1100px){.mini-deer{display:none}.mini-elk{left:18%}.mini-bear{left:58%}}
-@media (max-width:860px){.mini-bear{display:none}.mini-elk{left:30%}}
+/* real proportions (by body length): elk bull biggest, then black bear and mule deer buck, then the doe */
+.mini-doe{--w:330;left:9%}
+.mini-deer{--w:390;left:30%}
+.mini-bear{--w:470;left:53%}
+.mini-elk{--w:640;left:80%}
+@media (max-width:1500px){.mini-doe{display:none}.mini-deer{left:12%}.mini-bear{left:42%}.mini-elk{left:76%}}
+@media (max-width:1100px){.mini-deer{display:none}.mini-bear{left:20%}.mini-elk{left:64%}}
+@media (max-width:860px){.mini-elk{display:none}.mini-bear{left:34%}}
 @media (max-width:640px){.ws-ohs{display:none}}
 
 /* The hologram in his hands: the part being worked on, cycling through blue meshes (the fox, then
@@ -209,3 +210,23 @@
 .ws-hero .cat-brand{gap:0}
 @media (max-width:640px){.ws-text{margin-left:0;padding-left:clamp(20px,5vw,64px)!important}
   .ws-me{left:calc(var(--u) * -700)}}
+
+/* Display discs: each mini stands on a small round platform whose rim glows and breathes, lighting
+   the animal from below. The animals are mirrored to face Christian. */
+.ws-oh::before,.ws-oh::after{display:none}
+.ws-oh{bottom:calc(var(--u) * 118)}
+.ws-oh-spin{transform:scaleX(-1);filter:brightness(.95) drop-shadow(0 calc(var(--u) * 6) calc(var(--u) * 8) rgba(0,0,0,.35))}
+.ws-oh-base{position:absolute;left:50%;width:85%;height:calc(var(--u) * 58);bottom:calc(var(--u) * -40);transform:translateX(-50%);z-index:0;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 35%,#5a3e2a 0%,#3a2618 55%,#24170e 100%);
+  box-shadow:0 calc(var(--u) * 10) calc(var(--u) * 18) rgba(10,5,2,.55),inset 0 calc(var(--u) * -6) 0 #1c120b}
+/* the glowing rim and the light it throws up onto the animal */
+.ws-oh-base::before{content:"";position:absolute;inset:0;border-radius:50%;border:calc(var(--u) * 4) solid rgba(140,240,255,.85);
+  box-shadow:0 0 calc(var(--u) * 14) rgba(110,230,255,.8),inset 0 0 calc(var(--u) * 12) rgba(110,230,255,.5);animation:ws-disc 4s ease-in-out infinite}
+.ws-oh-base::after{content:"";position:absolute;left:5%;right:5%;bottom:40%;height:calc(var(--u) * 260);border-radius:50% 50% 0 0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(120,230,255,.38),rgba(120,230,255,0) 65%);mix-blend-mode:screen;animation:ws-disc 4s ease-in-out infinite}
+.ws-oh-spin{z-index:1}
+@keyframes ws-disc{0%,100%{opacity:.45}50%{opacity:1}}
+.mini-doe .ws-oh-base::before,.mini-doe .ws-oh-base::after{animation-delay:-1s}
+.mini-elk .ws-oh-base::before,.mini-elk .ws-oh-base::after{animation-delay:-2s}
+.mini-bear .ws-oh-base::before,.mini-bear .ws-oh-base::after{animation-delay:-3s}
+@media (prefers-reduced-motion:reduce){.ws-oh-base::before,.ws-oh-base::after{animation:none;opacity:.8}}
