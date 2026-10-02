@@ -409,3 +409,4 @@ body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
   .cat-hero .cat-tagline{font-size:14px}}
 @media (prefers-reduced-motion:reduce){.hero-shaft,.hero-critter,.hc-glow,.hero-diver,.hero-critter,.hero-float,.hero-glow,.hero-ray,.hero-bub,.hero-snow circle{animation:none}.hero-glow{opacity:.6}}
 body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%) fixed}
+.hero-group .hero-jelly{opacity:.86}
