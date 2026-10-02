@@ -175,19 +175,20 @@
   background:radial-gradient(ellipse at 40% 50%,rgba(25,12,4,.45),rgba(25,12,4,0) 70%);transform:skewX(-35deg)}
 .ws-oh::after{content:"";position:absolute;left:6%;right:6%;bottom:calc(var(--u) * -5);height:calc(var(--u) * 12);border-radius:50%;
   background:radial-gradient(ellipse,rgba(15,7,2,.65),rgba(15,7,2,0) 70%)}
-.ws-oh-spin{position:relative;z-index:1;display:block;transform-origin:50% 100%;animation:ws-breathe 5s ease-in-out infinite;
+.ws-oh-spin{position:relative;z-index:1;display:block;transform-origin:50% 100%;
   filter:sepia(.22) saturate(1.05) brightness(.9) drop-shadow(calc(var(--u) * -2) calc(var(--u) * 2) calc(var(--u) * 3) rgba(0,0,0,.35))}
 .ws-oh svg{display:block;width:100%;height:auto}
 /* three minis spread along the bench (positions are % of the free stretch between the title and the vise) */
 .ws-ohs{left:calc(var(--u) * 1380)!important;right:calc(var(--u) * 1150)!important;width:auto!important}
 .ws-oh{left:auto;transform:translateX(-50%)}
-.mini-bear{--w:598;left:12%}
-.mini-elk{--w:491;left:42%}
-.mini-wolf-trot{--w:524;left:70%}
-.mini-fox{--w:262;left:93%}
-@media (max-width:1500px){.mini-elk{display:none}.mini-bear{left:16%}.mini-wolf-trot{left:58%}.mini-fox{left:92%}}
-@media (max-width:1000px){.mini-bear{display:none}.mini-wolf-trot{left:30%}.mini-fox{left:80%}}
-@media (max-width:860px){.mini-wolf-trot{left:18%}}
+/* in proportion: widths follow each animal's art (viewBox widths 1327 / 1327 / 1366 / 1520) at one scale */
+.mini-deer{--w:470;left:8%}
+.mini-doe{--w:470;left:31%}
+.mini-elk{--w:485;left:54%}
+.mini-bear{--w:635;left:77%}
+@media (max-width:1500px){.mini-doe{display:none}.mini-deer{left:10%}.mini-elk{left:42%}.mini-bear{left:73%}}
+@media (max-width:1100px){.mini-deer{display:none}.mini-elk{left:18%}.mini-bear{left:58%}}
+@media (max-width:860px){.mini-bear{display:none}.mini-elk{left:30%}}
 @media (max-width:640px){.ws-ohs{display:none}}
 
 /* The hologram in his hands: the part being worked on, cycling through blue meshes (the fox, then
