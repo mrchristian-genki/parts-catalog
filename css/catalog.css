@@ -410,3 +410,14 @@ body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
 @media (prefers-reduced-motion:reduce){.hero-shaft,.hero-critter,.hc-glow,.hero-diver,.hero-critter,.hero-float,.hero-glow,.hero-ray,.hero-bub,.hero-snow circle{animation:none}.hero-glow{opacity:.6}}
 body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%) fixed}
 .hero-group .hero-jelly{opacity:.86}
+
+/* The fish's lure: a bulb on the tip of its stalk that sits dim, then now and then brightens with a
+   soft halo, like an anglerfish. Near and far fish flash on different, long cycles. */
+.hc-lure{position:absolute;left:4.2%;top:.8%;width:9%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:1;pointer-events:none}
+.hc-lure::before,.hc-lure::after{content:"";position:absolute;border-radius:50%}
+.hc-lure::before{inset:0;background:radial-gradient(circle,#f2fdff 0 18%,#9ff0ff 34%,rgba(80,210,255,0) 70%);animation:hc-lure 9s ease-in-out infinite}
+.hc-lure::after{inset:-260%;background:radial-gradient(circle,rgba(110,225,255,.45) 0,rgba(60,170,240,.16) 32%,rgba(40,140,220,0) 62%);mix-blend-mode:screen;opacity:0;animation:hc-halo 9s ease-in-out infinite}
+.hc-far .hc-lure::before,.hc-far .hc-lure::after{animation-duration:13s;animation-delay:-6s}
+@keyframes hc-lure{0%,62%,100%{opacity:.35;transform:scale(.8)}70%{opacity:1;transform:scale(1.15)}76%{opacity:.75;transform:scale(1)}82%{opacity:1;transform:scale(1.12)}90%{opacity:.35;transform:scale(.8)}}
+@keyframes hc-halo{0%,62%,100%{opacity:0}70%{opacity:1}76%{opacity:.6}82%{opacity:.95}92%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.hc-lure::before,.hc-lure::after{animation:none}.hc-lure::before{opacity:.7}}
