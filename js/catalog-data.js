@@ -1221,6 +1221,28 @@ const CATALOG = [
   },
   // ── LOGOS ──────────────────────────────────────────────────────────
   {
+    id: 'logo-deep-sea',
+    name: 'Logo: Parts Catalog (deep sea)',
+    category: 'Logos',
+    status: 'live',
+    tags: ['logo', 'badge', 'catalog', 'person', 'diver', 'dog', 'marley', 'animal', 'jellyfish', 'ocean', 'underwater', 'bubbles', 'glow'],
+    zones: [],
+    kind: 'composite',
+    note: 'The Parts Catalog logo: a diver offers a glowing box of parts to Marley, curled up inside a jellyfish. Three layers (water with the diver, the jellyfish screened on light-on-black, the dog) plus an SVG of glows and bubbles. The jellyfish and dog float together; headlamps, cube and jellyfish pulse out of step; bubbles rise from the helmet. Not seasonal: it lives underwater. Files: assets/logo/deep-*.webp (+ -2x), css/logo.css (.logo-deep).',
+    controls: [],
+    build() {
+      const src = document.querySelector('.cat-brand .logo-deep');
+      const box = document.createElement('div');
+      box.className = 'cat-logo-card';
+      if (!src) return box;
+      const logo = src.cloneNode(true);
+      logo.classList.remove('cat-logo');
+      logo.querySelectorAll('img[sizes]').forEach((i) => i.setAttribute('sizes', '190px'));
+      box.appendChild(logo);
+      return box;
+    },
+  },
+  {
     id: 'logo-canyon-portrait',
     name: 'Logo: Marley and Christian at the canyon edge',
     category: 'Logos',
@@ -1228,13 +1250,14 @@ const CATALOG = [
     tags: ['logo', 'badge', 'portrait', 'person', 'christian', 'dog', 'marley', 'animal', 'canyon', 'season', 'night'],
     zones: [],
     kind: 'composite',
-    note: 'The site logo, used at 120px in the homepage, catalog and Workshop headers and larger on About. Five low-poly layers (canyon, dog body, Christian, calm-eye lids, dog head) in a ring: one slow 6 s loop where he slips down and his eyes go wide, she eases him back up and he relaxes. Seasonal overlays and ring colours follow the page (html[data-season], html.night-page); here the card sets data-season / data-night on the logo itself. The card clones the header logo, so it is always the same art. Files: assets/logo/*.webp (+ -2x), css/logo.css.',
+    note: 'The site logo, used at 120px in the homepage and Workshop headers and larger on About. Five low-poly layers (canyon, dog body, Christian, calm-eye lids, dog head) in a ring: one slow 6 s loop where he slips down and his eyes go wide, she eases him back up and he relaxes. Seasonal overlays and ring colours follow the page (html[data-season], html.night-page); here the card sets data-season / data-night on the logo itself. The card clones a template of the header logo kept in index.html. Files: assets/logo/*.webp (+ -2x), css/logo.css.',
     controls: [
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
     ],
     build(state) {
-      const src = document.querySelector('.cat-brand .logo');
+      const tpl = document.getElementById('logoCanyon');
+      const src = tpl && tpl.content.querySelector('.logo');
       const box = document.createElement('div');
       box.className = 'cat-logo-card';
       if (!src) return box;

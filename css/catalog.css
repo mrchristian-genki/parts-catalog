@@ -296,3 +296,40 @@ html,body{margin:0;background:rgb(var(--paper));color:rgb(var(--ink));font-famil
 .cat-scene-wrap .wx-flash{ position:absolute; inset:0; pointer-events:none; background:rgba(235,242,255,.85); opacity:0; }
 .cat-scene-wrap .wx-flash.on{ animation: wxBolt 1.1s ease-out; }
 @keyframes wxBolt{ 0%{opacity:0} 4%{opacity:.8} 9%{opacity:.1} 14%{opacity:.6} 100%{opacity:0} }
+
+/* ── Deep-sea theme (catalog page only: <body class="deep">) ───────────
+   Colours from the Parts Catalog logo: midnight water, jellyfish cyan, the cube's violet. The
+   part previews keep their own light sky and ground so every part reads exactly as it does live. */
+body.deep{--d-ink:#d7eef7;--d-ink2:#9cc3d4;--d-ink3:#6f93a6;--d-cyan:#4fd8e8;--d-cyan2:#8ff0ff;--d-violet:#9a7bff;
+  --d-line:rgba(130,205,255,.18);--d-glass:rgba(255,255,255,.055);--d-card:#0c1f38;
+  background:radial-gradient(ellipse 120% 70% at 75% -10%,#12406a 0%,#0a2444 38%,#061429 70%,#040b1a 100%) fixed;color:var(--d-ink)}
+body.deep .cat-brand{color:var(--d-cyan2)}
+body.deep .cat-tagline{color:var(--d-ink2)}
+body.deep a{color:var(--d-cyan2)}
+body.deep .cat-toolbar{background:rgba(5,18,36,.82);border-bottom-color:var(--d-line)}
+body.deep .cat-search input{background:rgba(6,22,44,.9);border-color:var(--d-line);color:var(--d-ink)}
+body.deep .cat-search input::placeholder{color:var(--d-ink3)}
+body.deep .cat-search input:focus{outline-color:var(--d-cyan)}
+body.deep .cat-search-icon{color:var(--d-ink3)}
+body.deep .cat-clear{background:var(--d-glass);color:var(--d-ink2)}
+body.deep .cat-copy,body.deep .cat-tab,body.deep .cat-btn{background:var(--d-glass);border-color:var(--d-line);color:#cfe9f3}
+body.deep .cat-copy:hover,body.deep .cat-tab:hover{border-color:var(--d-cyan);color:var(--d-cyan2)}
+body.deep .cat-copy.is-done{background:rgba(79,216,232,.14);border-color:var(--d-cyan);color:var(--d-cyan2)}
+body.deep .cat-count{background:rgba(255,255,255,.08);color:var(--d-ink2)}
+body.deep .cat-tab[aria-selected="true"]{background:linear-gradient(135deg,#1fb6c9,#2a62d8);border-color:transparent;color:#fff;box-shadow:0 0 14px rgba(79,216,232,.35)}
+body.deep .cat-tab[aria-selected="true"] .cat-count{background:rgba(255,255,255,.2);color:#fff}
+body.deep .cat-empty,body.deep .cat-foot{color:var(--d-ink3)}
+body.deep .cat-empty-link{color:var(--d-cyan2)}
+body.deep .cat-card{background:var(--d-card);border-color:var(--d-line);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+body.deep .cat-card:hover{border-color:rgba(79,216,232,.45);box-shadow:0 8px 28px rgba(0,0,0,.3),0 0 18px rgba(79,216,232,.12)}
+body.deep .cat-title{color:#bff3ff}
+body.deep .cat-tag{background:var(--d-glass);color:#8fb3c4}
+body.deep .cat-control-label{color:var(--d-ink3)}
+body.deep .cat-btn:hover{border-color:var(--d-violet)}
+body.deep .cat-btn[aria-pressed="true"]{background:linear-gradient(135deg,#7b5cff,#b45cf0);border-color:transparent;color:#fff}
+body.deep .cat-status[data-state="live"]{background:rgba(79,216,232,.15);color:#6fe6f2}
+body.deep .cat-status[data-state="progress"]{background:rgba(154,123,255,.2);color:#c9b4ff}
+body.deep .cat-status[data-state="reference"]{background:rgba(255,255,255,.08);color:#9fb6c2}
+body.deep .cat-foot code{background:var(--d-glass);color:var(--d-ink2)}
+body.deep .cat-note,body.deep .cat-body p{color:var(--d-ink2)}
+body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
