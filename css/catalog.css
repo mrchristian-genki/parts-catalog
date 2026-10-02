@@ -441,3 +441,8 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .hero-cubeimg{animation:cube-hover 6s ease-in-out infinite;transform-origin:16% 75%}
 @keyframes cube-hover{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-1.2%) rotate(-1.2deg)}}
 @media (prefers-reduced-motion:reduce){.hero-cubeimg{animation:none}}
+
+/* The diver logo sits beside the title */
+.cat-hero .cat-brand{display:inline-flex;align-items:center;gap:18px;text-decoration:none}
+.cat-hero .cat-logo{--lg:120px;flex:none}
+@media (max-width:640px){.cat-hero .cat-logo{--lg:68px}.cat-hero .cat-brand{gap:12px}}

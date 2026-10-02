@@ -1222,17 +1222,17 @@ const CATALOG = [
   // ── LOGOS ──────────────────────────────────────────────────────────
   {
     id: 'logo-deep-sea',
-    name: 'Logo: Parts Catalog (deep sea)',
+    name: 'Logo: Parts Catalog (the diver)',
     category: 'Logos',
     status: 'live',
-    tags: ['logo', 'badge', 'catalog', 'person', 'diver', 'dog', 'marley', 'animal', 'jellyfish', 'ocean', 'underwater', 'bubbles', 'glow'],
+    tags: ['logo', 'badge', 'catalog', 'person', 'diver', 'christian', 'helmet', 'ocean', 'underwater', 'bubbles', 'glow'],
     zones: [],
     kind: 'composite',
-    note: 'The Parts Catalog badge (the catalog header now shows the whole scene instead): a diver offers a glowing box of parts to Marley, curled up inside a jellyfish. Three layers (water with the diver, the jellyfish screened on light-on-black, the dog) plus an SVG of glows and bubbles. The jellyfish and dog float together; headlamps, cube and jellyfish pulse out of step; bubbles rise from the helmet. Not seasonal: it lives underwater. Files: assets/logo/deep-*.webp (+ -2x), css/logo.css (.logo-deep).',
+    note: 'The Parts Catalog logo: Christian in the deep-sea diving helmet. One portrait (assets/logo/diver.webp, -2x) under an SVG of light: the two shoulder lamps pulse out of step, a violet glow breathes below the visor, bubbles rise past the helmet, and the portrait drifts very slightly. Ring in the catalog colours. css/logo.css (.logo-diver).',
     controls: [],
     build() {
       const tpl = document.getElementById('logoDeep');
-      const src = tpl && tpl.content.querySelector('.logo-deep');
+      const src = tpl && tpl.content.querySelector('.logo-diver');
       const box = document.createElement('div');
       box.className = 'cat-logo-card';
       if (!src) return box;
