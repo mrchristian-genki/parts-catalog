@@ -334,24 +334,17 @@ body.deep .cat-foot code{background:var(--d-glass);color:var(--d-ink2)}
 body.deep .cat-note,body.deep .cat-body p{color:var(--d-ink2)}
 body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
 
-/* ── Deep-sea header: the whole logo scene ─────────────────────────────
-   The stage keeps the art's 1376x768 shape: on narrow screens it covers the header and crops the
-   sides; on wide ones it stops growing once a fifth of its height is cropped, and its faded edges
-   meet the page colour. The title sits on a fade into the page below. */
-.cat-hero{--hh:clamp(340px,40vw,600px);position:relative;height:var(--hh);padding:0;overflow:hidden;background:#061429;isolation:isolate}
-.hero-stage{position:absolute;left:50%;top:50%;width:clamp(calc(var(--hh) * 1.7917),100%,calc(var(--hh) * 2.3));
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);aspect-ratio:1376/768;transform:translate(-50%,-50%);z-index:-1}
+/* ── Deep-sea header ───────────────────────────────────────────────────
+   Same height as the old header. The whole scene fits in it (nothing cropped), on the right, its
+   left edge fading into the water colour; the title and intro sit on the left. On phones the
+   scene runs full width on top and the text goes below it. */
+.cat-hero{position:relative;min-height:300px;padding:0;overflow:hidden;isolation:isolate;
+  background:radial-gradient(ellipse 70% 120% at 85% 40%,#0c3358 0%,#071c36 55%,#061429 100%)}
+.hero-stage{position:absolute;right:0;top:0;height:100%;aspect-ratio:1376/768;z-index:-1;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 96%,transparent 100%),linear-gradient(0deg,transparent 0,#000 12%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 96%,transparent 100%),linear-gradient(0deg,transparent 0,#000 12%);mask-composite:intersect}
 .hero-stage>img:not(.hero-critter),.hero-fx{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero-diver{animation:hero-diver 9s ease-in-out infinite}
-@keyframes hero-diver{0%,100%{transform:translate(0,0)}50%{transform:translate(-.4%,1.1%)}}
-/* A few small drifters cross the water slowly, on screen so they read as light */
-.hero-critter{position:absolute;display:block;mix-blend-mode:screen;opacity:.8;pointer-events:none}
-.hc-1{width:7%;left:4%;top:62%;animation:hc-a 46s linear infinite}
-.hc-2{width:4.5%;left:58%;top:70%;animation:hc-b 38s linear infinite -12s}
-.hc-3{width:5%;left:20%;top:8%;animation:hc-c 52s linear infinite -20s}
-@keyframes hc-a{0%{transform:translate(0,0)}50%{transform:translate(160%,-60%) rotate(6deg)}100%{transform:translate(0,0)}}
-@keyframes hc-b{0%{transform:translate(0,0) rotate(-8deg)}50%{transform:translate(-220%,-90%) rotate(4deg)}100%{transform:translate(0,0) rotate(-8deg)}}
-@keyframes hc-c{0%{transform:translate(0,0) rotate(20deg)}50%{transform:translate(180%,140%) rotate(10deg)}100%{transform:translate(0,0) rotate(20deg)}}
+.hero-dog{filter:brightness(.93) saturate(.92)}
 .hero-jelly{mix-blend-mode:screen}
 .hero-float{animation:hero-float 8s ease-in-out infinite}
 .hero-glow{mix-blend-mode:screen;animation:dp-pulse 4.2s ease-in-out infinite}
@@ -364,11 +357,15 @@ body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
 @keyframes hero-ray{0%,100%{opacity:.5}50%{opacity:1}}
 @keyframes hero-rise{0%{transform:translate(0,20px);opacity:0}10%{opacity:.9}50%{transform:translate(var(--sw),-120px)}100%{transform:translate(0,-280px);opacity:0}}
 @keyframes hero-snow{0%{transform:translate(0,-40px);opacity:0}15%{opacity:.6}85%{opacity:.6}100%{transform:translate(18px,90px);opacity:0}}
-.cat-hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(6,20,41,0) 45%,rgba(6,20,41,.55) 72%,#061429 100%)}
-.hero-text{position:absolute;left:0;right:0;bottom:0;padding:0 clamp(20px,5vw,64px) 22px}
-.cat-hero .cat-brand{font-size:clamp(32px,4.6vw,54px);letter-spacing:-.01em;color:#e9fbff;text-shadow:0 0 18px rgba(79,216,232,.55),0 2px 10px rgba(0,0,0,.6)}
+.hero-text{position:relative;padding:44px clamp(20px,5vw,64px) 26px;max-width:min(620px,52%)}
+.cat-hero .cat-brand{font-size:clamp(30px,3.6vw,46px);letter-spacing:-.01em;color:#e9fbff;text-shadow:0 0 18px rgba(79,216,232,.55),0 2px 10px rgba(0,0,0,.6)}
 .cat-hero .cat-tagline{color:#cfe9f3;text-shadow:0 1px 8px rgba(0,0,0,.7);margin-top:6px}
-@media (max-width:640px){.cat-hero{--hh:360px}.hero-stage{left:58%}.cat-hero .cat-tagline{font-size:14px}}
+@media (max-width:820px){.hero-text{max-width:60%}}
+@media (max-width:640px){
+  .cat-hero{min-height:0;display:flex;flex-direction:column}
+  .hero-stage{position:relative;flex:none;width:100%;height:calc(100vw * 768 / 1376);
+    -webkit-mask-image:linear-gradient(0deg,transparent 0,#000 18%);mask-image:linear-gradient(0deg,transparent 0,#000 18%)}
+  .hero-text{max-width:none;padding-top:0;margin-top:-18px}
+  .cat-hero .cat-tagline{font-size:14px}}
 @media (prefers-reduced-motion:reduce){.hero-diver,.hero-critter,.hero-float,.hero-glow,.hero-ray,.hero-bub,.hero-snow circle{animation:none}.hero-glow{opacity:.6}}
 body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%) fixed}
