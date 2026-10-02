@@ -74,3 +74,73 @@
 .ws-piece small{color:#7a887f;font-size:12px}
 .ws-piece .ws-actions{margin:0;gap:6px}
 .ws-piece .ws-btn{padding:6px 10px;font-size:12px}
+
+/* ── Workshop header: the maker's bench at night ─────────────────────────
+   Same build as the catalog's sea: pieces cut from one composed scene, placed in "scene units"
+   (1277 of them = the header height) and right-aligned, so the bench, Christian, the hologram
+   fox and Marley keep their relationships at any width. The back wall spreads out on wide
+   screens. Old-school bench, new-school hologram. */
+.ws-hero{--h:285px;--u:calc(var(--h) / 1277);position:relative;min-height:var(--h);padding:0;overflow:hidden;isolation:isolate;
+  background:#140d09;border-bottom:1px solid #2a1b12}
+.ws-stage{position:absolute;inset:0;z-index:-1}
+.ws-wall{position:absolute;inset:0;background:
+  radial-gradient(ellipse 34% 90% at 70% 10%,rgba(255,190,110,.28) 0%,rgba(140,90,50,.12) 45%,rgba(0,0,0,0) 75%),
+  linear-gradient(180deg,#2a1c13 0%,#1a110b 70%,#120c08 100%)}
+.ws-back,.ws-rig{position:absolute;bottom:0;height:var(--h)}
+.ws-rig{right:calc(var(--u) * -70);width:calc(var(--u) * 2000)}
+.ws-back{--spread:clamp(0px,(100vw - 900px) * .4,640px);right:calc(var(--u) * -70 + var(--spread));width:calc(var(--u) * 2000)}
+.ws-stage img,.ws-holo,.ws-beam,.ws-goggle-glow,.ws-fox-light{position:absolute;display:block;height:auto}
+.ws-peg{filter:brightness(.42) saturate(.8)}
+.ws-drillimg{filter:brightness(.55)}
+.ws-back{-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%);mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.ws-bench{position:absolute;left:0;right:0;bottom:0;height:calc(var(--u) * 198);
+  background:url(../assets/ws/bench.webp) right bottom/100% 100% no-repeat;filter:brightness(.9)}
+/* lamp: a slow sway from its cord, and a warm beam with dust drifting through it */
+.ws-lamp{transform-origin:50% 0;animation:ws-sway 8s ease-in-out infinite;filter:drop-shadow(0 0 calc(var(--u) * 40) rgba(255,190,110,.35))}
+@keyframes ws-sway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+.ws-beam{background:radial-gradient(ellipse 50% 70% at 50% 0%,rgba(255,206,140,.30),rgba(255,180,100,.08) 55%,rgba(0,0,0,0) 80%);
+  clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);mix-blend-mode:screen;transform-origin:50% 0;animation:ws-sway 8s ease-in-out infinite,ws-flicker 6s steps(1) infinite}
+@keyframes ws-flicker{0%,100%{opacity:1}47%{opacity:.86}48%{opacity:1}73%{opacity:.92}74%{opacity:1}}
+.ws-beam i{position:absolute;width:calc(var(--u) * 7);height:calc(var(--u) * 7);border-radius:50%;background:#ffe2b0;opacity:0;animation:ws-dust 12s linear infinite}
+@keyframes ws-dust{0%{transform:translate(0,0);opacity:0}20%{opacity:.75}80%{opacity:.5}100%{transform:translate(calc(var(--u) * 60),calc(var(--u) * -140));opacity:0}}
+/* Christian: a slow, small sway as he shapes the hologram; the goggle rims glow cyan */
+.ws-man{transform-origin:50% 100%;animation:ws-man 9s ease-in-out infinite}
+@keyframes ws-man{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(calc(var(--u) * -6)) rotate(.4deg)}}
+.ws-goggle-glow{border-radius:50%;background:radial-gradient(ellipse,rgba(110,240,255,.55),rgba(60,200,240,.15) 50%,rgba(0,0,0,0) 72%);
+  mix-blend-mode:screen;animation:ws-man 9s ease-in-out infinite,dp-pulse 3.2s ease-in-out infinite}
+/* the hologram fox: floats, turns a little, glows and now and then flickers */
+.ws-holo{animation:ws-float 6s ease-in-out infinite}
+.ws-holo img{position:relative;display:block;width:100%;height:auto;animation:ws-turn 9s ease-in-out infinite,ws-holoflick 7s steps(1) infinite}
+.ws-holo .ws-holo-glow{position:absolute;inset:0;filter:blur(calc(var(--u) * 14)) brightness(1.4);mix-blend-mode:screen;animation:ws-turn 9s ease-in-out infinite,dp-pulse 3.6s ease-in-out infinite}
+@keyframes ws-float{0%,100%{transform:translateY(0)}50%{transform:translateY(calc(var(--u) * -22))}}
+@keyframes ws-turn{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.86) skewY(-1deg)}}
+@keyframes ws-holoflick{0%,100%{opacity:.92}61%{opacity:.55}62%{opacity:.95}64%{opacity:.6}65%{opacity:.92}}
+.ws-fox-light{border-radius:50%;background:radial-gradient(ellipse,rgba(90,230,240,.28),rgba(0,0,0,0) 65%);mix-blend-mode:screen;animation:dp-pulse 3.6s ease-in-out infinite}
+/* Marley: asleep, breathing slowly */
+.ws-dog{transform-origin:50% 100%;animation:ws-breathe 4.6s ease-in-out infinite}
+@keyframes ws-breathe{0%,100%{transform:scaleY(1)}45%{transform:scaleY(1.018)}}
+@keyframes dp-pulse{0%,100%{opacity:.35}50%{opacity:.95}}
+/* text */
+.ws-text{position:relative;padding:28px clamp(20px,5vw,64px) calc(var(--u) * 198 + 14px);max-width:min(620px,50%)}
+.ws-hero .cat-brand{display:inline-flex;align-items:center;gap:18px;text-decoration:none}
+.ws-hero .cat-logo{--lg:120px;flex:none}
+.ws-hero .cat-tagline{color:#e9d6c2;text-shadow:0 1px 8px rgba(0,0,0,.7);margin-top:8px}
+.ws-hero .cat-tagline a{color:#ffd29a}
+/* title: warm metal, a slow glow passing through it like heat */
+.ws-title{font-size:clamp(30px,3.6vw,46px);letter-spacing:-.01em;font-weight:800;
+  background:linear-gradient(100deg,#c98a4a 0%,#f0c27a 30%,#fff1cf 45%,#f0c27a 60%,#b9773c 100%);background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 8px rgba(0,0,0,.6)) drop-shadow(0 0 14px rgba(255,170,80,.25));
+  animation:ws-heat 9s ease-in-out infinite}
+@keyframes ws-heat{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+@media (max-width:820px){.ws-text{max-width:56%}}
+@media (max-width:640px){
+  .ws-hero{--h:200px;display:flex;flex-direction:column;min-height:0}
+  .ws-stage{position:relative;inset:auto;height:var(--h);flex:none;overflow:hidden}
+  .ws-rig{right:50%;transform:translateX(44%)}
+  .ws-back{display:none}
+  .ws-text{max-width:none;padding:14px clamp(20px,5vw,64px) 22px}
+  .ws-hero{background:#140d09}
+  .ws-hero .cat-logo{--lg:68px}.ws-hero .cat-brand{gap:12px}}
+@media (prefers-reduced-motion:reduce){.ws-lamp,.ws-beam,.ws-beam i,.ws-man,.ws-goggle-glow,.ws-holo,.ws-holo img,.ws-fox-light,.ws-dog,.ws-title{animation:none}}
+/* Marley's image ends in a straight cut at her hip: fade that end so it never shows as an edge */
+.ws-dog{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent 99%);mask-image:linear-gradient(90deg,#000 86%,transparent 99%)}
