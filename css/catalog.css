@@ -437,3 +437,7 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .ff-2{width:calc(var(--h) * .11);top:70%;animation-duration:85s;animation-delay:-40s;animation-direction:reverse}
 @keyframes ff-cross{0%{transform:translate(105vw,0) rotate(-6deg)}50%{transform:translate(45vw,-18%) rotate(5deg)}100%{transform:translate(-25vw,0) rotate(-6deg)}}
 @media (prefers-reduced-motion:reduce){.sf,.ff{animation:none}.ff{display:none}}
+/* the cube hovers gently between the diver's hands */
+.hero-cubeimg{animation:cube-hover 6s ease-in-out infinite;transform-origin:16% 75%}
+@keyframes cube-hover{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-1.2%) rotate(-1.2deg)}}
+@media (prefers-reduced-motion:reduce){.hero-cubeimg{animation:none}}
