@@ -365,7 +365,7 @@ body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
 .hero-critter img{display:block;width:100%;height:auto}
 .hero-critter .hc-glow{position:absolute;inset:0;mix-blend-mode:screen;animation:hc-glow 4.5s ease-in-out infinite}
 @keyframes hc-glow{0%,100%{opacity:.25}50%{opacity:1}}
-.hc-fish{width:calc(var(--h) * .2);left:52%;top:68%;opacity:.6;animation:hc-swimL 70s linear infinite -18s}
+.hc-fish{width:calc(var(--h) * .2);left:0;top:66%;opacity:.7;animation:hc-cruise 64s linear infinite -8s}
 .hc-fish .hc-glow{animation-duration:5.5s}
 .hc-larva{width:calc(var(--h) * .055);left:30%;top:14%;opacity:.7;animation:hc-swimR 56s linear infinite -30s}
 .hc-larva .hc-glow{animation-duration:3.6s;animation-delay:-1s}
@@ -376,7 +376,7 @@ body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
 .hc-blue{width:calc(var(--h) * .03);left:64%;top:4%;opacity:.65;animation:hc-bob 14s ease-in-out infinite -3s}
 .hc-blue .hc-glow{animation-duration:4.2s;animation-delay:-3s}
 .hc-far{opacity:.28;filter:blur(.6px)}
-.hc-far.hc-fish{width:calc(var(--h) * .1);left:84%;top:20%;animation-duration:90s;animation-delay:-50s}
+.hc-far.hc-fish{width:calc(var(--h) * .1);left:0;top:30%;animation:hc-cruise 96s linear infinite -48s}
 .hc-far.hc-larva{width:calc(var(--h) * .035);left:60%;top:76%;animation-duration:80s;animation-delay:-5s}
 .hc-far.hc-comb{width:calc(var(--h) * .022);left:22%;top:40%;animation-delay:-7s}
 .hc-far.hc-moon{width:calc(var(--h) * .03);left:70%;top:52%;animation-delay:-11s}
@@ -457,3 +457,27 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
   animation:wave-title 8s ease-in-out infinite}
 @keyframes wave-title{0%,100%{clip-path:polygon(0% 45.0%,10% 48.1%,20% 49.5%,30% 48.5%,40% 45.6%,50% 42.4%,60% 40.6%,70% 41.2%,80% 43.9%,90% 47.2%,100% 49.3%,100% 100%,0 100%)}25%{clip-path:polygon(0% 48.0%,10% 46.6%,20% 43.3%,30% 39.8%,40% 38.0%,50% 39.0%,60% 42.1%,70% 45.7%,80% 47.8%,90% 47.4%,100% 44.5%,100% 100%,0 100%)}50%{clip-path:polygon(0% 45.0%,10% 41.9%,20% 40.5%,30% 41.5%,40% 44.4%,50% 47.6%,60% 49.4%,70% 48.8%,80% 46.1%,90% 42.8%,100% 40.7%,100% 100%,0 100%)}75%{clip-path:polygon(0% 42.0%,10% 43.4%,20% 46.7%,30% 50.2%,40% 52.0%,50% 51.0%,60% 47.9%,70% 44.3%,80% 42.2%,90% 42.6%,100% 45.5%,100% 100%,0 100%)}}
 @media (prefers-reduced-motion:reduce){.wave-title::after{animation:none}}
+
+/* The anglerfish cruise the whole width and only turn round once they're off screen: the near one
+   heads left first, the smaller, deeper one heads right (half a cycle out of step, slower). */
+@keyframes hc-cruise{
+  0%{transform:translateX(105vw)}
+  42%{transform:translateX(-30vw)}
+  42.01%,50%{transform:translateX(-30vw) scaleX(-1)}
+  92%{transform:translateX(105vw) scaleX(-1)}
+  92.01%,100%{transform:translateX(105vw)}}
+/* the lure is lit most of the time now, with a bright double flash every few seconds */
+@keyframes hc-lure{0%,50%,100%{opacity:.75;transform:scale(.95)}58%{opacity:1;transform:scale(1.2)}64%{opacity:.8;transform:scale(1)}70%{opacity:1;transform:scale(1.15)}82%{opacity:.75;transform:scale(.95)}}
+@keyframes hc-halo{0%,50%,100%{opacity:.25}58%{opacity:1}64%{opacity:.6}70%{opacity:.95}84%{opacity:.25}}
+.hc-lure::before,.hc-lure::after{animation-duration:5s}
+.hc-far .hc-lure::before,.hc-far .hc-lure::after{animation-duration:6.5s;animation-delay:-3s}
+
+/* Something very large in the deep: a dark whale-like shape passes slowly along the bottom, mostly
+   out of sight (only its back and tail show), then the water is empty again for a while. */
+.hero-giant{position:absolute;left:0;top:52%;width:calc(var(--h) * 3.4);pointer-events:none;opacity:0;filter:blur(2.5px);
+  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 70%);mask-image:linear-gradient(180deg,#000 30%,transparent 70%);
+  animation:hc-giant 150s linear infinite -140s}
+.hero-giant svg{display:block;width:100%;height:auto;animation:hc-undulate 14s ease-in-out infinite}
+@keyframes hc-giant{0%{transform:translateX(100vw);opacity:0}4%{opacity:.8}50%{opacity:.8}55%{transform:translateX(calc(-100% - 10vw));opacity:0}100%{transform:translateX(calc(-100% - 10vw));opacity:0}}
+@keyframes hc-undulate{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(6%) rotate(.8deg)}}
+@media (prefers-reduced-motion:reduce){.hero-giant{display:none}}
