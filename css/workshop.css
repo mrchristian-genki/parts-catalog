@@ -87,8 +87,9 @@
   radial-gradient(ellipse 34% 90% at 70% 10%,rgba(255,190,110,.28) 0%,rgba(140,90,50,.12) 45%,rgba(0,0,0,0) 75%),
   linear-gradient(180deg,#2a1c13 0%,#1a110b 70%,#120c08 100%)}
 .ws-back,.ws-rig{position:absolute;bottom:0;height:var(--h)}
-.ws-rig{right:calc(var(--u) * -70);width:calc(var(--u) * 2000)}
-.ws-back{--spread:clamp(0px,(100vw - 900px) * .4,640px);right:calc(var(--u) * -70 + var(--spread));width:calc(var(--u) * 2000)}
+/* right-aligned so Marley (whose image ends at her hip) sits flush against the right edge */
+.ws-rig{right:calc(var(--u) * -7);width:calc(var(--u) * 2000)}
+.ws-back{--spread:clamp(0px,(100vw - 900px) * .4,640px);right:calc(var(--u) * -7 + var(--spread));width:calc(var(--u) * 2000)}
 .ws-stage img,.ws-holo,.ws-beam,.ws-goggle-glow,.ws-fox-light{position:absolute;display:block;height:auto}
 .ws-peg{filter:brightness(.42) saturate(.8)}
 .ws-drillimg{filter:brightness(.55)}
@@ -136,11 +137,14 @@
 @media (max-width:640px){
   .ws-hero{--h:200px;display:flex;flex-direction:column;min-height:0}
   .ws-stage{position:relative;inset:auto;height:var(--h);flex:none;overflow:hidden}
-  .ws-rig{right:50%;transform:translateX(44%)}
   .ws-back{display:none}
   .ws-text{max-width:none;padding:14px clamp(20px,5vw,64px) 22px}
   .ws-hero{background:#140d09}
   .ws-hero .cat-logo{--lg:68px}.ws-hero .cat-brand{gap:12px}}
 @media (prefers-reduced-motion:reduce){.ws-lamp,.ws-beam,.ws-beam i,.ws-man,.ws-goggle-glow,.ws-holo,.ws-holo img,.ws-fox-light,.ws-dog,.ws-title{animation:none}}
-/* Marley's image ends in a straight cut at her hip: fade that end so it never shows as an edge */
-.ws-dog{-webkit-mask-image:linear-gradient(90deg,#000 86%,transparent 99%);mask-image:linear-gradient(90deg,#000 86%,transparent 99%)}
+/* More on the bench: a few of the props again along the empty stretch, moving with the back wall */
+.ws-shelf{position:absolute;bottom:0;height:var(--h);width:calc(var(--u) * 2000);right:calc(var(--u) * -7 + clamp(0px,(100vw - 900px) * .4,640px))}
+.ws-b{position:absolute;display:block;height:auto;filter:brightness(.88)}
+.ws-b-jar,.ws-b-cat{transform:scaleX(-1)}
+@media (max-width:1000px){.ws-b-coil{display:none}}
+@media (max-width:640px){.ws-shelf{display:none}}
