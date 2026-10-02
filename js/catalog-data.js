@@ -1228,10 +1228,11 @@ const CATALOG = [
     tags: ['logo', 'badge', 'catalog', 'person', 'diver', 'dog', 'marley', 'animal', 'jellyfish', 'ocean', 'underwater', 'bubbles', 'glow'],
     zones: [],
     kind: 'composite',
-    note: 'The Parts Catalog logo: a diver offers a glowing box of parts to Marley, curled up inside a jellyfish. Three layers (water with the diver, the jellyfish screened on light-on-black, the dog) plus an SVG of glows and bubbles. The jellyfish and dog float together; headlamps, cube and jellyfish pulse out of step; bubbles rise from the helmet. Not seasonal: it lives underwater. Files: assets/logo/deep-*.webp (+ -2x), css/logo.css (.logo-deep).',
+    note: 'The Parts Catalog badge (the catalog header now shows the whole scene instead): a diver offers a glowing box of parts to Marley, curled up inside a jellyfish. Three layers (water with the diver, the jellyfish screened on light-on-black, the dog) plus an SVG of glows and bubbles. The jellyfish and dog float together; headlamps, cube and jellyfish pulse out of step; bubbles rise from the helmet. Not seasonal: it lives underwater. Files: assets/logo/deep-*.webp (+ -2x), css/logo.css (.logo-deep).',
     controls: [],
     build() {
-      const src = document.querySelector('.cat-brand .logo-deep');
+      const tpl = document.getElementById('logoDeep');
+      const src = tpl && tpl.content.querySelector('.logo-deep');
       const box = document.createElement('div');
       box.className = 'cat-logo-card';
       if (!src) return box;
