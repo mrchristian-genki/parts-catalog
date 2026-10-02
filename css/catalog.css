@@ -345,6 +345,10 @@ body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
   -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 96%,transparent 100%),linear-gradient(0deg,transparent 0,#000 12%);mask-composite:intersect}
 .hero-stage>img:not(.hero-critter),.hero-fx{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hero-dog{filter:brightness(.93) saturate(.92)}
+/* Faint glowing fish far back: lights that drift and breathe behind everything */
+.hero-fish{mix-blend-mode:screen;opacity:.7}
+.gfish{animation:gfish 32s ease-in-out infinite}
+@keyframes gfish{0%,100%{transform:translateX(0);opacity:.35}50%{transform:translateX(var(--dx));opacity:.9}}
 .hero-jelly{mix-blend-mode:screen}
 .hero-float{animation:hero-float 8s ease-in-out infinite}
 .hero-glow{mix-blend-mode:screen;animation:dp-pulse 4.2s ease-in-out infinite}
@@ -367,5 +371,5 @@ body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
     -webkit-mask-image:linear-gradient(0deg,transparent 0,#000 18%);mask-image:linear-gradient(0deg,transparent 0,#000 18%)}
   .hero-text{max-width:none;padding-top:0;margin-top:-18px}
   .cat-hero .cat-tagline{font-size:14px}}
-@media (prefers-reduced-motion:reduce){.hero-diver,.hero-critter,.hero-float,.hero-glow,.hero-ray,.hero-bub,.hero-snow circle{animation:none}.hero-glow{opacity:.6}}
+@media (prefers-reduced-motion:reduce){.gfish,.hero-diver,.hero-critter,.hero-float,.hero-glow,.hero-ray,.hero-bub,.hero-snow circle{animation:none}.hero-glow{opacity:.6}}
 body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%) fixed}
