@@ -472,17 +472,18 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .hc-lure::before,.hc-lure::after{animation-duration:5s}
 .hc-far .hc-lure::before,.hc-far .hc-lure::after{animation-duration:6.5s;animation-delay:-3s}
 
-/* Something very large in the deep: an origami giant squid glides through, tentacles first, across
-   the middle of the water, in shadow. Only its eye and the sucker lights glow; its arms trail and curl.
+/* Something very large in the deep: an origami giant squid rises through on a long diagonal, fins
+   first, in shadow. Only its eye and the sucker lights glow; its arms trail and curl.
    It passes about every two and a half minutes, starting ten seconds after the page loads. */
-.hero-giant{position:absolute;left:0;top:9%;width:calc(var(--h) * 2.5);pointer-events:none;opacity:0;
-  animation:hc-giant 150s linear infinite -140s}
+.hero-giant{position:absolute;left:0;top:0;width:calc(var(--h) * 4.2);pointer-events:none;opacity:0;
+  transform-origin:50% 50%;animation:hc-giant 150s linear infinite -140s}
 .hero-giant .sq{position:relative;aspect-ratio:1876/594;animation:hc-undulate 14s ease-in-out infinite}
 .hero-giant img{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero-giant .sq-arms,.hero-giant .sq-body{filter:brightness(.42) saturate(.85)}
+.hero-giant .sq-arms,.hero-giant .sq-body{filter:brightness(.34) saturate(.8)}
 .hero-giant .sq-arms{transform-origin:43% 44%;animation:sq-arms 5.5s ease-in-out infinite}
 .hero-giant .sq-glow{mix-blend-mode:screen;filter:blur(1px) drop-shadow(0 0 6px rgba(120,240,255,.8));animation:dp-pulse 3.8s ease-in-out infinite}
 @keyframes sq-arms{0%,100%{transform:rotate(-2.5deg) scaleX(1)}35%{transform:rotate(1.5deg) scaleX(1.04) skewY(-1deg)}70%{transform:rotate(3deg) scaleX(.97) skewY(1deg)}}
-@keyframes hc-giant{0%{transform:translateX(100vw);opacity:0}4%{opacity:1}50%{opacity:1}55%{transform:translateX(calc(-100% - 10vw));opacity:0}100%{transform:translateX(calc(-100% - 10vw));opacity:0}}
+/* A diagonal pass, bottom-left to top-right, fins first: the squid is turned 35deg to match its path */
+@keyframes hc-giant{0%{transform:translate(calc(var(--h) * -3.86),calc(var(--h) * 1.74)) rotate(-35deg);opacity:0}4%{opacity:.85}50%{opacity:.85}55%{transform:translate(calc(var(--h) * 1.56),calc(var(--h) * -2.07)) rotate(-35deg);opacity:0}100%{transform:translate(calc(var(--h) * 1.56),calc(var(--h) * -2.07)) rotate(-35deg);opacity:0}}
 @keyframes hc-undulate{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(5%) rotate(-.8deg)}}
 @media (prefers-reduced-motion:reduce){.hero-giant{display:none}}
