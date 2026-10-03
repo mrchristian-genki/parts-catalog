@@ -755,7 +755,6 @@ const CATALOG = [
     creature: 'deer',
     note: "Origami buck on the doe's rig: grazes, walks, looks up alert. Antlers ride on the head joint.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['story', 'idle', 'alert', 'graze', 'walk'], default: 'story' },
@@ -772,7 +771,6 @@ const CATALOG = [
     creature: 'doe',
     note: "Traced origami puppet in 9 hinged parts: grazes all the way to the grass, walks, flicks ears and tail.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['story', 'graze', 'idle', 'alert', 'walk'], default: 'story' },
@@ -789,7 +787,6 @@ const CATALOG = [
     creature: 'elk',
     note: "Origami elk with a dark maned neck: grazes, walks, looks up alert. Not really a Lake Tahoe animal, so better kept for another scene.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['story', 'idle', 'alert', 'graze', 'walk'], default: 'story' },
@@ -806,7 +803,6 @@ const CATALOG = [
     creature: 'bear',
     note: "Origami bear: a rolling amble across the card, or stands and noses the ground. Spring through fall only (hibernates in winter).",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['story', 'walk', 'forage'], default: 'story' },
@@ -823,7 +819,6 @@ const CATALOG = [
     creature: 'fox',
     note: "Standing origami fox: ear flicks and looks about, noses the ground, or trots. Walks out of the trees in the scene.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['story', 'sit', 'sniff', 'walk'], default: 'story' },
@@ -841,7 +836,6 @@ const CATALOG = [
     sink: 0,
     note: "Origami hare: sits and sniffs, or hops (crouch, spring, land). White snowshoe coat in winter.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['story', 'hop', 'sit'], default: 'story' },
@@ -858,7 +852,6 @@ const CATALOG = [
     creature: 'squirrel',
     note: "Origami squirrel: paws up to the mouth, nibbling, with tail twitches. Lives on the hero tree.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['nibble'] },
@@ -877,7 +870,6 @@ const CATALOG = [
     maxW: 190,
     note: "Origami chipmunk: quick looks, paw tucks and tail flicks, snapping between poses.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['alert'] },
@@ -894,7 +886,6 @@ const CATALOG = [
     creature: 'owl',
     note: "Origami owl: slow head turns on the pine tops at night. Snowy in winter.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'night' },
     ],
@@ -910,7 +901,6 @@ const CATALOG = [
     creature: 'hawk',
     note: "Origami hawk: snappy head turns and a tail flick, perched on a pine top.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['perch'] },
@@ -929,7 +919,6 @@ const CATALOG = [
     maxH: 150,
     note: "Origami eagle, both wings hinged: soars, or beats its wings. The scene tilts it into a diving stoop.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['story', 'soar', 'flap'], default: 'story' },
@@ -946,7 +935,6 @@ const CATALOG = [
     creature: 'wolf-howl',
     note: "Origami wolf: looks out, then lifts its head into a long howl. Fall and winter nights.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'night' },
     ],
@@ -962,7 +950,6 @@ const CATALOG = [
     creature: 'wolf-run',
     note: "Origami wolf with a full trot: diagonal legs swing together and the body rises on each stride.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['story', 'run', 'walk'], default: 'story' },
@@ -997,7 +984,6 @@ const CATALOG = [
     maxH: 190,
     note: "Origami fisherman in a folded paper boat, rod bobbing with a plumb line. At night a lantern hangs at the stern.",
     controls: [
-      { type: 'style', default: 'origami' },
       { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
       { type: 'time', default: 'day' },
       { type: 'behavior', options: ['fish'] },
@@ -1066,6 +1052,20 @@ const CATALOG = [
     controls: [
       { type: 'season', options: ['winter', 'spring', 'summer', 'fall'], default: 'summer' },
       { type: 'wind' },
+    ],
+  },
+  {
+    id: 'weather-levels',
+    name: 'Weather: rain and snow',
+    category: 'Sky & Weather',
+    status: 'live',
+    tags: ['weather', 'rain', 'snow', 'storm', 'drizzle', 'shower', 'tempest', 'flurries', 'blizzard', 'drops', 'flakes'],
+    zones: ['sky', 'ui'],
+    kind: 'weather',
+    note: "The scene's weather in three levels, the same as its links: rain is drizzle, shower, tempest; in winter snow is flurries, snow, blizzard. Everything turns up with the level: the darker sky, the amount falling, the wind (gusts in bursts at a blizzard), lightning at a tempest. Rain beads sit on the headline and button and drip off their lower edges; snowflakes drift down, stick to the tops of the letters and the button, then melt (flurries melt almost as they land). The shapes' outlines are read once from a raster, so the weather lands on the real ink. Every animal card has the same Weather control.",
+    controls: [
+      { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'fall' },
+      { type: 'weather', default: 2 },
     ],
   },
   {
@@ -1218,5 +1218,59 @@ const CATALOG = [
     controls: [
       { type: 'season', options: ['winter', 'spring', 'summer', 'fall'], default: 'summer' },
     ],
+  },
+  // ── LOGOS ──────────────────────────────────────────────────────────
+  {
+    id: 'logo-deep-sea',
+    name: 'Logo: Parts Catalog (the diver)',
+    category: 'Logos',
+    status: 'live',
+    tags: ['logo', 'badge', 'catalog', 'person', 'diver', 'christian', 'helmet', 'ocean', 'underwater', 'bubbles', 'glow'],
+    zones: [],
+    kind: 'composite',
+    note: 'The Parts Catalog logo: Christian in the deep-sea diving helmet. One portrait (assets/logo/diver.webp, -2x) under an SVG of light: the two shoulder lamps pulse out of step, a violet glow breathes below the visor, bubbles rise past the helmet, and the portrait drifts very slightly. Ring in the catalog colours. css/logo.css (.logo-diver).',
+    controls: [],
+    build() {
+      const tpl = document.getElementById('logoDeep');
+      const src = tpl && tpl.content.querySelector('.logo-diver');
+      const box = document.createElement('div');
+      box.className = 'cat-logo-card';
+      if (!src) return box;
+      const logo = src.cloneNode(true);
+      logo.classList.remove('cat-logo');
+      logo.querySelectorAll('img[sizes]').forEach((i) => i.setAttribute('sizes', '190px'));
+      box.appendChild(logo);
+      return box;
+    },
+  },
+  {
+    id: 'logo-canyon-portrait',
+    name: 'Logo: Marley and Christian at the canyon edge',
+    category: 'Logos',
+    status: 'live',
+    tags: ['logo', 'badge', 'portrait', 'person', 'christian', 'dog', 'marley', 'animal', 'canyon', 'season', 'night'],
+    zones: [],
+    kind: 'composite',
+    note: 'The site logo, used at 120px in the homepage and Workshop headers and larger on About. Five low-poly layers (canyon, dog body, Christian, calm-eye lids, dog head) in a ring: one slow 6 s loop where he slips down and his eyes go wide, she eases him back up and he relaxes. Seasonal overlays and ring colours follow the page (html[data-season], html.night-page); here the card sets data-season / data-night on the logo itself. The card clones a template of the header logo kept in index.html. Files: assets/logo/*.webp (+ -2x), css/logo.css.',
+    controls: [
+      { type: 'season', options: ['spring', 'summer', 'fall', 'winter'], default: 'summer' },
+      { type: 'time', default: 'day' },
+    ],
+    build(state) {
+      const tpl = document.getElementById('logoCanyon');
+      const src = tpl && tpl.content.querySelector('.logo');
+      const box = document.createElement('div');
+      box.className = 'cat-logo-card';
+      if (!src) return box;
+      const logo = src.cloneNode(true);
+      logo.classList.remove('cat-logo');
+      logo.dataset.season = state.season;
+      logo.dataset.night = state.night ? '1' : '0';
+      logo.querySelectorAll('img[sizes]').forEach((i) => i.setAttribute('sizes', '190px'));
+      box.appendChild(logo);
+      return box;
+    },
+    onSeasonChange(box, season) { const l = box.querySelector('.logo'); if (l) l.dataset.season = season; },
+    onTimeChange(box, night) { const l = box.querySelector('.logo'); if (l) l.dataset.night = night ? '1' : '0'; },
   },
 ];

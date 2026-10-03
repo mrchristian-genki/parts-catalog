@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tropical Beach — Scene Test</title>
+<link rel="stylesheet" href="../scene-test.css?v=1791310000">
+</head>
+<body>
+
+<main class="st">
+  <div class="st-stage" id="stage" aria-label="Tropical beach scene. Drag sideways to look around.">
+    <div class="st-world" id="world"></div>
+  </div>
+  <div class="st-bar">
+    <b>Tropical beach</b>
+    <span class="st-note">Drag or move the mouse to look around. Layers are placed by the recipe, not the source image.</span>
+    <label class="st-toggle">Time <select id="time"><option value="day">Day</option><option value="sunset">Sunset</option></select></label>
+    <label class="st-toggle">Foreground <select data-opt="front" id="front"><option value="flowers">Flowers</option><option value="leaves">Leaves &amp; single flowers</option><option value="original">Original</option></select></label>
+    <label class="st-toggle">Sea &amp; sand <select id="sets"><option value="code">drawn in code</option><option value="painted">painted layers</option></select></label>
+    <label class="st-toggle"><input type="checkbox" id="ref"> Compare with the source image</label>
+  </div>
+</main>
+
+<script>
+/* The scene recipe: every layer is a slot with a box in world units (the source
+   image's pixels, 1375 x 767), a depth for parallax (1 = moves with the ground,
+   less = farther away) and an optional idle animation. The renderer below knows
+   nothing about beaches; a new scene is a new recipe. */
+// colour grades for sunset: the sea takes the sky's warmth, land and plants go backlit
+const SEA = 'hue-rotate(38deg) saturate(.7) brightness(.72)';
+const SAND = 'sepia(.3) hue-rotate(-18deg) saturate(1.35) brightness(.84)';
+const BACKLIT = 'sepia(.35) hue-rotate(-25deg) saturate(.9) brightness(.55)';
+
+window.SCENE = {
+  world: { w: 1375, h: 767 },
+  openPhone: 0.22,                 // phones open on the left palm and the boat
+  sky: ['#028fce 0%', '#1b9dd4 16%', '#33aad8 30%', '#4fb7dc 44%', '#76c4df 58%', '#98cfe1 72%', '#a9d6e3 100%'],
+  layers: [
+    // sunset sky and sun (the day sky is the stage's own gradient, above)
+    { id: 'skyS',    proc: 'sky',             box: [-420, -20, 2215, 450], depth: 0.3, time: 'sunset',
+      opts: { stops: [[0, '#2f2656'], [0.25, '#5d3a72'], [0.5, '#a9527a'], [0.72, '#e98363'], [0.9, '#fbbd73'], [1, '#fde0a0']] } },
+    { id: 'sun',     proc: 'sun',             box: [560, 285, 280, 280],  depth: 0.3, time: 'sunset', opts: { r: 46 } },
+    // clouds: the source image's own by day; the cloud library's sunset set at dusk
+    { id: 'clouds',  src: 'clouds-bank.webp', box: [-40, 0, 1455, 452],  depth: 0.45, anim: 'drift-slow', time: 'day' },
+    { id: 'cloud',   src: 'cloud-drift.webp', box: [246, 90, 423, 96],   depth: 0.5,  anim: 'drift', time: 'day' },
+    { id: 'cSteaks', src: '../clouds/sunset-06.webp', box: [620, 20, 440, 221], depth: 0.4, anim: 'drift-slow', time: 'sunset' },
+    { id: 'cLeft',   src: '../clouds/sunset-05.webp', box: [-60, 150, 560, 346], depth: 0.45, anim: 'drift-slow', time: 'sunset' },
+    { id: 'cRight',  src: '../clouds/sunset-07.webp', box: [860, 170, 580, 323], depth: 0.45, anim: 'drift-slow', time: 'sunset' },
+    { id: 'cLens',   src: '../clouds/sunset-04.webp', box: [300, 80, 330, 102],  depth: 0.5,  anim: 'drift', time: 'sunset' },
+    { id: 'cChain',  src: '../clouds/dusk-05.webp',   box: [420, 368, 440, 101], depth: 0.4,  time: 'sunset' },
+    // sea and sand: the painted OpenArt layers, or the same drawn in code (procedural.js)
+    { id: 'sand',    src: 'sand.webp',        box: [-60, 590, 1495, 189], depth: 0.9,  set: 'painted', grade: { sunset: SAND } },
+    { id: 'sea',     src: 'sea.webp',         box: [-60, 425, 1495, 234], depth: 0.75, anim: 'shimmer', set: 'painted', grade: { sunset: SEA } },
+    { id: 'foam',    src: 'foam.webp',        box: [-40, 560, 1455, 120], depth: 0.85, anim: 'lap', set: 'painted', grade: { sunset: SAND } },
+    { id: 'seaC',    proc: 'sea',             box: [-120, 425, 1615, 260], depth: 0.75, set: 'code', time: 'day', opts: { sunX: 0.508 } },
+    { id: 'seaCs',   proc: 'sea',             box: [-120, 425, 1615, 260], depth: 0.75, set: 'code', time: 'sunset',
+      opts: { sunX: 0.508, glint: '#ffe2a6', horizon: '#3a2f63', streak: '#ffd9c2',
+              colors: [[0, '#3b3470'], [0.06, '#4d4282'], [0.4, '#65539a'], [0.75, '#8a66a0'], [1, '#b27f9e']] } },
+    // the sun's golden path on the water, over either sea
+    { id: 'sunpath', proc: 'sunpath',         box: [360, 427, 700, 200],  depth: 0.75, time: 'sunset', opts: { x: 0.49 } },
+    { id: 'beachC',  proc: 'beach',           box: [-80, 560, 1535, 240], depth: 0.9,  set: 'code', time: 'day', opts: { shore: 0.37, reach: 0.26, surf: 0.17 } },
+    { id: 'beachCs', proc: 'beach',           box: [-80, 560, 1535, 240], depth: 0.9,  set: 'code', time: 'sunset',
+      opts: { shore: 0.37, reach: 0.26, surf: 0.17, foam: '#ffe9df', foamBack: '#caa6c4', wet: '#a8684f',
+              sand: [[0, '#f0bf8e'], [0.5, '#e7a878'], [1, '#d38b62']],
+              wash: [[0, '#7c66a8', 0.95], [0.6, '#a07fae', 0.85], [1, '#e2b0b0', 0.75]] } },
+    { id: 'boat',    src: 'boat.webp',        box: [408, 348, 73, 97],    depth: 0.75, anim: 'bob', grade: { sunset: 'sepia(.45) saturate(1.3) brightness(.9)' } },
+    { id: 'birds',   svg: 'birds',            box: [380, 0, 600, 190],    depth: 0.6,  anim: 'glide', grade: { sunset: 'brightness(.22)' } },
+    { id: 'palmL',   src: 'palm-left.webp',   box: [20, 8, 392, 475],     depth: 1.0,  anim: 'sway', origin: '6% 100%', grade: { sunset: BACKLIT } },
+    { id: 'palmR',   src: 'palm-right.webp',  box: [954, 4, 420, 463],    depth: 1.0,  anim: 'sway-b', origin: '94% 100%', grade: { sunset: BACKLIT } },
+    // foreground: pick one (the Foreground menu). Plant art lives in ../plants/
+    { id: 'front',   src: 'foreground.webp',  box: [-30, 342, 1436, 443], depth: 1.12, anim: 'rustle', origin: '50% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'original'] },
+    { id: 'frontF',  src: '../plants/frame-flowers.webp', box: [-60, 300, 1496, 490], depth: 1.12, anim: 'rustle', origin: '50% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'flowers'] },
+    // single flowers stand behind the leaf clumps, so their stems disappear into the leaves
+    { id: 'bop',     src: '../plants/bird-of-paradise.webp', box: [290, 500, 130, 206], depth: 1.12, anim: 'sway', origin: '72% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'hibiscus',src: '../plants/yellow-hibiscus.webp',  box: [185, 470, 150, 211], depth: 1.12, anim: 'sway-b', origin: '40% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'ginger',  src: '../plants/red-ginger.webp',       box: [1030, 470, 140, 214], depth: 1.12, anim: 'sway-b', origin: '50% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'plumeria',src: '../plants/plumeria.webp',         box: [1115, 420, 160, 211], depth: 1.12, anim: 'sway', origin: '20% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'leavesL', src: '../plants/leaves-left.webp',  box: [-10, 330, 470, 535], depth: 1.12, anim: 'rustle', origin: '20% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] },
+    { id: 'leavesR', src: '../plants/leaves-right.webp', box: [935, 270, 460, 618], depth: 1.12, anim: 'rustle', origin: '80% 100%', grade: { sunset: BACKLIT }, opt: ['front', 'leaves'] }
+  ],
+  // gulls as [x, y, size] inside the birds box, traced by eye from the source
+  birds: [[22, 44, 13], [106, 18, 11], [130, 38, 11], [160, 20, 9], [95, 72, 11], [126, 96, 10],
+          [200, 124, 12], [325, 50, 10], [420, 130, 8], [420, 168, 8], [575, 98, 12]]
+};
+</script>
+<script src="../procedural.js?v=1791310000"></script>
+<script src="../scene-test.js?v=1791310000"></script>
+</body>
+</html>

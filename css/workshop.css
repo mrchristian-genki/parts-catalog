@@ -1,0 +1,242 @@
+/* WORKSHOP -- prompt builder and PNG tracer (workshop.html / js/workshop.js).
+   Uses catalog.css's tokens and header; everything here is prefixed ws-. */
+.ws-steps{display:flex;gap:8px;padding:12px clamp(16px,5vw,64px);border-bottom:1px solid rgb(var(--line));
+  position:sticky;top:0;z-index:5;background:rgba(var(--paper),.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow-x:auto}
+.ws-step{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:6px 13px 6px 7px;border-radius:99px;border:1px solid rgb(var(--line));
+  background:#fff;color:#4a5850;font:600 13px var(--font-body);text-decoration:none;white-space:nowrap}
+.ws-step b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#0f4d47;color:#fff;font-size:11px}
+.ws-step:hover{border-color:rgb(var(--accent2));color:#0f4d47}
+.ws-step.is-soon{opacity:.55}
+.ws-step.is-soon b{background:#9aa59e}
+.ws-step i{font-style:normal;font-size:11px;color:#7a887f}
+
+.ws{max-width:1100px;margin:0 auto;padding:20px clamp(16px,5vw,64px) 80px;display:grid;gap:22px}
+.ws-card{background:#fff;border:1px solid rgb(var(--line));border-radius:16px;padding:20px clamp(16px,3vw,28px);scroll-margin-top:64px}
+.ws-card h2{margin:0 0 6px;font:800 20px var(--font-display);color:#0f4d47}
+.ws-lede{margin:0 0 16px;color:#5a6b62;font-size:14px;line-height:1.55;max-width:70ch}
+.ws-lede code,.ws-note code{font-size:12px;background:#f3f4ef;padding:1px 5px;border-radius:5px}
+
+.ws-form{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px 14px;margin-bottom:12px}
+.ws-form label{display:grid;gap:5px;font:700 12px var(--font-body);color:#5a6b62;text-transform:uppercase;letter-spacing:.04em}
+.ws-form label.ws-wide{grid-column:1 / -1}
+.ws-form input[type=text],.ws-form select,.ws-figure select{font:500 15px var(--font-body);color:rgb(var(--ink));text-transform:none;letter-spacing:0;
+  padding:9px 11px;border:1px solid rgb(var(--line));border-radius:10px;background:#fff;min-width:0;width:100%}
+.ws-form input:focus,.ws-form select:focus{outline:2px solid rgb(var(--accent2));outline-offset:1px}
+.ws-form input[type=range]{width:100%;accent-color:#0f4d47}
+.ws-form output{font:600 13px var(--font-body);color:rgb(var(--ink));text-transform:none}
+
+.ws-swatches{display:flex;flex-wrap:wrap;gap:6px;min-height:0;margin:0 0 12px}
+.ws-swatches:empty{margin:0}
+.ws-swatches span{width:26px;height:26px;border-radius:7px;border:1px solid rgba(0,0,0,.12)}
+
+.ws-out textarea{width:100%;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgb(var(--ink));background:#f7f8f4;
+  border:1px solid rgb(var(--line));border-radius:12px;padding:12px 14px;resize:vertical}
+.ws-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0 0}
+.ws-btn{appearance:none;border:0;border-radius:10px;padding:10px 16px;background:#0f4d47;color:#fff;font:700 14px var(--font-display);cursor:pointer}
+.ws-btn:hover{filter:brightness(1.12)}
+.ws-btn:disabled{opacity:.4;cursor:default;filter:none}
+.ws-btn.is-done{background:rgb(var(--accent2))}
+.ws-btn-quiet{background:#fff;color:#0f4d47;border:1px solid rgb(var(--line))}
+.ws-note{font-size:13px;color:#7a887f;line-height:1.5}
+.ws-parts{margin-top:14px;font-size:14px;color:#5a6b62}
+.ws-parts summary{cursor:pointer;font-weight:700;color:#0f4d47}
+
+.ws-drop{display:grid;place-items:center;min-height:110px;margin-bottom:14px;border:2px dashed rgb(var(--line));border-radius:14px;
+  color:#5a6b62;font-size:15px;text-align:center;padding:16px;cursor:pointer;transition:border-color .15s,background .15s}
+.ws-drop:hover,.ws-drop.is-over{border-color:rgb(var(--accent2));background:#f6f9f1}
+.ws-drop b{color:#0f4d47}
+.ws-status{min-height:1.4em;margin:0 0 10px;font-size:13px;color:#5a6b62}
+.ws-status.is-error{color:#b3261e}
+
+.ws-views{display:grid;grid-template-columns:1fr 1fr 2fr;gap:12px}
+.ws-views figure{margin:0;min-width:0}
+.ws-views figcaption{display:flex;align-items:center;gap:8px;font:700 12px var(--font-body);color:#5a6b62;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.ws-views figcaption select{font:500 13px var(--font-body);padding:3px 6px;border:1px solid rgb(var(--line));border-radius:7px;background:#fff;text-transform:none}
+.ws-view{aspect-ratio:1;border-radius:12px;border:1px solid rgb(var(--line));
+  background:#fff linear-gradient(45deg,#f3f4ef 25%,transparent 25%,transparent 75%,#f3f4ef 75%) 0 0/20px 20px;
+  display:grid;place-items:center;overflow:hidden}
+.ws-view-wide{aspect-ratio:2}
+.ws-view img,.ws-view svg{max-width:100%;max-height:100%;display:block}
+.ws-view svg{width:100%;height:100%}
+@media (max-width:760px){
+  .ws-views{grid-template-columns:1fr 1fr}
+  .ws-views figure:last-child{grid-column:1 / -1}
+}
+
+/* Pieces found on a kit sheet: one card each. */
+.ws-pieces{margin-top:18px}
+.ws-pieces h3{margin:0 0 4px;font:800 16px var(--font-display);color:#0f4d47}
+.ws-pieces h3 span{font:600 13px var(--font-body);color:#7a887f}
+.ws-piece-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:10px}
+.ws-piece{border:1px solid rgb(var(--line));border-radius:12px;padding:8px;display:grid;gap:6px;background:#fff}
+.ws-piece .ws-view{aspect-ratio:4/3}
+.ws-piece input{font:600 13px var(--font-body);padding:6px 8px;border:1px solid rgb(var(--line));border-radius:8px;min-width:0;width:100%}
+.ws-piece small{color:#7a887f;font-size:12px}
+.ws-piece .ws-actions{margin:0;gap:6px}
+.ws-piece .ws-btn{padding:6px 10px;font-size:12px}
+
+/* ── Workshop header: the maker's bench at night ─────────────────────────
+   Same build as the catalog's sea: pieces cut from one composed scene, placed in "scene units"
+   (1277 of them = the header height) and right-aligned, so the bench, Christian, the hologram
+   fox and Marley keep their relationships at any width. The back wall spreads out on wide
+   screens. Old-school bench, new-school hologram. */
+.ws-hero{--h:285px;--u:calc(var(--h) / 1277);position:relative;min-height:var(--h);padding:0;overflow:hidden;isolation:isolate;
+  background:#140d09;border-bottom:1px solid #2a1b12}
+.ws-stage{position:absolute;inset:0;z-index:-1}
+.ws-wall{position:absolute;inset:0;background:
+  radial-gradient(ellipse 34% 90% at 70% 10%,rgba(255,190,110,.28) 0%,rgba(140,90,50,.12) 45%,rgba(0,0,0,0) 75%),
+  linear-gradient(180deg,#2a1c13 0%,#1a110b 70%,#120c08 100%)}
+.ws-back,.ws-rig{position:absolute;bottom:0;height:var(--h)}
+/* right-aligned so Marley (whose image ends at her hip) sits flush against the right edge */
+.ws-rig{right:calc(var(--u) * -7);width:calc(var(--u) * 2000)}
+.ws-back{--spread:clamp(0px,(100vw - 900px) * .4,640px);right:calc(var(--u) * -7 + var(--spread));width:calc(var(--u) * 2000)}
+.ws-stage img,.ws-holo,.ws-beam,.ws-goggle-glow,.ws-fox-light{position:absolute;display:block;height:auto}
+.ws-peg{filter:brightness(.42) saturate(.8)}
+.ws-drillimg{filter:brightness(.55)}
+.ws-back{-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%);mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.ws-bench{position:absolute;left:0;right:0;bottom:0;height:calc(var(--u) * 198);
+  background:url(../assets/ws/bench.webp) right bottom/100% 100% no-repeat;filter:brightness(.9)}
+/* lamp: a slow sway from its cord, and a warm beam with dust drifting through it */
+.ws-lamp{transform-origin:50% 0;animation:ws-sway 8s ease-in-out infinite;filter:drop-shadow(0 0 calc(var(--u) * 40) rgba(255,190,110,.35))}
+@keyframes ws-sway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+.ws-beam{background:radial-gradient(ellipse 50% 70% at 50% 0%,rgba(255,206,140,.30),rgba(255,180,100,.08) 55%,rgba(0,0,0,0) 80%);
+  clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);mix-blend-mode:screen;transform-origin:50% 0;animation:ws-sway 8s ease-in-out infinite,ws-flicker 6s steps(1) infinite}
+@keyframes ws-flicker{0%,100%{opacity:1}47%{opacity:.86}48%{opacity:1}73%{opacity:.92}74%{opacity:1}}
+.ws-beam i{position:absolute;width:calc(var(--u) * 7);height:calc(var(--u) * 7);border-radius:50%;background:#ffe2b0;opacity:0;animation:ws-dust 12s linear infinite}
+@keyframes ws-dust{0%{transform:translate(0,0);opacity:0}20%{opacity:.75}80%{opacity:.5}100%{transform:translate(calc(var(--u) * 60),calc(var(--u) * -140));opacity:0}}
+/* Christian: a slow, small sway as he shapes the hologram; the goggle rims glow cyan */
+.ws-man{transform-origin:50% 100%;animation:ws-man 9s ease-in-out infinite}
+@keyframes ws-man{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(calc(var(--u) * -6)) rotate(.4deg)}}
+.ws-goggle-glow{border-radius:50%;background:radial-gradient(ellipse,rgba(110,240,255,.55),rgba(60,200,240,.15) 50%,rgba(0,0,0,0) 72%);
+  mix-blend-mode:screen;animation:ws-man 9s ease-in-out infinite,dp-pulse 3.2s ease-in-out infinite}
+/* the hologram fox: floats, turns a little, glows and now and then flickers */
+.ws-holo{animation:ws-float 6s ease-in-out infinite}
+.ws-holo img{position:relative;display:block;width:100%;height:auto;animation:ws-turn 9s ease-in-out infinite,ws-holoflick 7s steps(1) infinite}
+.ws-holo .ws-holo-glow{position:absolute;inset:0;filter:blur(calc(var(--u) * 14)) brightness(1.4);mix-blend-mode:screen;animation:ws-turn 9s ease-in-out infinite,dp-pulse 3.6s ease-in-out infinite}
+@keyframes ws-float{0%,100%{transform:translateY(0)}50%{transform:translateY(calc(var(--u) * -22))}}
+@keyframes ws-turn{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.86) skewY(-1deg)}}
+@keyframes ws-holoflick{0%,100%{opacity:.92}61%{opacity:.55}62%{opacity:.95}64%{opacity:.6}65%{opacity:.92}}
+.ws-fox-light{border-radius:50%;background:radial-gradient(ellipse,rgba(90,230,240,.28),rgba(0,0,0,0) 65%);mix-blend-mode:screen;animation:dp-pulse 3.6s ease-in-out infinite}
+/* Marley: asleep, breathing slowly */
+.ws-dog{transform-origin:50% 100%;animation:ws-breathe 4.6s ease-in-out infinite}
+@keyframes ws-breathe{0%,100%{transform:scaleY(1)}45%{transform:scaleY(1.032)}}
+@keyframes dp-pulse{0%,100%{opacity:.35}50%{opacity:.95}}
+/* text */
+.ws-text{position:relative;padding:28px clamp(20px,5vw,64px) calc(var(--u) * 198 + 14px);max-width:min(620px,50%)}
+.ws-hero .cat-brand{display:inline-flex;align-items:center;gap:18px;text-decoration:none}
+.ws-hero .cat-logo{--lg:120px;flex:none}
+.ws-hero .cat-tagline{color:#e9d6c2;text-shadow:0 1px 8px rgba(0,0,0,.7);margin-top:8px}
+.ws-hero .cat-tagline a{color:#ffd29a}
+/* title: warm metal, a slow glow passing through it like heat */
+.ws-title{font-size:clamp(30px,3.6vw,46px);letter-spacing:-.01em;font-weight:800;
+  background:linear-gradient(100deg,#c98a4a 0%,#f0c27a 30%,#fff1cf 45%,#f0c27a 60%,#b9773c 100%);background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 8px rgba(0,0,0,.6)) drop-shadow(0 0 14px rgba(255,170,80,.25));
+  animation:ws-heat 9s ease-in-out infinite}
+@keyframes ws-heat{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+@media (max-width:820px){.ws-text{max-width:56%}}
+@media (max-width:640px){
+  .ws-hero{--h:200px;display:flex;flex-direction:column;min-height:0}
+  .ws-stage{position:relative;inset:auto;height:var(--h);flex:none;overflow:hidden}
+  .ws-back{display:none}
+  .ws-text{max-width:none;padding:14px clamp(20px,5vw,64px) 22px}
+  .ws-hero{background:#140d09}
+  .ws-hero .cat-logo{--lg:68px}.ws-hero .cat-brand{gap:12px}}
+@media (prefers-reduced-motion:reduce){.ws-lamp,.ws-beam,.ws-beam i,.ws-man,.ws-goggle-glow,.ws-holo,.ws-holo img,.ws-fox-light,.ws-dog,.ws-title{animation:none}}
+/* More on the bench: a few of the props again along the empty stretch, moving with the back wall */
+.ws-shelf{position:absolute;bottom:0;height:var(--h);width:calc(var(--u) * 2000);right:calc(var(--u) * -7 + clamp(0px,(100vw - 900px) * .4,640px))}
+.ws-b{position:absolute;display:block;height:auto;filter:brightness(.88)}
+.ws-b-jar,.ws-b-cat{transform:scaleX(-1)}
+@media (max-width:1100px){.ws-b-coil{display:none}}
+@media (max-width:640px){.ws-shelf{display:none}}
+
+/* Sunbeams slanting in from a high window on the left, with glittering dust drifting through them.
+   They sit above the bench but behind Christian and Marley, and breathe slowly as clouds pass. */
+.ws-sun{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.ws-ray{position:absolute;top:-20%;height:150%;transform:skewX(-28deg);transform-origin:0 0;mix-blend-mode:screen;
+  background:linear-gradient(180deg,rgba(255,232,180,.22) 0%,rgba(255,214,150,.10) 55%,rgba(255,200,130,0) 90%);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(90deg,transparent,#000 30%,#000 70%,transparent);
+  animation:ws-ray 10s ease-in-out infinite}
+@keyframes ws-ray{0%,100%{opacity:.75}50%{opacity:1}}
+.ws-motes i{position:absolute;width:var(--s);height:var(--s);border-radius:50%;
+  background:radial-gradient(circle,#fff8e0 0 35%,rgba(255,220,150,.6) 55%,rgba(255,200,120,0) 75%);
+  box-shadow:0 0 6px rgba(255,220,150,.8);mix-blend-mode:screen;opacity:0;
+  animation:ws-mote 10s ease-in-out infinite,ws-twinkle 2.4s ease-in-out infinite}
+@keyframes ws-mote{0%{translate:0 0;opacity:0}15%{opacity:.9}85%{opacity:.7}100%{translate:var(--dx) var(--dy);opacity:0}}
+@keyframes ws-twinkle{0%,100%{scale:.7}50%{scale:1.25}}
+@media (max-width:640px){.ws-ray:nth-child(3){display:none}}
+@media (prefers-reduced-motion:reduce){.ws-ray,.ws-motes i{animation:none}.ws-motes i{opacity:.5}}
+
+/* Minis: the cast's walking animals (origami-art.js, every part) standing about on the bench, all at
+   one scale so they're in proportion to each other: elk, buck, doe, bear, wolf, fox, hare. Warm lamp
+   light, a contact shadow and a soft cast shadow on the wood, and a slow breath. */
+.ws-ohs{position:absolute;bottom:0;height:var(--h);width:calc(var(--u) * 2000);right:calc(var(--u) * -7 + clamp(0px,(100vw - 900px) * .4,640px))}
+.ws-oh{position:absolute;display:block;width:calc(var(--u) * var(--w));bottom:calc(var(--u) * 94)}
+.ws-oh::before{content:"";position:absolute;left:-20%;width:115%;bottom:calc(var(--u) * -10);height:calc(var(--u) * 30);border-radius:50%;
+  background:radial-gradient(ellipse at 40% 50%,rgba(25,12,4,.45),rgba(25,12,4,0) 70%);transform:skewX(-35deg)}
+.ws-oh::after{content:"";position:absolute;left:6%;right:6%;bottom:calc(var(--u) * -5);height:calc(var(--u) * 12);border-radius:50%;
+  background:radial-gradient(ellipse,rgba(15,7,2,.65),rgba(15,7,2,0) 70%)}
+.ws-oh-spin{position:relative;z-index:1;display:block;transform-origin:50% 100%;
+  filter:sepia(.22) saturate(1.05) brightness(.9) drop-shadow(calc(var(--u) * -2) calc(var(--u) * 2) calc(var(--u) * 3) rgba(0,0,0,.35))}
+.ws-oh svg{display:block;width:100%;height:auto}
+/* three minis spread along the bench (positions are % of the free stretch between the title and the vise) */
+.ws-ohs{left:calc(var(--u) * 1380)!important;right:calc(var(--u) * 1150)!important;width:auto!important}
+.ws-oh{left:auto;transform:translateX(-50%)}
+/* in proportion: widths follow each animal's art (viewBox widths 1327 / 1327 / 1366 / 1520) at one scale */
+/* real proportions (by body length): elk bull biggest, then black bear and mule deer buck, then the doe */
+.mini-doe{--w:330;left:9%}
+.mini-deer{--w:390;left:30%}
+.mini-bear{--w:470;left:53%}
+.mini-elk{--w:640;left:80%}
+@media (max-width:1500px){.mini-doe{display:none}.mini-deer{left:12%}.mini-bear{left:42%}.mini-elk{left:76%}}
+@media (max-width:1100px){.mini-deer{display:none}.mini-bear{left:20%}.mini-elk{left:64%}}
+@media (max-width:860px){.mini-elk{display:none}.mini-bear{left:34%}}
+@media (max-width:640px){.ws-ohs{display:none}}
+
+/* The hologram in his hands: the part being worked on, cycling through blue meshes (the fox, then
+   hare, owl, wolf), each fading in, turning and flickering, then handing over to the next. */
+.ws-holo .ws-hslot{position:absolute;inset:0;display:block;opacity:0;animation:ws-hcycle 24s ease-in-out infinite}
+.ws-holo{aspect-ratio:447/271}
+.ws-holo .hs-0{position:absolute}
+.hs-1{animation-delay:-18s!important}.hs-2{animation-delay:-12s!important}.hs-3{animation-delay:-6s!important}
+@keyframes ws-hcycle{0%{opacity:0;filter:blur(3px)}5%{opacity:1;filter:blur(0)}22%{opacity:1;filter:blur(0)}27%{opacity:0;filter:blur(3px)}100%{opacity:0}}
+.ws-hslot svg{display:block;width:100%;height:100%;scale:1.35;transform-origin:50% 100%;mix-blend-mode:screen;filter:drop-shadow(0 0 calc(var(--u) * 10) rgba(110,240,255,.9));
+  animation:ws-turn 9s ease-in-out infinite,ws-holoflick 7s steps(1) infinite}
+@media (prefers-reduced-motion:reduce){.ws-holo .ws-hslot{animation:none}.ws-holo .hs-0{opacity:1}}
+
+/* Christian is the subject and the mark: he stands at the left beside the title (no separate logo),
+   shaping the hologram; Marley sleeps at the right end of the bench. */
+.ws-me{position:absolute;bottom:0;height:var(--h);width:calc(var(--u) * 2000);left:calc(var(--u) * -690 + clamp(0px,2vw,40px))}
+.ws-text{margin-left:calc(var(--u) * 1060 + clamp(0px,2vw,40px));padding-left:12px!important}
+.ws-hero .cat-brand{gap:0}
+@media (max-width:640px){.ws-text{margin-left:0;padding-left:clamp(20px,5vw,64px)!important}
+  .ws-me{left:calc(var(--u) * -700)}}
+
+/* Display discs: each mini stands on a small round platform whose rim glows and breathes, lighting
+   the animal from below. The animals are mirrored to face Christian. */
+.ws-oh::before,.ws-oh::after{display:none}
+.ws-oh{bottom:calc(var(--u) * 118)}
+.ws-oh-spin{transform:scaleX(-1);filter:brightness(.95) drop-shadow(0 calc(var(--u) * 6) calc(var(--u) * 8) rgba(0,0,0,.35))}
+.ws-oh-base{position:absolute;left:50%;width:85%;height:calc(var(--u) * 58);bottom:calc(var(--u) * -40);transform:translateX(-50%);z-index:0;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 35%,#5a3e2a 0%,#3a2618 55%,#24170e 100%);
+  box-shadow:0 calc(var(--u) * 10) calc(var(--u) * 18) rgba(10,5,2,.55),inset 0 calc(var(--u) * -6) 0 #1c120b}
+/* the glowing rim and the light it throws up onto the animal */
+.ws-oh-base::before{content:"";position:absolute;inset:0;border-radius:50%;border:calc(var(--u) * 4) solid rgba(140,240,255,.85);
+  box-shadow:0 0 calc(var(--u) * 14) rgba(110,230,255,.8),inset 0 0 calc(var(--u) * 12) rgba(110,230,255,.5);animation:ws-disc 4s ease-in-out infinite}
+.ws-oh-base::after{content:"";position:absolute;left:5%;right:5%;bottom:40%;height:calc(var(--u) * 260);border-radius:50% 50% 0 0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(120,230,255,.38),rgba(120,230,255,0) 65%);mix-blend-mode:screen;animation:ws-disc 4s ease-in-out infinite}
+.ws-oh-spin{z-index:1}
+@keyframes ws-disc{0%,100%{opacity:.45}50%{opacity:1}}
+.mini-doe .ws-oh-base::before,.mini-doe .ws-oh-base::after{animation-delay:-1s}
+.mini-elk .ws-oh-base::before,.mini-elk .ws-oh-base::after{animation-delay:-2s}
+.mini-bear .ws-oh-base::before,.mini-bear .ws-oh-base::after{animation-delay:-3s}
+@media (prefers-reduced-motion:reduce){.ws-oh-base::before,.ws-oh-base::after{animation:none;opacity:.8}}
+
+/* Marley is only asleep: little z's drift up from her head, one after another, and fade */
+.ws-zzz{position:absolute;width:calc(var(--u) * 200);height:calc(var(--u) * 300);pointer-events:none}
+.ws-zzz span{position:absolute;left:0;bottom:0;font:800 calc(var(--u) * 95) var(--font-display);color:#ffe9c4;opacity:0;
+  text-shadow:0 0 calc(var(--u) * 12) rgba(255,210,140,.7);animation:ws-z 4.8s ease-out infinite}
+.ws-zzz span:nth-child(2){font-size:calc(var(--u) * 125);animation-delay:1.6s}
+.ws-zzz span:nth-child(3){font-size:calc(var(--u) * 160);animation-delay:3.2s}
+@keyframes ws-z{0%{transform:translate(0,0) rotate(-8deg) scale(.6);opacity:0}15%{opacity:.95}
+  70%{opacity:.8}100%{transform:translate(calc(var(--u) * 90),calc(var(--u) * -240)) rotate(10deg) scale(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.ws-zzz span{animation:none;opacity:.7}.ws-zzz span:nth-child(2){transform:translate(calc(var(--u) * 40),calc(var(--u) * -90))}.ws-zzz span:nth-child(3){transform:translate(calc(var(--u) * 85),calc(var(--u) * -190))}}
