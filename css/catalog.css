@@ -498,3 +498,8 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .cat-narrator-card .listen b{font:700 14px/1.2 var(--font-display,system-ui)}
 .cat-narrator-card audio{display:block;width:100%;height:32px;margin-top:6px}
 .cat-narrator-card .listen .nb-plate{display:none}   /* her desk nameplate: no room in the card */
+/* the narrator's glass card (narrator.js player()) in this small card: the title and a compact Play, nothing more */
+.cat-narrator-card .listen .nb-glass{min-height:0;padding:8px 10px;border-radius:12px;gap:6px}
+.cat-narrator-card .nb-glass .nb-by,.cat-narrator-card .nb-row,.cat-narrator-card .nb-b15,.cat-narrator-card .nb-f15{display:none}
+.cat-narrator-card .nb-ctl{justify-content:flex-start}
+.cat-narrator-card .nb-ctl .nb-pp{width:34px;height:34px;padding:8px}
