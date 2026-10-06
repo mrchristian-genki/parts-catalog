@@ -789,7 +789,7 @@
     { label: 'Animals', slug: 'animals', alias: ['animal', 'fauna', 'wildlife', 'mammals'] },
     { label: 'Birds', slug: 'birds', alias: ['bird'] },
     { label: 'People', slug: 'people', alias: ['person', 'human', 'humans'] },
-    { label: 'Characters', slug: 'characters', alias: ['character', 'narrator', 'robot'] },
+    { label: 'Characters', slug: 'characters', alias: ['character', 'narrator', 'robot', 'glazyarray'] },
     { label: 'Logos', slug: 'logos', alias: ['logo', 'badge', 'brand', 'icon'] },
   ].filter((p) => p.slug === 'all' || CATALOG.some((e) => e.category === p.label));
   const pillFor = (word) => {
