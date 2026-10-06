@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="css/logo.css?v=8">
 <script>/* Logo season from the calendar (the homepage sets it from its own scene). */document.documentElement.dataset.season=["winter","winter","spring","spring","spring","summer","summer","summer","fall","fall","fall","winter"][new Date().getMonth()];</script>
 
-<link rel="stylesheet" href="css/workshop.css?v=31">
+<link rel="stylesheet" href="css/workshop.css?v=32">
 </head>
 <body class="ws-page">
 
@@ -31,6 +31,7 @@
   <a href="#prompt" class="ws-step"><b>1</b> Prompt</a>
   <a href="#trace" class="ws-step"><b>2</b> Import &amp; trace</a>
   <span class="ws-step is-soon"><b>3</b> Cut &amp; rig <i>next</i></span>
+  <a href="#looks" class="ws-step"><b>★</b> Narrator looks</a>
 </nav>
 
 <main class="ws">
@@ -133,6 +134,34 @@
   <p class="ws-note">The origami entry is <code>{ vb, fills, body, parts }</code>, the shape <code>origami-art.js</code> uses. <code>parts</code> stays empty until step 3 cuts it; as it is, it draws as a still figure.</p>
 </section>
 
+<!-- NARRATOR LOOKS -->
+<section class="ws-card" id="looks">
+  <h2>★ · Narrator looks</h2>
+  <p class="ws-lede">New hair and accessories for the narrator in the Listen bars. Edit <a href="/assets/narrator/kit/her-template.png" download>her template</a> (1376 × 768 on green; with an inpainting tool, use <a href="/assets/narrator/kit/her-edit-mask.png" download>the mask</a>: white may change) in any image tool, following <a href="/assets/narrator/kit/her-contact-sheet.jpg" target="_blank" rel="noopener">the contact sheet</a>, changing only the hair and what's on it, then drop it here. Her face, eyes, jaw and neck stay the originals, so she still talks, blinks and winks; only the hair comes from your image.</p>
+  <label class="ws-drop" id="lDrop">
+    <input type="file" id="lFile" accept="image/png,image/jpeg,image/webp" hidden>
+    <span id="lDropText"><b>Choose her edited template</b> or drop it here</span>
+  </label>
+  <div class="ws-form">
+    <label>Look name <input id="lName" type="text" placeholder="crimped, halloween…" autocomplete="off" spellcheck="false"></label>
+    <label>From (month-day) <input id="lFrom" type="text" placeholder="10-20" autocomplete="off"></label>
+    <label>To (month-day) <input id="lTo" type="text" placeholder="10-31" autocomplete="off"></label>
+    <label class="ws-check"><input id="lRotate" type="checkbox"> A hair day (takes turns with her curls)</label>
+    <label class="ws-check"><input id="lBulb" type="checkbox" checked> The antenna bulb shows</label>
+  </div>
+  <p class="ws-status" id="lStatus" role="status"></p>
+  <div class="ws-looks" id="lOut" hidden>
+    <figure><figcaption>At rest · talking · blinking</figcaption><div class="ws-look-states" id="lStates"></div></figure>
+    <figure><figcaption>In the Listen bar, at her real size (press play)</figcaption>
+      <section class="listen ws-look-bar"><div><span class="listen-label">Listen · preview</span><b id="lBarName">Her new look</b></div><audio controls preload="none" src="/play/media/2026-10-06-the-whole-machine/episode.mp3"></audio></section></figure>
+  </div>
+  <div class="ws-actions">
+    <button type="button" class="ws-btn" id="lSave" disabled>Download the look</button>
+    <button type="button" class="ws-btn ws-btn-quiet" id="lCopy" disabled>Copy its looks.json line</button>
+  </div>
+  <p class="ws-note">Put the file in the site's <code>assets/narrator/looks/</code> and its line in <code>assets/narrator/looks.json</code>. A look with dates wears on those days (they may wrap the new year); hair days take turns with her curls in between. <code>?look=name</code> on any page previews it.</p>
+</section>
+
 </main>
 
 <script src="js/origami-art.js?v=1790640000"></script>
@@ -147,5 +176,8 @@
   o.querySelector('.ws-oh-spin').appendChild(c.svg);});})();</script>
 
 <script src="js/workshop.js?v=1790640000"></script>
+<link rel="stylesheet" href="/css/narrator.css?v=8">
+<script src="/js/narrator.js?v=7" defer></script>
+<script src="js/narrator-looks.js?v=1" defer></script>
 </body>
 </html>
