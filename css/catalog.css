@@ -503,3 +503,8 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .cat-narrator-card .nb-glass .nb-by,.cat-narrator-card .nb-row,.cat-narrator-card .nb-b15,.cat-narrator-card .nb-f15{display:none}
 .cat-narrator-card .nb-ctl{justify-content:flex-start}
 .cat-narrator-card .nb-ctl .nb-pp{width:34px;height:34px;padding:8px}
+/* on a phone the card is only about 160px wide: just a round Play over the right of her desk */
+@media (max-width:560px){
+  .cat-narrator-card section.listen.has-nb .nb-glass{position:absolute;right:8px;bottom:14px;left:auto;padding:4px;border-radius:50%;width:auto}
+  .cat-narrator-card .nb-glass>div:first-child{display:none}
+}
