@@ -146,7 +146,7 @@
     <label>Look name <input id="lName" type="text" placeholder="crimped, halloween…" autocomplete="off" spellcheck="false"></label>
     <label>From (month-day) <input id="lFrom" type="text" placeholder="10-20" autocomplete="off"></label>
     <label>To (month-day) <input id="lTo" type="text" placeholder="10-31" autocomplete="off"></label>
-    <label class="ws-check"><input id="lRotate" type="checkbox"> A hair day (takes turns with her curls)</label>
+    <label class="ws-check"><input id="lRotate" type="checkbox"> A hair day (in her click-through wardrobe)</label>
     <label class="ws-check"><input id="lBulb" type="checkbox" checked> The antenna bulb shows</label>
   </div>
   <p class="ws-status" id="lStatus" role="status"></p>
@@ -159,7 +159,7 @@
     <button type="button" class="ws-btn" id="lSave" disabled>Download the look</button>
     <button type="button" class="ws-btn ws-btn-quiet" id="lCopy" disabled>Copy its looks.json line</button>
   </div>
-  <p class="ws-note">Put the file in the site's <code>assets/narrator/looks/</code> and its line in <code>assets/narrator/looks.json</code>. A look with dates wears on those days (they may wrap the new year); hair days take turns with her curls in between. <code>?look=name</code> on any page previews it.</p>
+  <p class="ws-note">Put the file in the site's <code>assets/narrator/looks/</code> and its line in <code>assets/narrator/looks.json</code>. A look with dates is her default while that holiday is the next one; a click on her head steps through every look. <code>?look-name</code> on any page previews it.</p>
 </section>
 
 </main>
@@ -176,8 +176,8 @@
   o.querySelector('.ws-oh-spin').appendChild(c.svg);});})();</script>
 
 <script src="js/workshop.js?v=1790640000"></script>
-<link rel="stylesheet" href="/css/narrator.css?v=15">
-<script src="/js/narrator.js?v=15" defer></script>
-<script src="js/narrator-looks.js?v=3" defer></script>
+<link rel="stylesheet" href="/css/narrator.css?v=16">
+<script src="/js/narrator.js?v=16" defer></script>
+<script src="js/narrator-looks.js?v=4" defer></script>
 </body>
 </html>

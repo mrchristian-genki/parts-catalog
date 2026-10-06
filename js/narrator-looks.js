@@ -2,7 +2,7 @@
    in, and makes the head's base layer for that look: the green keyed out (the same key as the site's renders), the
    head cut to the layer's box, and her original face, eyes, jaw and neck laid back over it through the face lock
    (/assets/narrator/look-lock.png), so the jaw, eyelids and wink of the live narrator still fit. Shows her at
-   rest, talking and blinking, and live in a Listen bar, then hands over the file and its looks.json line. */
+   rest, talking and blinking (with her eyes on top, as on the site), and live in a Listen bar, then hands over the file and its looks.json line. */
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
@@ -10,7 +10,7 @@
   var A = '/assets/narrator/', TW = 1376, TH = 768, BOX = [150, 10, 1230, 768], LW = 623, LH = 437, DROP = 0.0448;
   var out = null, name = '';
   function img(src) { return new Promise(function (ok, no) { var i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { no(new Error('Could not load ' + src)); }; i.src = src; }); }
-  var parts = Promise.all(['head-base.webp', 'head-jaw.webp', 'head-jaw-sides.webp', 'head-lids.webp', 'look-lock.png'].map(function (f) { return img(A + f + '?v=9'); }));
+  var parts = Promise.all(['head-base.webp', 'head-jaw.webp', 'head-jaw-sides.webp', 'head-lids.webp', 'look-lock.png', 'head-iris.webp', 'head-shine.webp', 'head-lens.png'].map(function (f) { return img(A + f + '?v=16'); }));
   function canvas(w, h) { var c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
   function status(t, bad) { var s = $('lStatus'); s.textContent = t; s.style.color = bad ? '#a33' : ''; }
   function slug(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40); }
@@ -50,11 +50,17 @@
       $('lSave').disabled = $('lCopy').disabled = false;
     }).catch(function (e) { status(e.message, true); });
   }
+  // her eyes, as the site lays them over every look: the iris through the glass under her lid, the catchlights on top
+  function eyes(P) {
+    var c = canvas(LW, LH), g = c.getContext('2d');
+    g.drawImage(P[5], 0, 0, LW, LH); g.globalCompositeOperation = 'destination-in'; g.drawImage(P[7], 0, 0, LW, LH);
+    g.globalCompositeOperation = 'source-over'; g.drawImage(P[6], 0, 0, LW, LH); return c;
+  }
   function show(P) {
-    var box = $('lStates'); box.innerHTML = '';
+    var box = $('lStates'), E = eyes(P); box.innerHTML = '';
     [[0, 0], [1, 0], [0, 1]].forEach(function (s) {
       var c = canvas(LW, LH), g = c.getContext('2d');
-      g.drawImage(out, 0, 0);
+      g.drawImage(out, 0, 0); g.drawImage(E, 0, 0);
       g.drawImage(P[2], 0, s[0] * DROP * 0.55 * LH); g.drawImage(P[1], 0, s[0] * DROP * LH);
       if (s[1]) g.drawImage(P[3], 0, 0);
       box.appendChild(c);
