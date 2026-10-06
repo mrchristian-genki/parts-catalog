@@ -1222,13 +1222,13 @@ const CATALOG = [
   // ── CHARACTERS ─────────────────────────────────────────────────────
   {
     id: 'narrator-robot',
-    name: 'The narrator (a brass robot in the Listen bar)',
+    name: 'GlazyArray, the narrator',
     category: 'Characters',
     status: 'live',
-    tags: ['narrator', 'robot', 'automaton', 'character', 'her', 'listen', 'audio', 'episode', 'talking', 'brass', 'hands', 'look', 'hair'],
+    tags: ['glazyarray', 'narrator', 'robot', 'automaton', 'character', 'her', 'listen', 'audio', 'episode', 'talking', 'brass', 'hands', 'look', 'hair'],
     zones: [],
     kind: 'composite',
-    note: 'She tells the episodes, in every Listen bar on the Note pages and in Notes opened on the homepage. Her torso and hands are one video (narrator.mp4, 8 parts of 8 s on chroma green, keyed onto the bar\u2019s teal with a key that keeps the cyan glass): fingers tapping, two gestures and their backwards copies, and three cheeky "press play" hints. She only ever jumps within that one file, so a move never blanks the frame; every part starts and ends on the same rest pose, and a gesture can play part way and come back through its backwards copy. Her head is cut-out layers over it: the head, her chin plate and side plates (they open with the loudness of the voice, measured live with Web Audio), and the eyelids (blinks, and a wink at the Play button). Looks: new hair and accessories made in the Workshop, by date or as hair days. Files: /assets/narrator/, /js/narrator.js, /css/narrator.css.',
+    note: 'GlazyArray tells the episodes, in every Listen bar on the Note pages and in Notes opened on the homepage. Her torso and hands are one video (narrator.mp4, 8 parts of 8 s on chroma green, keyed onto the bar\u2019s teal with a key that keeps the cyan glass): fingers tapping, two gestures and their backwards copies, and three cheeky "press play" hints. She only ever jumps within that one file, so a move never blanks the frame; every part starts and ends on the same rest pose, and a gesture can play part way and come back through its backwards copy. Her head is cut-out layers over it: the head, her chin plate and side plates (they open with the loudness of the voice, measured live with Web Audio), and the eyelids (blinks, and a wink at the Play button). Her Style Array: fourteen looks, a different one on every page load (her hair styles and the coming holiday\u2019s), or another at a click on her head; new ones are made in the Workshop. Files: /assets/narrator/, /js/narrator.js, /css/narrator.css.',
     controls: [],
     build() {
       const box = document.createElement('div');
