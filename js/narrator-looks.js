@@ -7,10 +7,10 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   if (!$('looks')) return;
-  var A = '/assets/narrator/', TW = 1376, TH = 768, BOX = [430, 15, 950, 645], LW = 300, LH = 363, DROP = 0.054;
+  var A = '/assets/narrator/', TW = 1376, TH = 768, BOX = [150, 10, 1230, 645], LW = 623, LH = 366, DROP = 0.0535;
   var out = null, name = '';
   function img(src) { return new Promise(function (ok, no) { var i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { no(new Error('Could not load ' + src)); }; i.src = src; }); }
-  var parts = Promise.all(['head-base.webp', 'head-jaw.webp', 'head-jaw-sides.webp', 'head-lids.webp', 'look-lock.png'].map(function (f) { return img(A + f + '?v=7'); }));
+  var parts = Promise.all(['head-base.webp', 'head-jaw.webp', 'head-jaw-sides.webp', 'head-lids.webp', 'look-lock.png'].map(function (f) { return img(A + f + '?v=8'); }));
   function canvas(w, h) { var c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
   function status(t, bad) { var s = $('lStatus'); s.textContent = t; s.style.color = bad ? '#a33' : ''; }
   function slug(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40); }
