@@ -487,3 +487,13 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 @keyframes hc-giant{0%{transform:translate(calc(var(--h) * -3.86),calc(var(--h) * 1.74)) rotate(-35deg);opacity:0}4%{opacity:.85}50%{opacity:.85}55%{transform:translate(calc(var(--h) * 1.56),calc(var(--h) * -2.07)) rotate(-35deg);opacity:0}100%{transform:translate(calc(var(--h) * 1.56),calc(var(--h) * -2.07)) rotate(-35deg);opacity:0}}
 @keyframes hc-undulate{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(5%) rotate(-.8deg)}}
 @media (prefers-reduced-motion:reduce){.hero-giant{display:none}}
+
+/* The narrator's card: a Listen bar with the live narrator (the site's /js/narrator.js and /css/narrator.css), compact:
+   her at the left, the title beside her, the player under both */
+.cat-narrator-card{width:100%;height:100%;padding:52px 6px 8px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-end}
+.cat-narrator-card .listen,.cat-narrator-card section.listen.has-nb{--nb:122px;margin-top:0;display:block;padding:10px 10px 10px calc(var(--nb) + 8px);border-radius:14px;background:#0f4d47;color:#fff;margin:0;
+  min-height:calc(var(--nb) * .5208 + 20px)}
+.cat-narrator-card .listen>div{display:flex;flex-direction:column;min-height:calc(var(--nb) * .5208 - 30px)}
+.cat-narrator-card .listen-label{font:700 10px var(--font-display,system-ui);letter-spacing:.08em;text-transform:uppercase;color:#f6b8cf}
+.cat-narrator-card .listen b{font:700 14px/1.2 var(--font-display,system-ui)}
+.cat-narrator-card audio{display:block;width:100%;height:32px;margin-top:6px}
