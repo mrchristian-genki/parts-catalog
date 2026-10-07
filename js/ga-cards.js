@@ -78,7 +78,8 @@
     var fa = el('i', 'ga-flair'), fb = el('i', 'ga-flair ga-flair-b'); base.after(fa, fb);
     var bar = el('div', 'ga-flairbar',
       '<div class="ga-flairbtns"><button type="button" class="ga-btn" data-cap>Change cap</button><button type="button" class="ga-btn" data-col>Change colours</button></div>' +
-      '<div class="ga-flairpick"><span class="ga-combos"></span><label class="ga-sw" title="First colour"><input type="color" data-k="0"></label><label class="ga-sw" title="Second colour"><input type="color" data-k="1"></label></div>');
+      '<div class="ga-flairpick"><span class="ga-pk-t">Combinations</span><span class="ga-combos"></span></div>' +
+      '<div class="ga-flairpick ga-own"><span class="ga-pk-t">Picker</span><label class="ga-sw" title="First colour"><input type="color" data-k="0"></label><label class="ga-sw" title="Second colour"><input type="color" data-k="1"></label></div>');
     var cap = el('p', 'ga-cap ga-flaircap');
     box.appendChild(bar); box.appendChild(cap); box.appendChild(s.st);
     var combos = bar.querySelector('.ga-combos'), ins = bar.querySelectorAll('input[type=color]');
