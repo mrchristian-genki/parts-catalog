@@ -4,7 +4,7 @@
    side (976 wide), and her head layer is 598 wide, 420 tall, its bottom 57.09% up the box. */
 (function () {
   'use strict';
-  var A = '/assets/narrator/', V = '?v=37', D = 193 / 24;
+  var A = '/assets/narrator/', V = '?v=38', D = 193 / 24;
   var GESTURES = [[20, 'Making a point'], [22, 'Counting it off'], [24, 'The size of an idea'], [26, 'Arms open, palms up'], [28, 'Hands together'],
     [30, 'Over to you'], [12, 'Talking with both hands'], [1, 'The storyteller'], [8, 'A little hand dance'], [10, 'The brass ball'], [16, 'The teal ball'],
     [18, 'The glowing orb'], [32, 'A fresh new look'], [0, 'Waiting: fingers tapping'], [5, 'Hint: psst, over there'], [6, 'Hint: boop, boop, thumbs up'], [7, 'Hint: a little wave']];
@@ -34,7 +34,7 @@
     var cats = {}; Object.keys(j.categories || {}).forEach(function (c) { (cats[j.categories[c]] = cats[j.categories[c]] || []).push(c.replace(/-/g, ' ')); });
     var all = (j.looks || []).filter(function (l) { return l.file && (!flairOnly || l.flair); }).map(function (l) {
       var when = l.from ? 'Holiday: ' + md(l.from) + ' to ' + md(l.to) : l.rotate ? 'Hair style, in rotation' : cats[l.name] ? 'For ' + cats[l.name].join(' and ') + (l.about ? ': ' + l.about : '') : (l.about ? l.about : 'Made for a Note');
-      return { name: l.name, file: l.file, v: l.v, flair: l.flair || '', k: l.flairK || .45, when: when };
+      return { name: l.name, file: l.file, v: l.v, flair: l.flair || '', k: l.flairK || .45, dye: l.flairDye || '', when: when };
     });
     if (flairOnly) {
       var caps = ['grad-cap', 'bike-helmet', 'trail-cap', 'workshop-goggles', 'beach-shades'], rank = function (l) { var i = caps.indexOf(l.name); return i < 0 ? 99 : i; };
@@ -116,7 +116,7 @@
     }
     function wear(l) {   // its flair masks, one per colour
       var u = A + 'looks/' + l.file.replace(/\.[a-z]+$/, '') + '.flair-', v = V + (l.v ? '.' + l.v : '');
-      [[fa, 'a'], [fb, 'b']].forEach(function (f) { var on = l.flair.indexOf(f[1]) >= 0; f[0].hidden = !on; if (on) { f[0].style.setProperty('--fm', 'url(' + u + f[1] + '.png' + v + ')'); f[0].style.setProperty('--fk', l.k); } });   // --fk: its strength, 45% on brass, more on fabric
+      [[fa, 'a'], [fb, 'b']].forEach(function (f) { var on = l.flair.indexOf(f[1]) >= 0; f[0].hidden = !on; if (on) { f[0].style.setProperty('--fm', 'url(' + u + f[1] + '.png' + v + ')'); f[0].style.setProperty('--fk', l.k); f[0].classList.toggle('dye', l.dye.indexOf(f[1]) >= 0); } });   // white parts dyed (multiply), the rest tinted   // --fk: its strength, 45% on brass, more on fabric
     }
     var pick = wardrobe(s, true, 'grad-cap', wear, true);
     box.appendChild(pick); box.appendChild(colbar); box.appendChild(s.st);
