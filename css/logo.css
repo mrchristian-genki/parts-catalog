@@ -101,7 +101,13 @@ html.night-page{--lg-ring:linear-gradient(150deg,#d9e2f5 0%,#7d8fc4 30%,#34457a 
 .logo-diver .dv-violet{animation-duration:5.5s}
 .logo-diver .dv-bub{animation:dv-rise 5s linear infinite}
 @keyframes dv-rise{0%{transform:translateY(0);opacity:0}15%{opacity:.9}100%{transform:translateY(-150px);opacity:0}}
-@media (prefers-reduced-motion:reduce){.logo-diver .dv-face,.logo-diver .dv-glow,.logo-diver .dv-bub{animation:none}.logo-diver .dv-glow{opacity:.6}}
+/* more bubbles: a steady stream up in front of the face and mask, and every 12 s a release of air from below that
+   fills the whole circle for a moment, then clears */
+.logo-diver .dv-up{opacity:0;animation:dv-up 8s linear infinite}
+@keyframes dv-up{0%{transform:translate(0,0);opacity:0}10%{opacity:.85}50%{transform:translate(var(--sw),-130px)}90%{opacity:.7}100%{transform:translate(0,-262px);opacity:0}}
+.logo-diver .dv-burst{opacity:0;animation:dv-burst 12s cubic-bezier(.35,.1,.6,1) infinite}
+@keyframes dv-burst{0%{transform:translate(0,0);opacity:0}2%{opacity:.95}14%{transform:translate(var(--sw),-190px)}26%{transform:translate(0,-360px);opacity:.2}27%,100%{transform:translate(0,-360px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.logo-diver .dv-face,.logo-diver .dv-glow,.logo-diver .dv-bub{animation:none}.logo-diver .dv-glow{opacity:.6}.logo-diver .dv-up,.logo-diver .dv-burst{animation:none;opacity:0}}
 
 /* Maker logo (Workshop): Christian in his goggles, in a copper ring; the goggle rims glow cyan. */
 .logo-maker{--lg-ring:linear-gradient(150deg,#ffe0a8 0%,#d99550 35%,#9a5428 70%,#4a2614 100%);box-shadow:0 3px 14px rgba(40,20,8,.5),0 0 18px rgba(255,170,80,.2)}
