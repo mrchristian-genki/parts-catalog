@@ -532,16 +532,14 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
   -webkit-mask:var(--fm) 0 0/100% 100% no-repeat;mask:var(--fm) 0 0/100% 100% no-repeat}
 .ga-flair-b{background:var(--c2)}
 .ga-flair[hidden]{display:none}
-.ga-flairbar{position:absolute;top:8px;left:8px;right:8px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
-.ga-flairbtns{display:flex;gap:6px}
-.ga-btn{border:0;border-radius:999px;padding:5px 11px;background:#fff;color:#0f4d47;font:700 12px var(--font-display,system-ui);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
-.ga-flairpick{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center}
-.ga-pk-t{font:800 10px/1 var(--font-display,system-ui);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);text-shadow:0 1px 2px rgba(0,0,0,.5);margin-right:2px}
-.ga-own{padding-top:6px;border-top:1px solid rgba(255,255,255,.35)}   /* the divider between the combinations and your own pick */
-.ga-combos{flex-wrap:wrap;justify-content:center}
-.ga-combos{display:flex;gap:4px}
-.ga-combo{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.55);padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.3)}
-.ga-combo.on{border-color:#fff;transform:scale(1.18)}
-.ga-sw{position:relative;width:22px;height:22px;border-radius:50%;overflow:hidden;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:pointer;flex:none}
+.ga-colbar{position:absolute;top:48px;left:10px;right:10px;display:flex;gap:6px;justify-content:center;align-items:center;z-index:2}
+.ga-colbar .ga-pick{position:static;transform:none;max-width:none;flex:0 1 auto;min-width:0}
+.ga-sw{position:relative;width:26px;height:26px;border-radius:50%;overflow:hidden;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);cursor:pointer;flex:none}
 .ga-sw input{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px);border:0;padding:0;cursor:pointer}
-.ga-flaircap{top:auto;bottom:6px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);text-transform:capitalize}
+
+/* a click on her face and hair changes her look on every GlazyArray card, with the site's little shake (narrator.css) */
+.ga-hit{position:absolute;left:31%;width:38%;top:8%;height:70%;border-radius:50%;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ga-hit:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.ga-head.ga-shake{animation:ga-shake .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes ga-shake{0%{scale:1}25%{scale:1.04 .97;rotate:-3deg}55%{scale:.98 1.03;rotate:2.5deg}100%{scale:1;rotate:0deg}}
+@media (prefers-reduced-motion:reduce){.ga-head.ga-shake{animation:none}}
