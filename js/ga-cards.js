@@ -4,7 +4,7 @@
    side (976 wide), and her head layer is 598 wide, 420 tall, its bottom 57.09% up the box. */
 (function () {
   'use strict';
-  var A = '/assets/narrator/', V = '?v=32', D = 193 / 24;
+  var A = '/assets/narrator/', V = '?v=33', D = 193 / 24;
   var GESTURES = [[20, 'Making a point'], [22, 'Counting it off'], [24, 'The size of an idea'], [26, 'Arms open, palms up'], [28, 'Hands together'],
     [30, 'Over to you'], [12, 'Talking with both hands'], [1, 'The storyteller'], [8, 'A little hand dance'], [10, 'The brass ball'], [16, 'The teal ball'],
     [18, 'The glowing orb'], [0, 'Waiting: fingers tapping'], [5, 'Hint: psst, over there'], [6, 'Hint: boop, boop, thumbs up'], [7, 'Hint: a little wave']];
