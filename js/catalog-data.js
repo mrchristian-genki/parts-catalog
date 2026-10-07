@@ -1271,7 +1271,7 @@ const CATALOG = [
     tags: ['glazyarray', 'narrator', 'flair', 'palette', 'colour', 'color', 'tint', 'hue', 'cap', 'look', 'character'],
     zones: [],
     kind: 'composite',
-    note: 'Each Note dresses her in its own two colours, picked from its hero photo (its palette). The coloured parts of her cap, the flair, take them as a 45% tint over the original (a "color" blend, so the brass, folds and shading show through), and the Listen bar\'s glass player and backdrop shade take them too. Pick the cap from the list (every look with flair, caps first; masks in /assets/narrator/looks/<look>.flair-a.png and -b.png, one per colour) and the colours from sample combos (most from real Notes), or set your own two with the pickers. As on the site, a click on her head changes her cap (on every GlazyArray card). Files: narrator.css (.nb-flair), narrator.js flair(), looks.json "flair".',
+    note: 'Each Note dresses her in its own two colours, picked from its hero photo (its palette). The coloured parts of her cap, the flair, take them as a tint over the original (45% on brass, 80% on fabric, gems and painted parts) (a "color" blend, so the brass, folds and shading show through), and the Listen bar\'s glass player and backdrop shade take them too. Pick the cap from the list (every look with flair, caps first; masks in /assets/narrator/looks/<look>.flair-a.png and -b.png, one per colour) and the colours from sample combos (most from real Notes), or set your own two with the pickers. As on the site, a click on her head changes her cap (on every GlazyArray card). Files: narrator.css (.nb-flair), narrator.js flair(), looks.json "flair".',
     controls: [],
     build() { return GA.card('flair'); },
   },
