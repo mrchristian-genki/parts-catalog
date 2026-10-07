@@ -4,7 +4,7 @@
    side (976 wide), and her head layer is 598 wide, 420 tall, its bottom 57.09% up the box. */
 (function () {
   'use strict';
-  var A = '/assets/narrator/', V = '?v=39', D = 193 / 24;
+  var A = '/assets/narrator/', V = '?v=40', D = 193 / 24;
   var GESTURES = [[20, 'Making a point'], [22, 'Counting it off'], [24, 'The size of an idea'], [26, 'Arms open, palms up'], [28, 'Hands together'],
     [30, 'Over to you'], [12, 'Talking with both hands'], [1, 'The storyteller'], [8, 'A little hand dance'], [10, 'The brass ball'], [16, 'The teal ball'],
     [18, 'The glowing orb'], [32, 'A fresh new look'], [0, 'Waiting: fingers tapping'], [5, 'Hint: psst, over there'], [6, 'Hint: boop, boop, thumbs up'], [7, 'Hint: a little wave']];
@@ -18,6 +18,7 @@
     st.appendChild(body);
     var h = el('div', 'ga-head',
       '<img class="ga-base" alt="" src="' + A + 'head-base.webp' + V + '">' +
+      '<i class="ga-flair" hidden></i><i class="ga-flair ga-flair-b" hidden></i>' +
       '<span class="ga-eyes"><img alt="" src="' + A + 'head-iris.webp' + V + '"></span>' +
       '<img alt="" src="' + A + 'head-shine.webp' + V + '">' +
       '<img class="ga-jaws" alt="" src="' + A + 'head-jaw-sides.webp' + V + '">' +
@@ -34,13 +35,23 @@
     var cats = {}; Object.keys(j.categories || {}).forEach(function (c) { (cats[j.categories[c]] = cats[j.categories[c]] || []).push(c.replace(/-/g, ' ')); });
     var all = (j.looks || []).filter(function (l) { return l.file && (!flairOnly || l.flair); }).map(function (l) {
       var when = l.from ? 'Holiday: ' + md(l.from) + ' to ' + md(l.to) : l.rotate ? 'Hair style, in rotation' : cats[l.name] ? 'For ' + cats[l.name].join(' and ') + (l.about ? ': ' + l.about : '') : (l.about ? l.about : 'Made for a Note');
-      return { name: l.name, file: l.file, v: l.v, flair: l.flair || '', k: l.flairK || .45, dye: l.flairDye || '', when: when };
+      return { name: l.name, file: l.file, v: l.v, flair: l.flair || '', k: l.flairK || .45, dye: l.flairDye || '', base: l.flairBase || null, when: when };
     });
     if (flairOnly) {
       var caps = ['grad-cap', 'bike-helmet', 'trail-cap', 'workshop-goggles', 'beach-shades'], rank = function (l) { var i = caps.indexOf(l.name); return i < 0 ? 99 : i; };
       return all.sort(function (a, b) { return rank(a) - rank(b); });
     }
     return [{ name: 'curls', file: null, when: 'Her own hair' }].concat(all);
+  }
+  // her flair masks, one per colour: tinted (or dyed, on white parts) in the card's colours on the flair card (all = true);
+  // elsewhere only a look rendered white where its colours go (looks.json flairBase) shows them, in its own two colours
+  function dress(h, l, all) {
+    var u = l.file ? A + 'looks/' + l.file.replace(/\.[a-z]+$/, '') + '.flair-' : '', v = V + (l.v ? '.' + l.v : '');
+    [].forEach.call(h.querySelectorAll('.ga-flair'), function (f, i) {
+      var k = 'ab'[i], on = !!u && (l.flair || '').indexOf(k) >= 0 && (all || !!l.base); f.hidden = !on; if (!on) return;
+      f.style.setProperty('--fm', 'url(' + u + k + '.png' + v + ')'); f.style.setProperty('--fk', l.k); f.classList.toggle('dye', l.dye.indexOf(k) >= 0);
+      if (l.base) f.style.setProperty('--d', l.base[i]); else f.style.removeProperty('--d');
+    });
   }
   function wardrobe(s, flairOnly, start, onShow, withBar) {
     var base = s.head.querySelector('.ga-base'), bar = null, sel = null, list = [], at = 0;
@@ -51,6 +62,7 @@
     function show(i, shake) {
       if (!list.length) return; at = (i + list.length) % list.length; var l = list[at];
       base.src = l.file ? A + 'looks/' + l.file + V + (l.v ? '.' + l.v : '') : A + 'head-base.webp' + V;
+      dress(s.head, l, flairOnly);
       if (sel) sel.value = at;
       if (shake) { s.head.classList.remove('ga-shake'); void s.head.offsetWidth; s.head.classList.add('ga-shake'); }
       if (onShow) onShow(l);
@@ -103,8 +115,7 @@
     ['Marlette gold', '#d7c566', '#3467b2'], ['Studio river', '#b8692d', '#d6d257'], ['Sunset', '#e0533d', '#f2a33a']];
   function flairCard() {
     var box = el('div', 'ga-card ga-flaircard'), img = el('img', 'ga-body'); img.alt = ''; img.src = A + 'kit/rest-body.webp' + V;   // keyed, so the tinted shade shows behind her
-    var s = stage(img), base = s.head.querySelector('.ga-base');
-    var fa = el('i', 'ga-flair'), fb = el('i', 'ga-flair ga-flair-b'); base.after(fa, fb);
+    var s = stage(img);
     var colbar = el('div', 'ga-colbar', '<select class="ga-pick" aria-label="Colours"></select>' +
       '<label class="ga-sw" title="First colour"><input type="color" data-k="0" aria-label="First colour"></label><label class="ga-sw" title="Second colour"><input type="color" data-k="1" aria-label="Second colour"></label>');
     var csel = colbar.querySelector('select'), ins = colbar.querySelectorAll('input[type=color]');
@@ -114,11 +125,7 @@
       box.style.setProperty('--c1', c1); box.style.setProperty('--c2', c2); ins[0].value = c1; ins[1].value = c2;
       mine.hidden = i !== 'own'; csel.value = String(i);
     }
-    function wear(l) {   // its flair masks, one per colour
-      var u = A + 'looks/' + l.file.replace(/\.[a-z]+$/, '') + '.flair-', v = V + (l.v ? '.' + l.v : '');
-      [[fa, 'a'], [fb, 'b']].forEach(function (f) { var on = l.flair.indexOf(f[1]) >= 0; f[0].hidden = !on; if (on) { f[0].style.setProperty('--fm', 'url(' + u + f[1] + '.png' + v + ')'); f[0].style.setProperty('--fk', l.k); f[0].classList.toggle('dye', l.dye.indexOf(f[1]) >= 0); } });   // white parts dyed (multiply), the rest tinted   // --fk: its strength, 45% on brass, more on fabric
-    }
-    var pick = wardrobe(s, true, 'grad-cap', wear, true);
+    var pick = wardrobe(s, true, 'grad-cap', null, true);
     box.appendChild(pick); box.appendChild(colbar); box.appendChild(s.st);
     csel.onchange = function () { if (csel.value !== 'own') { var c = COMBOS[+csel.value]; paint(c[1], c[2], +csel.value); } };
     [].forEach.call(ins, function (inp) { inp.oninput = function () { var c = [ins[0].value, ins[1].value]; paint(c[0], c[1], 'own'); }; });
