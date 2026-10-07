@@ -1228,7 +1228,7 @@ const CATALOG = [
     tags: ['glazyarray', 'narrator', 'robot', 'automaton', 'character', 'her', 'listen', 'audio', 'episode', 'talking', 'brass', 'hands', 'look', 'hair'],
     zones: [],
     kind: 'composite',
-    note: 'GlazyArray tells the episodes, in every Listen bar on the Note pages and in Notes opened on the homepage. Her torso and hands are one video (narrator.mp4, 8 parts of 8 s on chroma green, keyed onto the bar\u2019s teal with a key that keeps the cyan glass): fingers tapping, two gestures and their backwards copies, and three cheeky "press play" hints. She only ever jumps within that one file, so a move never blanks the frame; every part starts and ends on the same rest pose, and a gesture can play part way and come back through its backwards copy. Her head is cut-out layers over it: the head, her chin plate and side plates (they open with the loudness of the voice, measured live with Web Audio), and the eyelids (blinks, and a wink at the Play button). Her Style Array: fourteen looks, a different one on every page load (her hair styles and the coming holiday\u2019s), or another at a click on her head; new ones are made in the Workshop. Files: /assets/narrator/, /js/narrator.js, /css/narrator.css.',
+    note: 'GlazyArray tells the episodes, in every Listen bar on the Note pages and in Notes opened on the homepage. Her torso and hands are one video (narrator.mp4, 976 x 300, 32 parts of 8 s; see her gestures card), keyed live over the bar\u2019s backdrop (a library for case studies, a bike shop for rides, and so on). She only ever jumps within that one file, so a move never blanks the frame; every part starts and ends on the same rest pose, and a gesture can play part way and come back through its backwards copy. Her head is cut-out layers over it: the head (her look), her calm eyes (they glance about, and look toward Play in the hints), her chin plate and side plates (they open with the loudness of the voice, measured live with Web Audio), and the eyelids (blinks, and a wink at the Play button). Her look comes from the Note, its category, or the coming holiday (see her looks card). Files: /assets/narrator/, /js/narrator.js, /css/narrator.css.',
     controls: [],
     build() {
       const box = document.createElement('div');
@@ -1237,6 +1237,31 @@ const CATALOG = [
         '<audio controls preload="none" src="/play/media/2026-10-06-the-whole-machine/episode.mp3"></audio></section>';
       return box;
     },
+  },
+
+  {
+    id: 'narrator-gestures',
+    name: 'GlazyArray: every gesture',
+    category: 'Characters',
+    status: 'live',
+    tags: ['glazyarray', 'narrator', 'gesture', 'hands', 'talking', 'video', 'loop', 'character', 'brass', 'robot'],
+    zones: [],
+    kind: 'composite',
+    note: 'Every move her hands make, live from the one narrator video (narrator.mp4: 32 parts of 193 frames, each starting and ending in the same rest pose; every gesture has a backwards copy right after it). Pick one and it loops: the twelve she makes while she talks (six conversational ones, which come round twice as often, plus the storyteller, a hand dance, the brass ball, both hands talking, the teal ball and the glowing orb), the fingers tapping while she waits, and the three hints to press play. Her head, calm eyes and chin plate sit over it as on the site. Files: /assets/narrator/narrator.mp4, the gesture list in /js/narrator.js.',
+    controls: [],
+    build() { return GA.card('gestures'); },
+  },
+  {
+    id: 'narrator-looks',
+    name: 'GlazyArray: every look',
+    category: 'Characters',
+    status: 'live',
+    tags: ['glazyarray', 'narrator', 'look', 'hair', 'hat', 'cap', 'helmet', 'holiday', 'style array', 'character'],
+    zones: [],
+    kind: 'composite',
+    note: 'Her Style Array, read live from /assets/narrator/looks.json: her own curls, the hair styles that rotate, the holiday looks (each worn for its own dates), and the looks made for content, a Note or a whole category (the grad cap for case studies, the bike helmet for rides, the trail cap for hikes, workshop goggles for the automaton and the Mini-Cast, beach shades). Step through them with the arrows or the list; each shows when she wears it. A look is only her head layer: her face, eyes, chin plate and neck are the same in every one, so she talks and blinks whatever she wears. New looks are made in the Workshop or the Studio.',
+    controls: [],
+    build() { return GA.card('looks'); },
   },
 
   // ── LOGOS ──────────────────────────────────────────────────────────
