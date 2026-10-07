@@ -509,3 +509,18 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .cat-narrator-card section.listen.has-nb .nb{left:calc(50% - var(--nb) / 2);clip-path:inset(-100vh -100vw 0 -100vw)}
 .cat-narrator-card section.listen.has-nb .nb-glass{position:absolute;right:8px;top:8px;bottom:auto;left:auto;padding:4px;border-radius:50%;width:auto}
 .cat-narrator-card .nb-glass>div:first-child{display:none}
+
+/* GlazyArray's gestures and looks cards (js/ga-cards.js): her stage on the Listen bar's teal, a picker on top */
+.ga-card{position:absolute;inset:0;background:#0f4d47;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.ga-stage{position:relative;width:100%;aspect-ratio:976/591;margin-bottom:-1px}
+.ga-body{position:absolute;left:0;top:49.24%;width:100%;height:50.76%;object-fit:cover;display:block}
+.ga-head{position:absolute;left:19.36%;top:0;width:61.29%;height:71%;pointer-events:none;filter:drop-shadow(0 3px 5px rgba(0,0,0,.35))}
+.ga-head>img,.ga-eyes,.ga-eyes img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ga-eyes{-webkit-mask:url(/assets/narrator/head-lens.png?v=2) 0 0/100% 100% no-repeat;mask:url(/assets/narrator/head-lens.png?v=2) 0 0/100% 100% no-repeat}
+.ga-lids{opacity:0}
+.ga-head.ga-blink .ga-lids{opacity:1}
+.ga-pick{position:absolute;top:10px;left:50%;transform:translateX(-50%);max-width:calc(100% - 20px);font:700 13px var(--font-display,system-ui);color:#0f4d47;background:#fff;border:0;border-radius:999px;padding:5px 10px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.ga-lookbar{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:6px;justify-content:center;align-items:center;z-index:2}
+.ga-lookbar .ga-pick{position:static;transform:none;max-width:none;flex:1 1 auto;min-width:0}
+.ga-lookbar button{flex:none;width:30px;height:30px;border-radius:50%;border:0;background:#fff;color:#0f4d47;font:700 18px/1 system-ui;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.ga-cap{position:absolute;left:10px;right:10px;top:48px;margin:0;text-align:center;font:600 12px/1.35 system-ui;color:#cfe9e4;z-index:2}
