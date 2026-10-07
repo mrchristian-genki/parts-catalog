@@ -1263,6 +1263,18 @@ const CATALOG = [
     controls: [],
     build() { return GA.card('looks'); },
   },
+  {
+    id: 'narrator-flair',
+    name: 'GlazyArray: her flair',
+    category: 'Characters',
+    status: 'live',
+    tags: ['glazyarray', 'narrator', 'flair', 'palette', 'colour', 'color', 'tint', 'hue', 'cap', 'look', 'character'],
+    zones: [],
+    kind: 'composite',
+    note: 'Each Note dresses her in its own two colours, picked from its hero photo (its palette). The coloured parts of her cap, the flair, take them as a 45% tint over the original (a "color" blend, so the brass, folds and shading show through), and the Listen bar\'s glass player and backdrop shade take them too. Change cap steps through every look that has flair (masks in /assets/narrator/looks/<look>.flair-a.png and -b.png, one per colour); Change colours steps through sample combos (some from real Notes), or tap a swatch or pick your own two. Files: narrator.css (.nb-flair), narrator.js flair(), looks.json "flair".',
+    controls: [],
+    build() { return GA.card('flair'); },
+  },
 
   // ── LOGOS ──────────────────────────────────────────────────────────
   {

@@ -524,3 +524,21 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .ga-lookbar .ga-pick{position:static;transform:none;max-width:none;flex:1 1 auto;min-width:0}
 .ga-lookbar button{flex:none;width:30px;height:30px;border-radius:50%;border:0;background:#fff;color:#0f4d47;font:700 18px/1 system-ui;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .ga-cap{position:absolute;left:10px;right:10px;top:48px;margin:0;text-align:center;font:600 12px/1.35 system-ui;color:#cfe9e4;z-index:2}
+
+/* GlazyArray's flair card (js/ga-cards.js flairCard): her flair tinted 45% in two colours with a "color" blend, as
+   narrator.css tints it with a Note's palette; the bar's shade behind her takes them too */
+.ga-flaircard{--c1:#699bd3;--c2:#9d98e1;background:linear-gradient(90deg,color-mix(in srgb,var(--c2) 18%,#0f4d47),color-mix(in srgb,var(--c1) 30%,#0b3d38))}
+.ga-flair{position:absolute;inset:0;display:block;mix-blend-mode:color;opacity:.45;background:var(--c1);
+  -webkit-mask:var(--fm) 0 0/100% 100% no-repeat;mask:var(--fm) 0 0/100% 100% no-repeat}
+.ga-flair-b{background:var(--c2)}
+.ga-flair[hidden]{display:none}
+.ga-flairbar{position:absolute;top:8px;left:8px;right:8px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
+.ga-flairbtns{display:flex;gap:6px}
+.ga-btn{border:0;border-radius:999px;padding:5px 11px;background:#fff;color:#0f4d47;font:700 12px var(--font-display,system-ui);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.ga-flairpick{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center}
+.ga-combos{display:flex;gap:4px}
+.ga-combo{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.55);padding:0;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.ga-combo.on{border-color:#fff;transform:scale(1.18)}
+.ga-sw{position:relative;width:22px;height:22px;border-radius:50%;overflow:hidden;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);cursor:pointer;flex:none}
+.ga-sw input{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px);border:0;padding:0;cursor:pointer}
+.ga-flaircap{top:auto;bottom:6px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);text-transform:capitalize}

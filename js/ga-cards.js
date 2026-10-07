@@ -1,4 +1,4 @@
-/* GlazyArray's catalog cards (catalog-data.js: narrator-gestures, narrator-looks). Her body is the site's own narrator
+/* GlazyArray's catalog cards (catalog-data.js: narrator-gestures, narrator-looks, narrator-flair). Her body is the site's own narrator
    video (or its rest frame), her head the same layers narrator.js stacks: the look, the eyes in their lens, the
    catchlights, the chin plates and the lids. Geometry, in her 576 x 300 body box: the video runs 200 px past it each
    side (976 wide), and her head layer is 598 wide, 420 tall, its bottom 57.09% up the box. */
@@ -66,5 +66,50 @@
     });
     return box;
   }
-  window.GA = { card: function (k) { return k === 'gestures' ? gestures() : looksCard(); } };
+
+  // her flair (the Note palette): any look with flair masks, its coloured parts tinted 45% in two colours (as narrator.css
+  // does with a Note's palette), the bar's shade behind her taking them too. Change cap, change colours, or pick your own.
+  var COMBOS = [['Tahoe evening', '#699bd3', '#9d98e1'], ['Library teal', '#26bfac', '#b57835'], ['Rim Trail', '#96b234', '#d38869'],
+    ['Marlette gold', '#d7c566', '#3467b2'], ['Studio river', '#b8692d', '#d6d257'], ['Clear water', '#1c97c9', '#4762e5'],
+    ['Sunset', '#e0533d', '#f2a33a'], ['Berry', '#c2408f', '#5b6cd6'], ['Mint', '#3fbf8f', '#e6c34a']];
+  function flairCard() {
+    var box = el('div', 'ga-card ga-flaircard'), img = el('img', 'ga-body'); img.alt = ''; img.src = A + 'kit/rest-body.webp' + V;   // keyed, so the tinted shade shows behind her
+    var s = stage(img), base = s.head.querySelector('.ga-base');
+    var fa = el('i', 'ga-flair'), fb = el('i', 'ga-flair ga-flair-b'); base.after(fa, fb);
+    var bar = el('div', 'ga-flairbar',
+      '<div class="ga-flairbtns"><button type="button" class="ga-btn" data-cap>Change cap</button><button type="button" class="ga-btn" data-col>Change colours</button></div>' +
+      '<div class="ga-flairpick"><span class="ga-combos"></span><label class="ga-sw" title="First colour"><input type="color" data-k="0"></label><label class="ga-sw" title="Second colour"><input type="color" data-k="1"></label></div>');
+    var cap = el('p', 'ga-cap ga-flaircap');
+    box.appendChild(bar); box.appendChild(cap); box.appendChild(s.st);
+    var combos = bar.querySelector('.ga-combos'), ins = bar.querySelectorAll('input[type=color]');
+    COMBOS.forEach(function (c, i) {
+      var b = el('button', 'ga-combo'); b.type = 'button'; b.title = c[0]; b.setAttribute('aria-label', 'Colours: ' + c[0]);
+      b.style.background = 'linear-gradient(135deg,' + c[1] + ' 50%,' + c[2] + ' 50%)'; b.onclick = function () { ci = i; paint(c[1], c[2], c[0]); }; combos.appendChild(b);
+    });
+    var list = [], li = 0, ci = 0, col = [COMBOS[0][1], COMBOS[0][2]], label = COMBOS[0][0];
+    function paint(c1, c2, name) {
+      col = [c1, c2]; label = name || 'Your colours';
+      box.style.setProperty('--c1', c1); box.style.setProperty('--c2', c2); ins[0].value = c1; ins[1].value = c2;
+      [].forEach.call(combos.children, function (b, i) { b.classList.toggle('on', !!name && i === ci); });
+      say();
+    }
+    function say() { var l = list[li]; cap.textContent = (l ? l.name.replace(/-/g, ' ') : '') + ' · ' + label; }
+    function wear(i) {
+      if (!list.length) return; li = (i + list.length) % list.length; var l = list[li], u = A + 'looks/' + l.file.replace(/\.[a-z]+$/, '') + '.flair-', v = V + (l.v ? '.' + l.v : '');
+      base.src = A + 'looks/' + l.file + v;
+      [[fa, 'a'], [fb, 'b']].forEach(function (f) { var on = (l.flair || '').indexOf(f[1]) >= 0; f[0].hidden = !on; if (on) f[0].style.setProperty('--fm', 'url(' + u + f[1] + '.png' + v + ')'); });
+      say();
+    }
+    bar.querySelector('[data-cap]').onclick = function () { wear(li + 1); };
+    bar.querySelector('[data-col]').onclick = function () { ci = (ci + 1) % COMBOS.length; paint(COMBOS[ci][1], COMBOS[ci][2], COMBOS[ci][0]); };
+    [].forEach.call(ins, function (inp) { inp.oninput = function () { var c = col.slice(); c[+inp.getAttribute('data-k')] = inp.value; ci = -1; paint(c[0], c[1]); }; });
+    paint(col[0], col[1], label);
+    getLooks().then(function (j) {
+      var caps = ['grad-cap', 'bike-helmet', 'trail-cap', 'workshop-goggles', 'beach-shades'], rank = function (l) { var i = caps.indexOf(l.name); return i < 0 ? 99 : i; };
+      list = (j.looks || []).filter(function (l) { return l.flair && l.file; }).sort(function (a, b) { return rank(a) - rank(b); });   // the caps first
+      var g = list.findIndex(function (l) { return l.name === 'grad-cap'; }); wear(g >= 0 ? g : 0);
+    });
+    return box;
+  }
+  window.GA = { card: function (k) { return k === 'gestures' ? gestures() : k === 'flair' ? flairCard() : looksCard(); } };
 })();
