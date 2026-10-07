@@ -528,9 +528,9 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 /* GlazyArray's flair card (js/ga-cards.js flairCard): her flair tinted 45% in two colours with a "color" blend, as
    narrator.css tints it with a Note's palette; the bar's shade behind her takes them too */
 .ga-flaircard{--c1:#699bd3;--c2:#9d98e1;background:linear-gradient(90deg,color-mix(in srgb,var(--c2) 18%,#0f4d47),color-mix(in srgb,var(--c1) 30%,#0b3d38))}
-.ga-flair{position:absolute;inset:0;display:block;mix-blend-mode:color;opacity:var(--fk,.45);background:var(--c1);
+.ga-flair{position:absolute;inset:0;display:block;mix-blend-mode:color;opacity:var(--fk,.45);background:var(--c1,var(--d,transparent));
   -webkit-mask:var(--fm) 0 0/100% 100% no-repeat;mask:var(--fm) 0 0/100% 100% no-repeat}
-.ga-flair-b{background:var(--c2)}
+.ga-flair-b{background:var(--c2,var(--d,transparent))}   /* --d: a white-based look's own colour (looks.json flairBase) */
 .ga-flair.dye{mix-blend-mode:multiply}   /* white parts (looks.json flairDye) take the colour itself; white stays white */
 .ga-flair[hidden]{display:none}
 .ga-colbar{position:absolute;top:48px;left:10px;right:10px;display:flex;gap:6px;justify-content:center;align-items:center;z-index:2}
