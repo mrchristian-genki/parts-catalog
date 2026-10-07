@@ -4,10 +4,10 @@
    side (976 wide), and her head layer is 598 wide, 420 tall, its bottom 57.09% up the box. */
 (function () {
   'use strict';
-  var A = '/assets/narrator/', V = '?v=33', D = 193 / 24;
+  var A = '/assets/narrator/', V = '?v=34', D = 193 / 24;
   var GESTURES = [[20, 'Making a point'], [22, 'Counting it off'], [24, 'The size of an idea'], [26, 'Arms open, palms up'], [28, 'Hands together'],
     [30, 'Over to you'], [12, 'Talking with both hands'], [1, 'The storyteller'], [8, 'A little hand dance'], [10, 'The brass ball'], [16, 'The teal ball'],
-    [18, 'The glowing orb'], [0, 'Waiting: fingers tapping'], [5, 'Hint: psst, over there'], [6, 'Hint: boop, boop, thumbs up'], [7, 'Hint: a little wave']];
+    [18, 'The glowing orb'], [32, 'A fresh new look'], [0, 'Waiting: fingers tapping'], [5, 'Hint: psst, over there'], [6, 'Hint: boop, boop, thumbs up'], [7, 'Hint: a little wave']];
   var MD = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   function md(s) { var p = String(s).split('-'); return MD[+p[0]] + ' ' + (+p[1]); }
   var looks = null;
@@ -31,7 +31,7 @@
     var box = el('div', 'ga-card'), v = el('video', 'ga-body');
     v.muted = true; v.playsInline = true; v.preload = 'none'; v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.poster = A + 'rest.jpg' + V;
     var s = stage(v), sel = el('select', 'ga-pick'); sel.setAttribute('aria-label', 'Gesture');
-    GESTURES.forEach(function (g, i) { var o = el('option'); o.value = i; o.textContent = (i < 12 ? (i + 1) + '. ' : '') + g[1]; sel.appendChild(o); });
+    GESTURES.forEach(function (g, i) { var o = el('option'); o.value = i; o.textContent = (i < 13 ? (i + 1) + '. ' : '') + g[1]; sel.appendChild(o); });
     box.appendChild(sel); box.appendChild(s.st);
     var part = GESTURES[0][0], on = false, jaw = s.head.querySelector('.ga-jaw'), jaws = s.head.querySelector('.ga-jaws');
     function start() { v.currentTime = part * D; v.play().catch(function () {}); }

@@ -1247,7 +1247,7 @@ const CATALOG = [
     tags: ['glazyarray', 'narrator', 'gesture', 'hands', 'talking', 'video', 'loop', 'character', 'brass', 'robot'],
     zones: [],
     kind: 'composite',
-    note: 'Every move her hands make, live from the one narrator video (narrator.mp4: 32 parts of 193 frames, each starting and ending in the same rest pose; every gesture has a backwards copy right after it). Pick one and it loops: the twelve she makes while she talks (six conversational ones, which come round twice as often, plus the storyteller, a hand dance, the brass ball, both hands talking, the teal ball and the glowing orb), the fingers tapping while she waits, and the three hints to press play. Her head, calm eyes and chin plate sit over it as on the site. Files: /assets/narrator/narrator.mp4, the gesture list in /js/narrator.js.',
+    note: 'Every move her hands make, live from the one narrator video (narrator.mp4: 34 parts of 193 frames, each starting and ending in the same rest pose; every gesture has a backwards copy right after it). Pick one and it loops: the thirteen she makes while she talks (six conversational ones, which come round twice as often, plus the storyteller, a hand dance, the brass ball, both hands talking, the teal ball, the glowing orb and buffing up a fresh new look), the fingers tapping while she waits, and the three hints to press play. Her head, calm eyes and chin plate sit over it as on the site. Files: /assets/narrator/narrator.mp4, the gesture list in /js/narrator.js.',
     controls: [],
     build() { return GA.card('gestures'); },
   },
