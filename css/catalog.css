@@ -580,3 +580,59 @@ body.deep .ga-cap.ga-cap-out{background:rgba(43,179,163,.12);color:#cfe9e4}
 .ga-head.ga-shake{animation:ga-shake .5s cubic-bezier(.3,1.6,.5,1)}
 @keyframes ga-shake{0%{scale:1}25%{scale:1.04 .97;rotate:-3deg}55%{scale:.98 1.03;rotate:2.5deg}100%{scale:1;rotate:0deg}}
 @media (prefers-reduced-motion:reduce){.ga-head.ga-shake{animation:none}}
+
+/* The giant paper squid's card (js/squid-card.js): its clips on screen blend over a sea drawn in code. Depth sets the
+   water, the light shafts and the squid's size; glow its lights and halo; story puts the sea behind a porthole. */
+.cat-scene-wrap:has(.sq-card)>svg{display:none}
+.sq-card{position:absolute;inset:0;overflow:hidden;background:#020810;--k:.86;--sb:0px;--so:.95;--shaft:.22}
+.sq-card[data-depth="shallows"]{--k:1;--so:.9;--shaft:.6}
+.sq-card[data-depth="abyss"]{--k:.72;--sb:.5px;--so:1;--shaft:0}
+.sq-water{position:absolute;inset:0;overflow:hidden;isolation:isolate}
+.sq-bg{position:absolute;inset:0;transition:opacity .8s;
+  background:radial-gradient(ellipse 90% 55% at 50% -8%,rgba(64,140,190,.45),transparent 70%),linear-gradient(180deg,#123e63 0%,#0a2442 45%,#040e1f 100%)}
+.sq-card[data-depth="shallows"] .sq-bg{background:radial-gradient(ellipse 100% 60% at 50% -10%,rgba(150,225,240,.6),transparent 70%),linear-gradient(180deg,#2c84a6 0%,#145a80 42%,#0a3152 100%)}
+.sq-card[data-depth="abyss"] .sq-bg{background:radial-gradient(ellipse 80% 40% at 50% -10%,rgba(30,60,100,.25),transparent 70%),linear-gradient(180deg,#061425 0%,#030a15 50%,#010308 100%)}
+.sq-shafts{position:absolute;inset:0;opacity:var(--shaft);transition:opacity .8s;pointer-events:none}
+.sq-shafts i{position:absolute;top:-20%;height:120%;width:16%;transform-origin:50% 0;rotate:14deg;filter:blur(7px);
+  background:linear-gradient(180deg,rgba(200,240,255,.42),rgba(200,240,255,.1) 55%,transparent 85%);animation:sq-shaft 9s ease-in-out infinite alternate}
+.sq-shafts i:nth-child(1){left:14%;width:11%}
+.sq-shafts i:nth-child(2){left:38%;width:18%;animation-duration:12s;animation-delay:-4s}
+.sq-shafts i:nth-child(3){left:63%;width:9%;animation-duration:7s;animation-delay:-2s}
+.sq-shafts i:nth-child(4){left:82%;width:13%;animation-duration:10s;animation-delay:-6s}
+@keyframes sq-shaft{from{rotate:10deg;opacity:.55}to{rotate:19deg;opacity:1}}
+.sq-snow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.sq-front{filter:blur(1.5px);z-index:2}
+/* the squid: a 16:9 box, its black dropped out on screen blend, its edges faded into the water */
+.sq-sq{position:absolute;left:58%;top:54%;width:calc(var(--w,128%) * var(--k));aspect-ratio:16/9;pointer-events:none;z-index:1;
+  transform:translate(-50%,-50%) rotate(var(--r,0deg)) scaleX(var(--f,1));mix-blend-mode:screen;opacity:0;filter:blur(var(--sb));
+  -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 58%,transparent 100%)}
+.sq-sq.on{opacity:var(--so)}
+.sq-sq.far{filter:blur(calc(var(--sb) + 1.3px)) saturate(.8);opacity:0}
+.sq-sq.far.on{opacity:calc(var(--so) * .6)}
+.sq-sq.near{z-index:3}
+.sq-sq>*{position:absolute;inset:0;width:100%;height:100%;display:none;object-fit:cover}
+.sq-sq[data-show="rise"] .sq-rise,.sq-sq[data-show="lunge"] .sq-lunge,.sq-sq[data-show="img"] .sq-img,.sq-sq .sq-glow{display:block}
+.sq-sq .sq-v,.sq-sq .sq-img{transition:filter .7s}
+.sq-sq .sq-glow{mix-blend-mode:screen;filter:blur(7px) brightness(1.7) saturate(1.3);opacity:.85;transition:opacity .7s}
+.sq-card[data-glow="full"] .sq-glow{animation:sq-breathe 3.2s ease-in-out infinite}
+@keyframes sq-breathe{50%{opacity:.55}}
+.sq-card[data-glow="full"] .sq-sq .sq-v,.sq-card[data-glow="full"] .sq-sq .sq-img{filter:brightness(1.18) saturate(1.2) contrast(1.05)}
+.sq-card[data-glow="soft"] .sq-sq .sq-v,.sq-card[data-glow="soft"] .sq-sq .sq-img{filter:brightness(.72) saturate(.75)}
+.sq-card[data-glow="soft"] .sq-glow{opacity:.28}
+.sq-card[data-glow="off"] .sq-sq .sq-v,.sq-card[data-glow="off"] .sq-sq .sq-img{filter:grayscale(1) sepia(.3) brightness(.42) contrast(1.25)}
+.sq-card[data-glow="off"] .sq-glow{opacity:0}
+.sq-sq.bob{animation:sq-bob 6s ease-in-out infinite}
+@keyframes sq-bob{0%,100%{translate:0 0;rotate:0deg}50%{translate:-2% -3%;rotate:-2deg}}
+/* story: a brass porthole in a deep-sea submarine, the sea behind its glass */
+.sq-card .sq-port{position:absolute;inset:0;width:100%;height:100%;display:none;pointer-events:none;z-index:4}
+.sq-card.story .sq-port{display:block}
+.sq-card.story .sq-water{inset:17.5%;border-radius:50%;clip-path:circle(50%)}
+.sq-needle{transition:none;animation:sq-needle 7s ease-in-out infinite alternate}
+.sq-n1{rotate:-20deg}.sq-n2{animation-duration:3.1s;animation-name:sq-needle2}
+@keyframes sq-needle{from{rotate:-30deg}to{rotate:42deg}}
+@keyframes sq-needle2{0%{rotate:58deg}40%{rotate:66deg}100%{rotate:54deg}}
+.sq-lamp{animation:sq-lamp 2.4s steps(1) infinite}
+.sq-lamp-b{animation-duration:5.3s;animation-delay:-1s}
+@keyframes sq-lamp{60%{opacity:.25}}
+.sq-wheel{rotate:8deg}
+@media (prefers-reduced-motion:reduce){.sq-shafts i,.sq-glow,.sq-needle,.sq-lamp,.sq-sq.bob{animation:none!important}}

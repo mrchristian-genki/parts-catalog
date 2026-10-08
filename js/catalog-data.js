@@ -972,6 +972,23 @@ const CATALOG = [
     ],
   },
   {
+    id: 'creature-squid',
+    name: 'Giant paper squid',
+    category: 'Animals',
+    status: 'live',
+    tags: ['squid', 'giant squid', 'origami', 'paper', 'deep sea', 'ocean', 'underwater', 'glow', 'bioluminescence', 'submarine', 'porthole', 'video', 'fauna'],
+    zones: ['deep-sea'],
+    kind: 'composite',
+    note: "The origami squid that sneaks through the header, in open water. Two clips of it, black to black (it rises and its lights come on; it lunges close past the glass), screened over a sea drawn in code: the water, light shafts, marine snow. Glow puts its lights out, soft or full; Depth takes it from the sunlit shallows down to the abyss. Story puts you behind a brass porthole in a deep-sea submarine while it swims past from every side and depth: far off and small, diving from above, rising from below, or right up against the glass.",
+    controls: [
+      { type: 'option', key: 'glow', label: 'Glow', options: ['off', 'soft', 'full'], default: 'full' },
+      { type: 'option', key: 'depth', label: 'Depth', options: ['shallows', 'twilight', 'abyss'], default: 'twilight' },
+      { type: 'behavior', options: ['story', 'still', 'swim'], default: 'story' },
+    ],
+    build(state) { return SquidCard.card(state); },
+    onSet(box, key, val) { box._set(key, val); },
+  },
+  {
     id: 'creature-fisherman',
     name: "Fisherman in a paper boat",
     category: 'People',

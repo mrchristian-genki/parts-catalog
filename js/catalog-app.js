@@ -31,6 +31,7 @@
       if (c.type === 'behavior') s.behavior = c.default || c.options[0];
       if (c.type === 'style') s.style = c.default || 'origami';
       if (c.type === 'weather') s.weather = c.default || 0;
+      if (c.type === 'option') s[c.key] = c.default || c.options[0];
     });
     state[entry.id] = s;
   });
@@ -667,7 +668,8 @@
               group.querySelectorAll('.cat-btn').forEach((b) => b.setAttribute('aria-pressed', 'false'));
               btn.setAttribute('aria-pressed', 'true');
               // Story drives position and pose itself: entering or leaving it rebuilds the card.
-              if (opt === 'story' || wasStory) renderPreview(entry, wrap);
+              if (wrap._obj && typeof entry.onSet === 'function') entry.onSet(wrap._obj, 'behavior', opt);
+              else if (opt === 'story' || wasStory) renderPreview(entry, wrap);
               else if (wrap._creature) wrap._creature.setBehavior(opt);
             });
             group.appendChild(btn);
@@ -712,6 +714,27 @@
               btn.setAttribute('aria-pressed', 'true');
               // Behaviours differ a little between the two rigs; keep the current one if both have it.
               renderPreview(entry, wrap);
+            });
+            group.appendChild(btn);
+          });
+        }
+
+        if (c.type === 'option') {
+          // Any other named setting a part has (the squid's glow and depth): entry.onSet updates it in place.
+          label.textContent = c.label;
+          group.appendChild(label);
+          c.options.forEach((opt) => {
+            const btn = document.createElement('button');
+            btn.className = 'cat-btn';
+            btn.type = 'button';
+            btn.textContent = opt[0].toUpperCase() + opt.slice(1);
+            btn.setAttribute('aria-pressed', String(state[entry.id][c.key] === opt));
+            btn.addEventListener('click', () => {
+              state[entry.id][c.key] = opt;
+              group.querySelectorAll('.cat-btn').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+              btn.setAttribute('aria-pressed', 'true');
+              if (wrap._obj && typeof entry.onSet === 'function') entry.onSet(wrap._obj, c.key, opt);
+              else renderPreview(entry, wrap);
             });
             group.appendChild(btn);
           });
