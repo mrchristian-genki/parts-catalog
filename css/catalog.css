@@ -479,18 +479,37 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .hc-lure::before,.hc-lure::after{animation-duration:5s}
 .hc-far .hc-lure::before,.hc-far .hc-lure::after{animation-duration:6.5s;animation-delay:-3s}
 
-/* Something very large in the deep: a paper squid rises out of the black and its lights come on, then
-   a second one glides close past the glass (one seamless 16 s loop, assets/hero/squid-loop.mp4).
-   It swims in the open water between the title and the jellyfish (never further left than the end of
-   the intro text), behind every creature; the clip's
-   black drops out on screen blend and its edges fade into the sea, so only the squid and its lights
-   show. Reduced motion (and Save-Data) keeps the still poster. */
-.hero-video{position:absolute;top:calc(var(--h) * -.04);height:calc(var(--h) * 1.06);aspect-ratio:16/9;pointer-events:none;
-  left:max(calc(min(620px,52%) - var(--h) * .25),calc(100% - clamp(12px,4vw,90px) - var(--h) * 900 / 768 - clamp(calc(var(--h) * -.15),(100vw - 1000px) * .3,calc(var(--h) * 1.1)) - var(--h) * 1.06 * 16 / 9));
-  mix-blend-mode:screen;opacity:.72;
+/* Something very large in the deep: a paper squid that sneaks up now and then (index.html's script picks the pass:
+   the place, angle, size and depth). Two clips, each one swim from black to black: it rises and its lights come on
+   (squid-rise.mp4), or it lunges close past the glass (squid-lunge.mp4). Its black drops out on screen blend and
+   its edges fade into the sea. Far passes sit behind every creature, soft; near ones come in front of them all
+   (still under the title). It drifts a little along its way. */
+.hero-video{position:absolute;left:var(--x,50%);top:var(--y,50%);height:calc(var(--h) * var(--s,1));aspect-ratio:16/9;pointer-events:none;
+  transform:translate(-50%,-50%) rotate(var(--r,0deg)) scaleX(var(--f,1));mix-blend-mode:screen;opacity:0;visibility:hidden;
+  transition:opacity .4s,visibility 0s .4s,translate 7s linear;
   -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 55%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 55%,transparent 100%)}
-@media (max-width:640px){.hero-video{left:calc(var(--h) * -.3)}}
+.hero-video.on{opacity:var(--o,.8);visibility:visible;transition:opacity .25s,visibility 0s,translate 7.5s linear}
+.hero-video.far{filter:blur(1.4px) saturate(.8)}
+.hero-video.near{z-index:3}
 .hero-video video{display:block;width:100%;height:100%;object-fit:cover}
+/* the speck that calls it up: a faint glow in the open water, for testing (and for anyone who finds it) */
+.squid-call{position:absolute;z-index:2;left:min(640px,54%);bottom:18%;width:22px;height:22px;padding:0;border:0;border-radius:50%;cursor:pointer;
+  background:radial-gradient(circle,#bff8ff 0,#4fd8e8 30%,rgba(79,216,232,0) 70%);opacity:.45;animation:squid-speck 4s ease-in-out infinite}
+.squid-call:hover,.squid-call:focus-visible{opacity:1;outline:none;box-shadow:0 0 0 2px rgba(191,248,255,.5)}
+.squid-call[data-n]:hover::after{content:attr(data-n);position:absolute;left:28px;top:50%;translate:0 -50%;white-space:nowrap;font:600 11px system-ui,sans-serif;color:#cfefff;text-shadow:0 1px 4px #000}
+@keyframes squid-speck{50%{transform:scale(.7);opacity:.25}}
+@media (max-width:640px){.squid-call{left:auto;right:14px;top:calc(var(--h) - 34px);bottom:auto}}
+/* Marley: a click on her makes her giggle (a little shake and hop) and the jellyfish send out soft rings */
+.hero-group .hero-fx{pointer-events:none}
+.marley-hit{position:absolute;left:22%;top:23%;width:55%;height:39%;border-radius:45%;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
+.hero-dog.giggle{animation:marley-giggle .9s ease-in-out}
+@keyframes marley-giggle{15%{translate:0 -2.5%;rotate:-3deg}30%{translate:0 0;rotate:3deg}45%{translate:0 -1.5%;rotate:-2deg}60%{translate:0 0;rotate:2deg}75%{rotate:-1deg}100%{translate:0 0;rotate:0deg}}
+.jelly-rings{position:absolute;left:51.8%;top:41%;width:0;height:0;pointer-events:none}
+.jelly-rings i{position:absolute;left:0;top:0;width:calc(var(--h) * .5);aspect-ratio:1;border-radius:50%;border:2px solid rgba(160,255,232,.7);box-shadow:0 0 14px rgba(127,255,224,.45),inset 0 0 10px rgba(127,255,224,.2);
+  translate:-50% -50%;scale:.4;opacity:0;animation:jelly-ring 2.2s ease-out forwards}
+.jelly-rings i:nth-child(2){animation-delay:.3s}.jelly-rings i:nth-child(3){animation-delay:.6s}
+@keyframes jelly-ring{10%{opacity:.9}100%{scale:2.6;opacity:0}}
+@media (prefers-reduced-motion:reduce){.hero-dog.giggle{animation:none}.jelly-rings i{animation-duration:1.2s}.squid-call{animation:none}.hero-video{transition:opacity .25s,visibility 0s .25s}}
 
 /* The narrator's card: a Listen bar with the live narrator (the site's /js/narrator.js and /css/narrator.css), compact:
    her at the left, the title beside her, the player under both */
