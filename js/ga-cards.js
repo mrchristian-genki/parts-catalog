@@ -106,6 +106,12 @@
     var s = stage(img), cap = el('p', 'ga-cap');
     var bar = wardrobe(s, false, 'grad-cap', function (l) { cap.textContent = l.when; }, true);
     box.appendChild(bar); box.appendChild(s.st); box.appendChild(cap);
+    // the line goes under the card's title once the card is built, so it never covers her face on a phone
+    (function move() {
+      var b = box.closest('.cat-card'), body = b && b.querySelector('.cat-body');
+      if (!body) return void requestAnimationFrame(move);
+      var t = body.querySelector('.cat-title-row'); body.insertBefore(cap, t ? t.nextSibling : body.firstChild); cap.classList.add('ga-cap-out');
+    })();
     return box;
   }
   // her flair (the Note palette): any look with flair masks, its coloured parts tinted 45% in two colours (as narrator.css
