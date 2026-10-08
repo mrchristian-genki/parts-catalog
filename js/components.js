@@ -305,12 +305,15 @@ function makeDetailedPine(opts){
       : `hsl(${rr2(22,30)},${rr2(38,50)}%,${rr2(20,28)}%)`;
     const map2 = { dk: dk2, md: md2, hi: hi2, trunk: trunk2, trunkShd: trunkShd2 };
     inner.querySelectorAll('[data-bucket]').forEach(p => p.setAttribute('fill', map2[p.dataset.bucket]));
+    // the snow dust settles in and melts away with the colours (a fade, never a snap)
     let dust = inner.querySelector('[data-snow-dust]');
     if (winter2) {
-      if (!dust) dust = addPineSnowDust(inner, BASE_X, BASE_Y);
-      dust.style.display = 'block';
+      if (!dust) { dust = addPineSnowDust(inner, BASE_X, BASE_Y); dust.style.opacity = '0'; dust.getBoundingClientRect(); }
+      dust.style.transition = 'opacity 0.8s ease-in-out';
+      dust.style.opacity = '';
     } else if (dust) {
-      dust.style.display = 'none';
+      dust.style.transition = 'opacity 0.8s ease-in-out';
+      dust.style.opacity = '0';
     }
   };
 
@@ -899,9 +902,9 @@ function buildBoulderGrass(wrap, src, season) {
     if (grass) {
       grass.classList.add('grass-clump-sway');
       grass.style.setProperty('--dur', (1.1 + Math.random() * 0.6).toFixed(2) + 's');
-      grass.style.transition = 'filter 0.7s linear';
+      grass.style.transition = 'filter 0.8s ease-in-out';
     }
-    if (rock) rock.style.transition = 'filter 0.7s linear';
+    if (rock) rock.style.transition = 'filter 0.8s ease-in-out';
     wrap._rock = rock;
     wrap._grass = grass;
     wrap.setSeason = function (s) {
@@ -1305,7 +1308,7 @@ function buildDistantTreeline(vbw, vbh, opts) {
     el('path', { d: domePath(x, w, h), fill: frontCol }, g);
     x += w * rand(0.48, 0.62);
   }
-  g.style.transition = 'filter 0.7s linear';
+  g.style.transition = 'filter 0.8s ease-in-out';
   g.setSeason = function (season) { g.style.filter = TREELINE_SEASON_FILTER[season] || ''; };
   return g;
 }
@@ -1355,7 +1358,7 @@ function buildForegroundPlant(wrap, src, season) {
     if (plant) {
       plant.classList.add('grass-clump-sway');
       plant.style.setProperty('--dur', (1.3 + Math.random() * 0.7) + 's');
-      plant.style.transition = 'filter 0.7s linear';
+      plant.style.transition = 'filter 0.8s ease-in-out';
     }
     wrap._plant = plant;
     wrap.setSeason = function (s) {
@@ -1469,7 +1472,7 @@ function buildFoothillsRange(wrap, src, season, opts) {
     svg.setAttribute('viewBox', `${cropX} 0 ${cropWidth} ${FOOTHILLS_NATIVE_H}`);
     svg.setAttribute('preserveAspectRatio', 'xMidYMax slice');
     Object.assign(svg.style, { width: '100%', height: '100%', display: 'block' });
-    svg.style.transition = 'filter 0.7s linear';
+    svg.style.transition = 'filter 0.8s ease-in-out';
     wrap._svg = svg;
     wrap.setSeason = function (s) { svg.style.filter = FOOTHILLS_SEASON_FILTER[s] || ''; };
     wrap.setSeason(season || 'summer');

@@ -80,7 +80,7 @@
       ground = svgEl('rect', { x: 0, y: rig.onWater ? 240 : 230, width: 300, height: 70 });
       svg.appendChild(ground);
     }
-    [s0, s1, ground].forEach((e) => { if (e) e.style.transition = 'stop-color .7s ease, fill .7s ease'; });
+    [s0, s1, ground].forEach((e) => { if (e) e.style.transition = 'stop-color .8s ease-in-out, fill .8s ease-in-out'; });
     return {
       update(season, night) {
         const c = CREATURE_SKY[season] || CREATURE_SKY.summer;
@@ -331,6 +331,7 @@
         entry.family, svg, state[entry.id].season, () => state[entry.id].windValue ?? 1
       );
       wrap._cloudG = g;
+      g.style.transition = 'opacity .8s ease-in-out';   // a season's opacity gate eases in (catalog-app's season buttons)
       wrap._stopDrift = stopDrift;
       return;
     }
@@ -433,7 +434,7 @@
       // this only works because that handler updates THIS SAME img in
       // place now, rather than rebuilding a fresh one with no prior state
       // to transition from.
-      img.style.transition = 'filter 0.7s ease';
+      img.style.transition = 'filter 0.8s ease-in-out';
     }
     wrap._obj = img;
   }
@@ -504,7 +505,9 @@
                 card.querySelectorAll('.cat-wx-btn').forEach((b) => { const lv = +b.dataset.lv; if (lv) b.textContent = names[lv - 1]; });
                 if (entry.kind === 'weather') wrap._backdrop.update(opt, false);
               }
-              if (entry.kind === 'creature' && wrap._creature) {
+              if (entry.kind === 'weather' && wrap._wx) {
+                // already updated in place above (its sky eases, the rain fades into snow); a rebuild would snap
+              } else if (entry.kind === 'creature' && wrap._creature) {
                 wrap._creature.setSeason(opt);
                 wrap._backdrop.update(opt, state[entry.id].night);
               } else if (entry.kind === 'cloud' && wrap._cloudG) {
