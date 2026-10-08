@@ -13,7 +13,7 @@
 <meta property="og:image:alt" content="Under the sea: Marley the dog curled up in a glowing jellyfish while a deep-sea diver offers her a glowing cube of parts, beside the title Parts Catalog.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/icons/favicon.ico?v=1" sizes="any"><link rel="icon" href="assets/icons/favicon.svg?v=1" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=1"><meta name="theme-color" content="#061429">
-<link rel="stylesheet" href="css/catalog.css?v=1795600400">
+<link rel="stylesheet" href="css/catalog.css?v=1795600500">
 <link rel="stylesheet" href="css/logo.css?v=10">
 <script>/* Logo season from the calendar (the homepage sets it from its own scene). */document.documentElement.dataset.season=["winter","winter","spring","spring","spring","summer","summer","summer","fall","fall","fall","winter"][new Date().getMonth()];</script>
 
@@ -27,21 +27,21 @@
   <button type="button" class="squid-call" aria-label="Call up the squid" title="Call up the squid"></button>
 </header>
 <script>/* The paper squid sneaks up now and then: every minute or so (first after 12 to 25 s) it swims through once, from a
-   different place, angle and depth each time: rising behind the title, diving from the top, far off behind the diver, or
-   lunging close past the glass. Only while the header is on screen and the tab is open; never on its own with reduced
+   different angle and depth each time, but always on the far left: it's shy of the diver's lights, so it keeps to the
+   dark side and drifts away from them. Only while the header is on screen and the tab is open; never on its own with reduced
    motion or Save-Data. The faint speck in the water (.squid-call) calls it up at once, each pass in turn, for testing; reaching for Marley
    (a click on the jellyfish) brings one too. */
 (function(){var box=document.querySelector('.hero-video'),v=box&&box.querySelector('video'),hero=document.querySelector('.cat-hero'),btn=document.querySelector('.squid-call');if(!v)return;
 var CL={rise:'assets/hero/squid-rise.mp4?v=1',lunge:'assets/hero/squid-lunge.mp4?v=1'};
-var P=[{n:'Behind the title',c:'rise',x:14,y:55,s:1.25,r:-25,f:1,o:.55,d:'far',m:[0,30,0,-30]},
-{n:'Diving from the top',c:'rise',x:44,y:35,s:1.4,r:-90,f:1,o:.8,d:'',m:[0,-50,0,60]},
-{n:'Lunge past the logo',c:'lunge',x:20,y:50,s:2,r:0,f:1,o:.95,d:'near',m:[-30,0,40,0]},
-{n:'Far off, behind the diver',c:'rise',x:80,y:42,s:.7,r:0,f:-1,o:.45,d:'far',m:[-20,10,30,-10]},
-{n:'A dive at an angle',c:'rise',x:58,y:58,s:1.2,r:30,f:-1,o:.75,d:'',m:[-60,-30,60,30]},
-{n:'Lunge from the left, close',c:'lunge',x:42,y:46,s:1.8,r:12,f:-1,o:.9,d:'near',m:[40,-10,-40,10]}];
+var P=[{n:'Behind the title',c:'rise',x:12,y:55,s:1.25,r:-25,f:1,o:.55,d:'far',m:[20,20,-30,-30]},
+{n:'Diving from the top',c:'rise',x:22,y:30,s:1.3,r:-90,f:1,o:.75,d:'',m:[10,-50,-20,50]},
+{n:'Lunge past the logo',c:'lunge',x:14,y:50,s:1.9,r:0,f:1,o:.9,d:'near',m:[20,0,-40,0]},
+{n:'Far back, hugging the edge',c:'rise',x:6,y:40,s:.75,r:0,f:1,o:.45,d:'far',m:[10,10,-30,-10]},
+{n:'A dive at an angle',c:'rise',x:20,y:60,s:1.15,r:20,f:1,o:.7,d:'',m:[30,-20,-40,30]},
+{n:'Lunge from the left, close',c:'lunge',x:18,y:44,s:1.7,r:-10,f:-1,o:.85,d:'near',m:[10,-10,-50,10]}];
 var seen=false,busy=false,last=-1,next=0,timer=0,k=0,auto=!(matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData));
 function pass(i){if(busy)return;busy=true;var p=P[i];last=i;
- if(innerWidth<=640&&p.d!=='near')p={n:p.n,c:p.c,x:Math.min(p.x,16),y:Math.min(p.y,45),s:p.s,r:p.r,f:p.f,o:Math.max(p.o,.75),d:'',m:p.m};
+ if(innerWidth<=640)p=p.d==='near'?{n:p.n,c:p.c,x:Math.min(p.x,4),y:p.y,s:p.s*.75,r:p.r,f:p.f,o:p.o,d:'near',m:[p.m[0]/2,p.m[1],p.m[2],p.m[3]]}:{n:p.n,c:p.c,x:Math.min(p.x,10),y:Math.min(p.y,45),s:p.s,r:p.r,f:p.f,o:Math.max(p.o,.75),d:'',m:p.m};
  box.className='hero-video '+p.d;var st=box.style;st.setProperty('--x',p.x+'%');st.setProperty('--y',p.y+'%');st.setProperty('--s',p.s);st.setProperty('--r',p.r+'deg');st.setProperty('--f',p.f);st.setProperty('--o',p.o);
  st.translate=p.m[0]+'px '+p.m[1]+'px';v.src=CL[p.c];v.currentTime=0;
  var go=function(){v.removeEventListener('playing',go);box.classList.add('on');requestAnimationFrame(function(){st.translate=p.m[2]+'px '+p.m[3]+'px'})};
