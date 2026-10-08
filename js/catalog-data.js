@@ -694,7 +694,7 @@ const CATALOG = [
           position: 'absolute', left: lx + '%', top: ly + '%', width: size + '%', height: 'auto',
           filter: LEAF_SEASON_FILTER[state.season],
           transform: `rotate(${(Math.random() * 40 - 20).toFixed(0)}deg)`,
-          transition: 'filter 0.8s ease, opacity 0.8s ease',
+          transition: 'filter 0.8s ease-in-out, opacity 0.8s ease-in-out',
           opacity: i < Math.round(total * COVERAGE_FRACTION[state.coverage]) ? '1' : '0',
         });
         leaf.classList.add('leaf-img-flutter');

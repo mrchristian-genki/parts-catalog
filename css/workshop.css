@@ -3,7 +3,7 @@
 .ws-steps{display:flex;gap:8px;padding:12px clamp(16px,5vw,64px);border-bottom:1px solid rgb(var(--line));
   position:sticky;top:0;z-index:5;background:rgba(var(--paper),.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow-x:auto}
 .ws-step{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:6px 13px 6px 7px;border-radius:99px;border:1px solid rgb(var(--line));
-  background:#fff;color:#4a5850;font:600 13px var(--font-body);text-decoration:none;white-space:nowrap}
+  background:#fff;color:#4a5850;font:600 13px var(--font-body);text-decoration:none;white-space:nowrap;transition:border-color .4s ease-in-out,color .4s ease-in-out}
 .ws-step b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#0f4d47;color:#fff;font-size:11px}
 .ws-step:hover{border-color:rgb(var(--accent2));color:#0f4d47}
 .ws-step.is-soon{opacity:.55}
@@ -32,7 +32,8 @@
 .ws-out textarea{width:100%;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgb(var(--ink));background:#f7f8f4;
   border:1px solid rgb(var(--line));border-radius:12px;padding:12px 14px;resize:vertical}
 .ws-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0 0}
-.ws-btn{appearance:none;border:0;border-radius:10px;padding:10px 16px;background:#0f4d47;color:#fff;font:700 14px var(--font-display);cursor:pointer}
+.ws-btn{appearance:none;border:0;border-radius:10px;padding:10px 16px;background:#0f4d47;color:#fff;font:700 14px var(--font-display);cursor:pointer;
+  transition:filter .4s ease-in-out,background .5s ease-in-out,opacity .5s ease-in-out}
 .ws-btn:hover{filter:brightness(1.12)}
 .ws-btn:disabled{opacity:.4;cursor:default;filter:none}
 .ws-btn.is-done{background:rgb(var(--accent2))}
@@ -42,10 +43,11 @@
 .ws-parts summary{cursor:pointer;font-weight:700;color:#0f4d47}
 
 .ws-drop{display:grid;place-items:center;min-height:110px;margin-bottom:14px;border:2px dashed rgb(var(--line));border-radius:14px;
-  color:#5a6b62;font-size:15px;text-align:center;padding:16px;cursor:pointer;transition:border-color .15s,background .15s}
+  color:#5a6b62;font-size:15px;text-align:center;padding:16px;cursor:pointer;transition:border-color .4s ease-in-out,background .4s ease-in-out}
 .ws-drop:hover,.ws-drop.is-over{border-color:rgb(var(--accent2));background:#f6f9f1}
 .ws-drop b{color:#0f4d47}
 .ws-status{min-height:1.4em;margin:0 0 10px;font-size:13px;color:#5a6b62}
+.ws-status{transition:color .4s ease-in-out}
 .ws-status.is-error{color:#b3261e}
 
 .ws-views{display:grid;grid-template-columns:1fr 1fr 2fr;gap:12px}
@@ -100,8 +102,8 @@
 .ws-lamp{transform-origin:50% 0;animation:ws-sway 8s ease-in-out infinite;filter:drop-shadow(0 0 calc(var(--u) * 40) rgba(255,190,110,.35))}
 @keyframes ws-sway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
 .ws-beam{background:radial-gradient(ellipse 50% 70% at 50% 0%,rgba(255,206,140,.30),rgba(255,180,100,.08) 55%,rgba(0,0,0,0) 80%);
-  clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);mix-blend-mode:screen;transform-origin:50% 0;animation:ws-sway 8s ease-in-out infinite,ws-flicker 6s steps(1) infinite}
-@keyframes ws-flicker{0%,100%{opacity:1}47%{opacity:.86}48%{opacity:1}73%{opacity:.92}74%{opacity:1}}
+  clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);mix-blend-mode:screen;transform-origin:50% 0;animation:ws-sway 8s ease-in-out infinite,ws-flicker 10s ease-in-out infinite}
+@keyframes ws-flicker{0%,40%,54%,68%,80%,100%{opacity:1}47%{opacity:.86}74%{opacity:.92}}
 .ws-beam i{position:absolute;width:calc(var(--u) * 7);height:calc(var(--u) * 7);border-radius:50%;background:#ffe2b0;opacity:0;animation:ws-dust 12s linear infinite}
 @keyframes ws-dust{0%{transform:translate(0,0);opacity:0}20%{opacity:.75}80%{opacity:.5}100%{transform:translate(calc(var(--u) * 60),calc(var(--u) * -140));opacity:0}}
 /* Christian: a slow, small sway as he shapes the hologram; the goggle rims glow cyan */
@@ -111,11 +113,11 @@
   mix-blend-mode:screen;animation:ws-man 9s ease-in-out infinite,dp-pulse 3.2s ease-in-out infinite}
 /* the hologram fox: floats, turns a little, glows and now and then flickers */
 .ws-holo{animation:ws-float 6s ease-in-out infinite}
-.ws-holo img{position:relative;display:block;width:100%;height:auto;animation:ws-turn 9s ease-in-out infinite,ws-holoflick 7s steps(1) infinite}
+.ws-holo img{position:relative;display:block;width:100%;height:auto;animation:ws-turn 9s ease-in-out infinite,ws-holoflick 12s ease-in-out infinite}
 .ws-holo .ws-holo-glow{position:absolute;inset:0;filter:blur(calc(var(--u) * 14)) brightness(1.4);mix-blend-mode:screen;animation:ws-turn 9s ease-in-out infinite,dp-pulse 3.6s ease-in-out infinite}
 @keyframes ws-float{0%,100%{transform:translateY(0)}50%{transform:translateY(calc(var(--u) * -22))}}
 @keyframes ws-turn{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.86) skewY(-1deg)}}
-@keyframes ws-holoflick{0%,100%{opacity:.92}61%{opacity:.55}62%{opacity:.95}64%{opacity:.6}65%{opacity:.92}}
+@keyframes ws-holoflick{0%,55%,100%{opacity:.92}61%{opacity:.55}67%{opacity:.95}73%{opacity:.6}79%{opacity:.92}}
 .ws-fox-light{border-radius:50%;background:radial-gradient(ellipse,rgba(90,230,240,.28),rgba(0,0,0,0) 65%);mix-blend-mode:screen;animation:dp-pulse 3.6s ease-in-out infinite}
 /* Marley: asleep, breathing slowly */
 .ws-dog{transform-origin:50% 100%;animation:ws-breathe 4.6s ease-in-out infinite}
@@ -200,7 +202,7 @@
 .hs-1{animation-delay:-18s!important}.hs-2{animation-delay:-12s!important}.hs-3{animation-delay:-6s!important}
 @keyframes ws-hcycle{0%{opacity:0;filter:blur(3px)}5%{opacity:1;filter:blur(0)}22%{opacity:1;filter:blur(0)}27%{opacity:0;filter:blur(3px)}100%{opacity:0}}
 .ws-hslot svg{display:block;width:100%;height:100%;scale:1.35;transform-origin:50% 100%;mix-blend-mode:screen;filter:drop-shadow(0 0 calc(var(--u) * 10) rgba(110,240,255,.9));
-  animation:ws-turn 9s ease-in-out infinite,ws-holoflick 7s steps(1) infinite}
+  animation:ws-turn 9s ease-in-out infinite,ws-holoflick 12s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){.ws-holo .ws-hslot{animation:none}.ws-holo .hs-0{opacity:1}}
 
 /* Christian is the subject and the mark: he stands at the left beside the title (no separate logo),

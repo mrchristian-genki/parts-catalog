@@ -473,5 +473,34 @@
   $('tJson').addEventListener('click', () => result && download(`${result.id}-origami.json`, JSON.stringify({ [result.id]: result.entry }), 'application/json'));
   $('tCopy').addEventListener('click', () => result && copy(entryText(), $('tCopy'), 'Copy entry'));
 
+  // ── the steps bar: a step takes you down (or up) to its card with a slow, eased scroll, a few seconds at most and
+  // longer the further it goes, which a wheel, a touch or a key stops at once (the Tumble's tumbleTo, seasonal-portfolio
+  // web/tumble.js). Reduced motion: straight there.
+  const still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let tumbleRaf = 0;
+  function tumbleTo(top) {
+    const root = document.documentElement;
+    top = Math.max(0, Math.min(top, root.scrollHeight - innerHeight));
+    cancelAnimationFrame(tumbleRaf);
+    if (still) { scrollTo(0, top); return; }
+    const from = scrollY, d = top - from, dur = Math.min(6000, Math.max(900, Math.abs(d) / 1.5)), t0 = performance.now();
+    if (!d) return;
+    root.style.scrollBehavior = 'auto';
+    const stop = () => { cancelAnimationFrame(tumbleRaf); root.style.scrollBehavior = ''; ['wheel', 'touchstart', 'keydown'].forEach((e) => removeEventListener(e, stop)); };
+    ['wheel', 'touchstart', 'keydown'].forEach((e) => addEventListener(e, stop, { passive: true }));
+    (function step(now) {
+      const k = Math.min(1, (now - t0) / dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      scrollTo(0, from + d * e);
+      if (k < 1) tumbleRaf = requestAnimationFrame(step); else stop();
+    })(t0);
+  }
+  document.querySelectorAll('.ws-steps a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
+    const card = document.getElementById(a.getAttribute('href').slice(1));
+    if (!card || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    try { history.pushState(null, '', a.getAttribute('href')); } catch (_) { /* file:// or sandboxed */ }
+    tumbleTo(card.getBoundingClientRect().top + scrollY - (parseFloat(getComputedStyle(card).scrollMarginTop) || 0));
+  }));
+
   window.__workshop = { trace, get result() { return result; } };
 })();

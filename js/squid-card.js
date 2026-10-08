@@ -96,7 +96,7 @@
     box.insertAdjacentHTML('beforeend', PORT);
     glow.width = 192; glow.height = 108;
     var gx = glow.getContext('2d'), sx = snow.getContext('2d'), fx = front.getContext('2d');
-    var on = false, raf = 0, timer = 0, k = 0, cur = null, src = img, noVideo = false, flakes = [], specks = [], W = 0, Ht = 0, last = 0;
+    var on = false, raf = 0, timer = 0, modeT = 0, lastB = null, k = 0, cur = null, src = img, noVideo = false, flakes = [], specks = [], W = 0, Ht = 0, last = 0;
 
     function set(key, val) {
       st[key] = val;
@@ -138,13 +138,15 @@
     }
     function tick(t) { if (!box.isConnected) return kill(); if (!on) { raf = 0; return; } draw(t); raf = requestAnimationFrame(tick); }
     function show(which) { sq.dataset.show = which; src = which === 'img' ? img : V[which]; }
+    // the squid fades in and out gently (FADE); it only jumps to a pass's start while it's out of sight
+    var FADE = 'opacity .9s ease-in-out';
     function place(p, end, dur) {
       var s = sq.style, xy = end ? p.b : p.a;
-      s.transition = dur ? 'left ' + dur + 's linear,top ' + dur + 's linear,opacity .5s' : 'none';
+      s.transition = dur ? 'left ' + dur + 's linear,top ' + dur + 's linear,' + FADE + ',width 1s ease-in-out,filter 1s ease-in-out' : FADE;
       s.left = xy[0] + '%'; s.top = xy[1] + '%';
       if (!end) { s.setProperty('--w', p.w + '%'); s.setProperty('--r', (p.r || 0) + 'deg'); s.setProperty('--f', p.f || 1); }
     }
-    function stopAll() { clearTimeout(timer); Object.keys(V).forEach(function (c) { V[c].pause(); V[c].onended = null; }); sq.classList.remove('on'); }
+    function stopAll() { clearTimeout(timer); clearTimeout(modeT); Object.keys(V).forEach(function (c) { V[c].pause(); V[c].onended = null; }); sq.classList.remove('on'); }
     function load(c) { var v = V[c]; if (!v.getAttribute('src')) { v.src = CL[c]; v.preload = 'auto'; } return v; }
     // story: one pass, then dark water, then the next
     function pass() {
@@ -154,7 +156,7 @@
       sq.className = 'sq-sq' + (p.far ? ' far' : p.near ? ' near' : '');
       place(p, false, 0);
       var go = function (dur) { void sq.offsetWidth; sq.classList.add('on'); place(p, true, dur); };
-      var after = function () { sq.classList.remove('on'); timer = setTimeout(pass, 700 + Math.random() * 1800); };
+      var after = function () { sq.classList.remove('on'); timer = setTimeout(pass, 1000 + Math.random() * 1800); };   // dark water once it has faded out
       if (noVideo || RM) {   // the still glides through instead
         img.src = PO[p.c]; show('img'); go(DUR[p.c] - 1);
         timer = setTimeout(function () { sq.classList.remove('on'); timer = setTimeout(after, 900); }, (DUR[p.c] - 2.2) * 1000);
@@ -164,10 +166,16 @@
       v.onended = after;
       v.play().then(function () { if (cur === p && on) go(DUR[p.c]); }).catch(function () { if (cur !== p) return; k--; noVideo = true; pass(); });
     }
+    // a new behavior: the porthole eases in or out, and a squid on screen fades out before the new one fades in
     function mode() {
+      var shown = st.behavior !== lastB && sq.classList.contains('on') && on && !RM;
+      lastB = st.behavior;
       stopAll(); cur = null;
+      box.classList.toggle('story', st.behavior === 'story');
+      if (shown) modeT = setTimeout(apply, 950); else apply();
+    }
+    function apply() {
       var b = st.behavior;
-      box.classList.toggle('story', b === 'story');
       sq.className = 'sq-sq'; sq.style.cssText = '';
       if (b === 'story') {
         if (RM) { img.src = PO.rise; show('img'); place({ w: 120, a: [50, 52] }, false, 0); sq.classList.add('on'); }
@@ -177,7 +185,7 @@
       sq.classList.add('on');
       if (b === 'still' || RM || noVideo) { img.src = PO.rise; show('img'); sq.classList.toggle('bob', !RM); return; }
       var v = load('rise'); show('rise'); v.loop = true;
-      if (on) v.play().catch(function () { noVideo = true; mode(); });
+      if (on) v.play().catch(function () { noVideo = true; apply(); });
     }
     // a card thrown away (a new search or tab) lets go of its clips
     function kill() { on = false; stopAll(); cancelAnimationFrame(raf); raf = 0; Object.keys(V).forEach(function (c) { if (V[c].getAttribute('src')) { V[c].removeAttribute('src'); V[c].load(); } }); if (io) io.disconnect(); }

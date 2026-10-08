@@ -26,7 +26,7 @@
       '<img class="ga-lids" alt="" src="' + A + 'head-lids.webp' + V + '">' +
       '<i class="ga-hit" role="button" tabindex="0" aria-label="Change her cap" title="Change her cap"></i>');   // a click on her head changes her look, as on the site
     st.appendChild(h);
-    (function blink() { setTimeout(function () { if (!st.isConnected && st.dataset.gone) return; h.classList.add('ga-blink'); setTimeout(function () { h.classList.remove('ga-blink'); }, 140); blink(); }, 2500 + Math.random() * 4000); })();
+    (function blink() { setTimeout(function () { if (!st.isConnected && st.dataset.gone) return; h.classList.add('ga-blink'); setTimeout(function () { h.classList.remove('ga-blink'); }, 180); blink(); }, 2500 + Math.random() * 4000); })();
     return { st: st, head: h, hit: h.querySelector('.ga-hit') };
   }
   // her looks for a card: the list (all of them, or only those with flair, caps first), a picker (‹ list ›) and a click
@@ -59,9 +59,20 @@
       bar = el('div', 'ga-lookbar', '<button type="button" aria-label="Previous look">‹</button><select class="ga-pick" aria-label="Look"></select><button type="button" aria-label="Next look">›</button>');
       sel = bar.querySelector('select');
     }
+    // a new look cross-fades over the old one: a copy of the old hair and flair stays on top and fades once the new
+    // hair has loaded (the first look just appears)
     function show(i, shake) {
       if (!list.length) return; at = (i + list.length) % list.length; var l = list[at];
-      base.src = l.file ? A + 'looks/' + l.file + V + (l.v ? '.' + l.v : '') : A + 'head-base.webp' + V;
+      var src = l.file ? A + 'looks/' + l.file + V + (l.v ? '.' + l.v : '') : A + 'head-base.webp' + V;
+      if (base.getAttribute('src') !== src && base.complete && base.naturalWidth) {
+        var was = el('span', 'ga-was');
+        [base].concat([].slice.call(s.head.querySelectorAll('.ga-flair'))).forEach(function (n) { var c = n.cloneNode(); c.classList.remove('ga-base'); was.appendChild(c); });
+        s.head.querySelectorAll('.ga-was').forEach(function (o) { o.remove(); });
+        s.head.insertBefore(was, s.head.querySelector('.ga-eyes'));
+        var fade = function () { was.style.opacity = '0'; setTimeout(function () { was.remove(); }, 750); };
+        base.src = src;
+        (base.decode ? base.decode() : Promise.resolve()).then(fade, fade);
+      } else base.src = src;
       dress(s.head, l, flairOnly);
       if (sel) sel.value = at;
       if (shake) { s.head.classList.remove('ga-shake'); void s.head.offsetWidth; s.head.classList.add('ga-shake'); }

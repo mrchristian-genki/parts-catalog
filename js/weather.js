@@ -49,20 +49,31 @@
       + `<radialGradient id="${uid}d" cx=".5" cy=".62"><stop offset="0" stop-color="#aacdf0" stop-opacity=".5"/><stop offset=".68" stop-color="#193255" stop-opacity=".6"/><stop offset=".82" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>`;
     const shade = el('rect', { x: 0, y: 0, width: 300, height: 300, fill: '#1c2434', opacity: 0, 'pointer-events': 'none' });
     svg.insertBefore(shade, svg.children[2] || null);                 // over the sky and ground, under the animal
+    shade.style.transition = 'opacity 1s ease-in-out';                // the sky darkens and clears gently
     const onShape = el('g', { 'pointer-events': 'none' }, opts.parent || svg);   // weather riding on the shape (inside its mirror group, if any)
+    onShape.style.transition = 'opacity .7s ease-in-out';
     const cv = document.createElement('canvas');
-    cv.className = 'wx-canvas';
+    cv.className = 'wx-canvas'; cv.style.opacity = '0';               // fades in and out (catalog.css)
     wrap.appendChild(cv);
     const flash = document.createElement('div'); flash.className = 'wx-flash'; wrap.appendChild(flash);
     let kind = 'rain', level = 0, raf = 0, last = 0, gust = 0, gustT = 0, gustTo = 0, boltT = 0, gen = 0;
+    // what the canvas draws: the last weather turned on, kept while it fades out; dens eases toward its level, so a
+    // change of level thickens or thins the fall gradually
+    let drawKind = 'rain', drawLevel = 0, dens = 0, offT = 0;
     const parts = Array.from({ length: 260 }, (_, i) => ({ x: Math.random() * 340 - 20, y: Math.random() * 300,
       d: i % 10 < 5 ? 0 : i % 10 < 8 ? 1 : 2, ph: Math.random() * 6, s: 0.7 + Math.random() * 0.6 }));
 
+    // the beads and flakes on the shape fade out before they change, and the new ones fade in
     function weatherShape() {
+      const my = ++gen, had = onShape.childNodes.length > 0;
+      onShape.style.opacity = '0';
+      setTimeout(() => { if (my === gen) shapeWeather(my); }, had && !reduced ? 700 : 0);
+    }
+    function shapeWeather(my) {
       onShape.textContent = '';
       if (!level || reduced || !opts.target) return;
       const t = opts.target(); if (!t) return;
-      const my = ++gen, k = kind, lv = level;
+      const k = kind, lv = level;
       outline(t.svgText, t.w, t.h, 2).then((o) => {
         if (!o || my !== gen) return;
         const n = Math.round(10 + 22 * lv), sz = 5.5;
@@ -100,24 +111,27 @@
                { offset: 0.76, opacity: 0.8, transform: P(f, 0.7, 1.9) }, { offset: 0.8, opacity: 0, transform: P(f + 5, 0.6, 2) }, { offset: 1, opacity: 0, transform: P(f + 5, 0.6, 2) }], T);
           }
         }
+        void onShape.getBoundingClientRect(); onShape.style.opacity = '';
       });
     }
 
     function draw(ms) {
-      raf = level ? requestAnimationFrame(draw) : 0;
+      raf = drawLevel ? requestAnimationFrame(draw) : 0;
       const dt = last ? Math.min(0.1, (ms - last) / 1000) : 0; last = ms;
       const W = wrap.clientWidth, H = wrap.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
       if (!W || !H) return;
       if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
       const ctx = cv.getContext('2d'); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
-      if (!level) return;
+      if (!drawLevel) return;
+      dens = dens ? dens + (drawLevel - dens) * Math.min(1, dt * 1.5) : drawLevel;
+      const kind = drawKind, level = drawLevel;   // the weather being drawn (still the old one while it fades out)
       // the card's 300-unit square, fitted like the card svg (xMidYMax meet)
       const k = Math.min(W, H) / 300 * dpr, ox = (cv.width - 300 * k) / 2, oy = cv.height - 300 * k;
       ctx.setTransform(k, 0, 0, k, ox, oy);
       // wind: random gusts, hard and in bursts for a blizzard
       if (ms > gustTo) { gustT = Math.random() < 0.5 ? Math.random() * level * 1.3 : 0; gustTo = ms + 600 + Math.random() * (level > 0.9 && kind === 'snow' ? 2500 : 4000); }
       gust += (gustT - gust) * Math.min(1, dt * (gustT > gust ? 2.2 : 0.6));
-      const n = Math.round(parts.length * (0.25 + 0.75 * level));
+      const n = Math.round(parts.length * (0.25 + 0.75 * dens));
       if (kind === 'rain') {
         const fine = level < 0.55, slant = 0.08 + level * 0.3 + gust * 0.35;
         ctx.strokeStyle = 'rgba(190,212,236,.75)'; ctx.lineWidth = fine ? 0.7 : 1.1; ctx.beginPath();
@@ -141,7 +155,7 @@
         }
         ctx.globalAlpha = 1;
       }
-      if (kind === 'rain' && level > 0.85 && ms > boltT) {
+      if (kind === 'rain' && level > 0.85 && !offT && ms > boltT) {
         boltT = ms + 5000 + Math.random() * 9000;
         flash.classList.remove('on'); void flash.offsetWidth; flash.classList.add('on');
       }
@@ -154,12 +168,24 @@
         shade.setAttribute('opacity', (level * 0.45).toFixed(2));
         boltT = performance.now() + 2500;
         weatherShape();
-        if (level && !raf) { last = 0; raf = requestAnimationFrame(draw); }
-        if (!level) { const c = cv.getContext('2d'); c.clearRect(0, 0, cv.width, cv.height); }
+        clearTimeout(offT); offT = 0;
+        if (level && drawLevel && drawKind !== kind && !reduced) {
+          // rain to snow (or back): the old fall fades out, then the new one fades in
+          cv.style.opacity = '0';
+          offT = setTimeout(() => { offT = 0; drawKind = kind; drawLevel = level; dens = 0; cv.style.opacity = ''; }, 950);
+        } else if (level) {
+          if (drawKind !== kind) dens = 0;
+          drawKind = kind; drawLevel = level; cv.style.opacity = '';
+          if (!raf) { last = 0; raf = requestAnimationFrame(draw); }
+        } else if (drawLevel) {
+          // the fall fades out (catalog.css), then stops
+          cv.style.opacity = '0';
+          offT = setTimeout(() => { offT = 0; drawLevel = 0; dens = 0; const c = cv.getContext('2d'); c.clearRect(0, 0, cv.width, cv.height); }, reduced ? 0 : 950);
+        }
       },
       follow(x, y) { onShape.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})`); },
       rebuild: weatherShape,
-      stop() { cancelAnimationFrame(raf); raf = 0; gen++; cv.remove(); flash.remove(); },
+      stop() { cancelAnimationFrame(raf); raf = 0; clearTimeout(offT); drawLevel = 0; gen++; cv.remove(); flash.remove(); },
     };
     return api;
   }

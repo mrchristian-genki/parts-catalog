@@ -406,7 +406,7 @@
   if (!document.getElementById('creature-style')) {
     const st = document.createElement('style');
     st.id = 'creature-style';
-    st.textContent = '.creature .cr-d{fill:var(--cr-d,#1f1f1d);transition:fill .7s ease}.creature .cr-l{fill:var(--cr-l,#fff);transition:fill .7s ease}';
+    st.textContent = '.creature .cr-d{fill:var(--cr-d,#1f1f1d);transition:fill .8s ease-in-out}.creature .cr-l{fill:var(--cr-l,#fff);transition:fill .8s ease-in-out}';
     document.head.appendChild(st);
   }
 
@@ -658,6 +658,7 @@
       el('path', { d, fill: 'none', stroke: C.day || '#a8392f', 'stroke-width': C.w * 0.85, 'stroke-linecap': 'round' }, collar.day);
       const mx = (C.from[0] + C.to[0]) / 2, my = (C.from[1] + C.to[1]) / 2;
       el('circle', { cx: mx + C.w * 0.2, cy: my + C.w * 0.75, r: C.w * 0.42, fill: C.tag || '#d9a93b' }, collar.day);
+      collar.style.transition = collar.day.style.transition = 'opacity .9s ease-in-out';
     }
     let line = null;
     if (rig.line && partEls[rig.line.part]) {
@@ -682,7 +683,8 @@
       // The collar glows at night; by day it is a plain band. opts.glow overrides for actors in the
       // colour-graded foreground, which are built with night off (the plate darkens them instead).
       const glow = inst.glow != null ? inst.glow : inst.night;
-      if (collar) { collar.style.display = glow ? '' : 'none'; collar.day.style.display = glow ? 'none' : ''; }
+      // The glow eases on and off over the plain band (never a snap); the first paint sets it at once.
+      if (collar) { collar.style.opacity = glow ? '' : '0'; collar.day.style.opacity = glow ? '0' : ''; }
       svg.style.setProperty('--oline', inst.night && !inst.graded ? 'rgba(200,210,220,.35)' : 'rgba(60,50,45,.55)');
     }
     applyPalette();
@@ -731,7 +733,7 @@
   if (!document.getElementById('origami-style')) {
     const st = document.createElement('style');
     st.id = 'origami-style';
-    st.textContent = Array.from({ length: 12 }, (_, i) => '.origami .of' + i + '{fill:var(--o' + i + ');transition:fill .7s ease}').join('') + '.origami .o-line{stroke:var(--oline)}';
+    st.textContent = Array.from({ length: 12 }, (_, i) => '.origami .of' + i + '{fill:var(--o' + i + ');transition:fill .8s ease-in-out}').join('') + '.origami .o-line{stroke:var(--oline)}';
     document.head.appendChild(st);
   }
 
