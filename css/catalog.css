@@ -365,7 +365,9 @@ body.deep .cat-body p.cat-tags{color:var(--d-ink2)!important}
 .hero-g-b{--gw:calc(var(--h) * 615 / 768);height:calc(var(--h) * 600 / 768);width:var(--gw);top:calc(var(--h) * 60 / 768);right:clamp(12px,4vw,90px)}
 .hero-g-a{--gap:clamp(calc(var(--h) * -.15),(100vw - 1000px) * .3,calc(var(--h) * 1.1));height:var(--h);width:calc(var(--h) * 730 / 768);top:0;
   right:calc(clamp(12px,4vw,90px) + var(--h) * 470 / 768 + var(--gap))}
-.hero-dog{filter:brightness(.93) saturate(.92)}
+/* Marley sits inside the jellyfish: muted and cooled a little, with a faint second layer of the bell over her */
+.hero-dog{filter:brightness(.86) saturate(.82) contrast(.92) blur(.25px)}
+.hero-group>.hero-jelly-over{opacity:.3;mix-blend-mode:screen;pointer-events:none}
 /* Small creatures with an internal glow (their brightest areas on a second layer that breathes on
    screen blend). Each kind appears twice: once near, once small and dim far back. */
 .hero-critter{position:absolute;display:block;pointer-events:none;opacity:.75}
@@ -504,14 +506,14 @@ body.deep{background:linear-gradient(180deg,#061429 0,#071a33 420px,#040b1a 100%
 .hero-group .hero-fx{pointer-events:none}
 .jelly-hit{position:absolute;left:10%;top:5%;width:80%;height:62%;border-radius:50% 50% 42% 42%;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent}
 .hero-dog.giggle{animation:marley-giggle .9s ease-in-out .15s}
-@keyframes marley-giggle{15%{translate:0 -2.5%;rotate:-3deg}30%{translate:0 0;rotate:3deg}45%{translate:0 -1.5%;rotate:-2deg}60%{translate:0 0;rotate:2deg}75%{rotate:-1deg}100%{translate:0 0;rotate:0deg}}
-.hero-jelly.zap{animation:jelly-zap 1.4s ease-out}
-@keyframes jelly-zap{6%{filter:brightness(1.55) saturate(1.2) drop-shadow(0 0 14px rgba(160,255,232,.7))}100%{filter:none}}
+@keyframes marley-giggle{20%{translate:0 -.6%;rotate:-.8deg}40%{translate:0 0;rotate:.8deg}60%{rotate:-.5deg}80%{rotate:.3deg}100%{translate:0 0;rotate:0deg}}
+.hero-jelly.zap{animation:jelly-zap 1.6s ease-out}
+@keyframes jelly-zap{8%{filter:brightness(1.14) drop-shadow(0 0 6px rgba(160,255,232,.25))}100%{filter:none}}
 .jelly-zap{position:absolute;inset:0;pointer-events:none}
 .jelly-zap img{position:absolute;inset:0;width:100%;height:100%;transform-origin:51.8% 38%;mix-blend-mode:screen;opacity:0;
-  filter:brightness(1.6) blur(2px);animation:jelly-echo 4.8s cubic-bezier(.2,.6,.3,1) forwards}
+  filter:blur(3px);animation:jelly-echo 5.5s cubic-bezier(.2,.6,.3,1) forwards}
 .jelly-zap img+img{animation-delay:.7s}
-@keyframes jelly-echo{4%{opacity:.32}100%{scale:1.9;opacity:0;filter:brightness(1.6) blur(9px)}}
+@keyframes jelly-echo{6%{opacity:.09}100%{scale:1.7;opacity:0;filter:blur(12px)}}
 @media (prefers-reduced-motion:reduce){.hero-dog.giggle,.jelly-zap img{animation:none}.squid-call{animation:none}.hero-video{transition:opacity .25s,visibility 0s .25s}}
 
 /* The narrator's card: a Listen bar with the live narrator (the site's /js/narrator.js and /css/narrator.css), compact:
