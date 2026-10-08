@@ -56,6 +56,18 @@
     g.drawImage(P[5], 0, 0, LW, LH); g.globalCompositeOperation = 'destination-in'; g.drawImage(P[7], 0, 0, LW, LH);
     g.globalCompositeOperation = 'source-over'; g.drawImage(P[6], 0, 0, LW, LH); return c;
   }
+  // the preview bar wears the new look and nothing else: the site's narrator dresses every bar for the coming holiday
+  // (and a click on her head steps through her wardrobe), so whenever it changes her head, this one goes back on,
+  // without the old look's colour layers
+  var mine = '', watching = false;
+  function hold() {
+    var nb = document.querySelector('.ws-look-bar .nb'), base = nb && nb.querySelector('.nb-base');
+    if (!base || !mine) return;
+    if (base.getAttribute('src') !== mine) base.src = mine;
+    nb.querySelectorAll('.nb-flair').forEach(function (f) { f.hidden = true; });
+    nb.classList.toggle('nb-nobulb', !$('lBulb').checked);
+    if (!watching) { watching = true; new MutationObserver(function () { setTimeout(hold, 0); }).observe(base, { attributes: true, attributeFilter: ['src'] }); }
+  }
   function show(P) {
     var box = $('lStates'), E = eyes(P); box.innerHTML = '';
     [[0, 0], [1, 0], [0, 1]].forEach(function (s) {
@@ -66,9 +78,8 @@
       box.appendChild(c);
     });
     out.toBlob(function (b) {
-      var base = document.querySelector('.ws-look-bar .nb-base');
-      if (base) base.src = URL.createObjectURL(b);
-      var nb = document.querySelector('.ws-look-bar .nb'); if (nb) nb.classList.toggle('nb-nobulb', !$('lBulb').checked);
+      if (mine) URL.revokeObjectURL(mine);
+      mine = URL.createObjectURL(b); hold();
     }, 'image/png');
     $('lOut').hidden = false;
   }
@@ -90,7 +101,7 @@
     make(f);
   }
   $('lName').addEventListener('input', function () { name = slug(this.value); $('lBarName').textContent = name || 'Her new look'; });
-  $('lBulb').addEventListener('change', function () { var nb = document.querySelector('.ws-look-bar .nb'); if (nb) nb.classList.toggle('nb-nobulb', !this.checked); });
+  $('lBulb').addEventListener('change', hold);
   $('lSave').addEventListener('click', function () {
     if (!out) return;
     out.toBlob(function (b) {
