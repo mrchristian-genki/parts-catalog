@@ -752,6 +752,21 @@
       note.style.margin = '2px 0 0';
       note.textContent = entry.note;
       body.appendChild(note);
+      // a long note shows its first lines; More opens the rest
+      if (entry.note.length > 140) {
+        note.classList.add('cat-note-clip');
+        const more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'cat-more';
+        more.textContent = 'More';
+        more.setAttribute('aria-expanded', 'false');
+        more.addEventListener('click', () => {
+          const open = note.classList.toggle('open');
+          more.textContent = open ? 'Less' : 'More';
+          more.setAttribute('aria-expanded', String(open));
+        });
+        body.appendChild(more);
+      }
     }
 
     card.appendChild(body);

@@ -275,8 +275,15 @@ html,body{margin:0;background:rgb(var(--paper));color:rgb(var(--ink));font-famil
 }
 
 @media (max-width:520px){
-  .cat-grid{grid-template-columns:1fr 1fr}
+  .cat-grid{grid-template-columns:1fr}
 }
+/* a long note: its first three lines, More opens the rest */
+.cat-note-clip{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+.cat-note-clip.open{display:block;-webkit-line-clamp:unset;line-clamp:none}
+.cat-more{align-self:flex-start;margin:-2px 0 0;padding:2px 0;border:0;background:none;font:700 12px system-ui;color:#2bb3a3;cursor:pointer}
+.cat-more::after{content:" \25BE"}
+.cat-more[aria-expanded="true"]::after{content:" \25B4"}
+.cat-more:hover{text-decoration:underline}
 
 /* Boids-based birds are entirely JS-driven (their motion depends on
    neighbors' live positions each frame) -- no CSS animation needed here. */
