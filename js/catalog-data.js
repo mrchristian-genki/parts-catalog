@@ -1293,6 +1293,43 @@ const CATALOG = [
     build() { return GA.card('flair'); },
   },
 
+  {
+    id: 'alta',
+    name: 'A.L.T.A., the lake\'s narrator',
+    category: 'Characters',
+    status: 'live',
+    tags: ['alta', 'a.l.t.a.', 'narrator', 'mermaid', 'automaton', 'robot', 'character', 'her', 'listen', 'audio', 'episode', 'talking', 'copper', 'tank', 'lake', 'underwater'],
+    zones: [],
+    kind: 'composite',
+    note: 'A.L.T.A., the Ancient Lake Tahoe Automaton: a copper-and-bronze mermaid, the second narrator. She tells her own Note, and any Note or whole category the Studio gives her (the same rule as GlazyArray\'s looks: the Note\'s own choice, its categories\', the default). Her Listen bar is her tank: the rest still with her head erased, her tail looping under the ledge, and her head in layers on her collar (a resting face with smiling eyes, irises that glance in their lens, lids that blink, seven mouth shapes picked live from the loudness and brightness of her voice). Now and then she gestures, or sinks below the ledge, does something underwater and rises the same way; Play waits until she\'s back up. Her eyes follow cues in her episode: a steady amber for "when somebody litters", a cyan-green bloom for "when a kid makes a good call". This is her own episode. Files: /assets/alta/parts/, /js/alta.js, /css/alta.css, /assets/alta/KIT.md (every prompt).',
+    controls: [],
+    build() { return ALTA.card('player'); },
+  },
+  {
+    id: 'alta-moves',
+    name: 'A.L.T.A.: every move',
+    category: 'Characters',
+    status: 'live',
+    tags: ['alta', 'narrator', 'mermaid', 'gesture', 'hands', 'eyes', 'mouth', 'blink', 'underwater', 'dive', 'swim', 'glow', 'meditate', 'character'],
+    zones: [],
+    kind: 'composite',
+    note: 'Each of her parts on a button, live from her player. Underwater: she lets go of the ledge and sinks (dive.mp4), then hovers at the glass, glides a lap of the tank (glide.mp4) or meditates and glows (glow.mp4: the glow comes up, holds and fades back), and rises the way she went down (rise.mp4, the dive backwards). Hands: her gesture, laid over her torso (more come from the kit\'s Round 2 and Round 7 prompts). Eyes: resting, talking (a soft cyan), a steady amber, a cyan-green bloom; the irises narrow or dilate with each. Mouth: her resting smile (part of her resting face, head-rest.webp) and the seven shapes she talks with. Lids: a blink. Every change eases.',
+    controls: [],
+    build() { return ALTA.card('moves'); },
+  },
+  {
+    id: 'alta-colours',
+    name: 'A.L.T.A.: her colours',
+    category: 'Characters',
+    status: 'live',
+    tags: ['alta', 'narrator', 'palette', 'colour', 'color', 'tint', 'crown', 'hair', 'filigree', 'character'],
+    zones: [],
+    kind: 'composite',
+    note: 'Like GlazyArray\'s flair, each Note dresses her in its two colours, picked from its hero photo: the first on her crown\'s filigree, the second on the botanicals in her hair, as a multiply dye over pearl-white masks (head-flair-a.webp, head-flair-b.webp), so the metal and its shading show through. Without a palette she wears her own. The samples are real Notes\' palettes; set your own two with the pickers.',
+    controls: [],
+    build() { return ALTA.card('colours'); },
+  },
+
   // ── LOGOS ──────────────────────────────────────────────────────────
   {
     id: 'logo-deep-sea',
