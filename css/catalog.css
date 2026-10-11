@@ -667,3 +667,26 @@ body.deep .ga-cap.ga-cap-out{background:rgba(43,179,163,.12);color:#cfe9e4}
 .sq-wheel{rotate:8deg}
 @media (prefers-reduced-motion:reduce){.sq-shafts i,.sq-glow,.sq-needle,.sq-lamp,.sq-sq.bob{animation:none!important}
   .sq-water,.sq-card .sq-port,.sq-card.story .sq-port{transition:none}.sq-sq{transition:opacity .4s ease-in-out}}
+/* A.L.T.A.'s cards (js/alta-cards.js): her player from the site (/css/alta.css), and rows of chips that cue her parts */
+.cat-scene-wrap:has(.cat-alta-card){aspect-ratio:auto;background:transparent}
+.cat-scene-wrap:has(.cat-alta-card)>svg{display:none}
+.cat-alta-card{width:100%;padding:6px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px}
+.cat-alta-card section.listen.alta{margin:0}
+.cat-alta-card .al-soon{display:none}   /* no episode on these cards: she just waits in her tank */
+/* a card is phone-narrow: as on a phone, her scene runs wider than the card (the tank's sides fall away), the title sits
+   above it, and the controls stay inside what shows */
+.cat-alta-card .alta .al-stage{width:156.25%;margin-left:-28.125%}
+.cat-alta-card .alta .al-ctl{left:18%;right:18%;gap:6px;padding:16px 8px 8px}
+.cat-alta-card .alta .al-ctl .al-sm{display:none}
+.cat-alta-card section.listen.alta>div:first-child{position:static;padding:8px 12px;background:#0a1a1c}
+.alta-rows{display:flex;flex-direction:column;gap:6px}
+.alta-row{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.alta-row>span{font:700 11px var(--font-display,system-ui);letter-spacing:.06em;text-transform:uppercase;color:#9fe6da;min-width:78px}
+.alta-chip{font:600 12px var(--font-display,system-ui);border:1px solid #c9d8d6;background:#fff;color:#0f4d47;border-radius:999px;padding:4px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+  transition:background-color .6s ease-in-out,color .6s ease-in-out,border-color .6s ease-in-out,transform .5s ease-in-out}
+.alta-chip:hover{transform:translateY(-1px);border-color:#3fd0c0}
+.alta-chip.on{background:#0f4d47;color:#fff;border-color:#0f4d47}
+.alta-chip i{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.alta-pick{font:600 12px var(--font-display,system-ui);color:#e8f1ef;display:inline-flex;align-items:center;gap:4px}
+.alta-pick input{width:34px;height:24px;border:0;padding:0;background:none;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.alta-chip{transition:none}}
