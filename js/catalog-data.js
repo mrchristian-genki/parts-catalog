@@ -1338,7 +1338,7 @@ const CATALOG = [
     tags: ['marley', 'robot marley', 'dog', 'hound', 'robot', 'character', 'her', 'moves', 'wag', 'tail', 'ears', 'eyes', 'charm', 'collar'],
     zones: [],
     kind: 'composite',
-    note: 'Robot Marley, the third character: a robot companion dog built after the real Marley, a mixed-breed hound. Her player is her parts in layers, cut from Christian\'s renders: her body breathing, her tail wagging in slow arcs from its base, her head on her neck (a curious tilt), each ear on its own pivot, lids that blink, four mouth shapes, a gold glow on her amber lenses (dark amber or red when she isn\'t happy), and her collar and charm over the seam. On a Note she blinks, flicks an ear, tilts her head and now and then does one of her moves on her own; on this card each waits for its button, so nothing interrupts what you try. Her four moves are clips from her seated pose that start and end in it (a happy wag, lying down and back up, standing to look around, a tilt and a wink), each keyed off the green and drawn with its own mask, so her parts cross-fade to it and back. Files: /assets/marley/parts/, /assets/marley/moves/, /js/marley.js, /css/marley.css, /assets/marley/KIT.md (every prompt).',
+    note: 'Robot Marley, the third character: a robot companion dog built after the real Marley, a mixed-breed hound. Her player is her parts in layers, cut from Christian\'s renders: her body breathing, her tail wagging in slow arcs from its base, her head on her neck (a curious tilt), each ear on its own pivot, lids that blink, four mouth shapes, a gold glow on her amber lenses (dark amber or red when she isn\'t happy), and her collar and charm over the seam. On a Note she blinks, flicks an ear, tilts her head and now and then does one of her moves on her own; on this card each waits for its button, so nothing interrupts what you try. Her four moves are clips from her seated pose that start and end in it (a happy wag, lying down and back up, standing to look around, a tilt and a wink), each keyed off the green and drawn with its own mask, so her parts cross-fade to it and back. She sits on an old tree stump (its own card below), so she never floats over a backdrop. Files: /assets/marley/parts/, /assets/marley/moves/, /js/marley.js, /css/marley.css, /assets/marley/KIT.md (every prompt).',
     controls: [],
     build() { return MARLEY.card('player'); },
   },
@@ -1353,6 +1353,18 @@ const CATALOG = [
     note: 'Like GlazyArray\'s flair, a Note\'s two colours dress her: the first on her collar band (a mask from the magenta render), the second on her charm. Each charm has a dyeable copy from its cyan render (charm-<name>-dye.webp, its face in grey shading, and charm-<name>-mask.webp, exactly where the cyan was), so only the charm\'s face takes the colour and its brass ring and rim stay brass; her own charm cross-fades to it. Eight charms in place of a name tag: bone, heart, paw, star, pinecone, ball, bike wheel and leaf (the leaf\'s cyan render is still to come). The samples are real Notes\' palettes; set your own two with the pickers.',
     controls: [],
     build() { return MARLEY.card('colours'); },
+  },
+  {
+    id: 'marley-stump',
+    name: 'Robot Marley: her tree stump',
+    category: 'Characters',
+    status: 'live',
+    tags: ['marley', 'dog', 'stump', 'tree', 'seat', 'wood', 'log', 'bark', 'character'],
+    zones: [],
+    kind: 'image',
+    src: '/assets/marley/seat-stump.webp',
+    note: 'What Robot Marley sits on, so she isn\'t floating over a Note\'s backdrop (Christian, Oct 12): his picture of an old tree stump, cut from its white ground (/assets/marley/seat-stump.webp, 1249 x 510). In her player it sits behind her and runs off the bottom and sides of her stage, so only its top and upper trunk show, with a soft shadow under her paws; she and her moves are scaled to 86% so her paws land on its top. Files: /assets/marley/seat-stump.webp, /css/marley.css (.mly-seat).',
+    controls: [],
   },
 
   // ── LOGOS ──────────────────────────────────────────────────────────
