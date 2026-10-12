@@ -26,7 +26,7 @@
       '<img class="ga-lids" alt="" src="' + A + 'head-lids.webp' + V + '">' +
       '<i class="ga-hit" role="button" tabindex="0" aria-label="Change her cap" title="Change her cap"></i>');   // a click on her head changes her look, as on the site
     st.appendChild(h);
-    (function blink() { setTimeout(function () { if (!st.isConnected && st.dataset.gone) return; h.classList.add('ga-blink'); setTimeout(function () { h.classList.remove('ga-blink'); }, 180); blink(); }, 2500 + Math.random() * 4000); })();
+    // no blinks on a timer: a card is for trying her out, so nothing moves unless it's asked to
     return { st: st, head: h, hit: h.querySelector('.ga-hit') };
   }
   // her looks for a card: the list (all of them, or only those with flair, caps first), a picker (‹ list ›) and a click

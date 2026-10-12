@@ -12,6 +12,7 @@
     var s = el('section', 'listen alta', '<div><span class="listen-label">' + (audio ? 'Listen' : 'A.L.T.A.') + '</span><b>' + title + '</b></div>' +
       (audio ? '<audio controls preload="none" src="' + audio + '"></audio>' : ''));
     s.setAttribute('data-narrator', 'alta');
+    s.setAttribute('data-manual', '');   // a card to try her out: she moves only when a button asks (alta.js), never on a timer
     if (audio) s.setAttribute('data-cues', JSON.stringify(CUES));
     return s;
   }
@@ -26,7 +27,7 @@
     var box = el('div', 'cat-alta-card'), bar = tank('Every move'), rows = el('div', 'alta-rows');
     var groups = [
       ['Underwater', [['hover', 'Hover at the glass'], ['glide', 'Glide a lap'], ['glow', 'Meditate and glow']], function (k) { bar.alta.dive(k); }],
-      ['Hands', [['palms', 'Open palms'], ['thai-bloom', 'Thai lotus bloom'], ['play', 'Press play']], function (k) { bar.alta.gesture(k); }],
+      ['Hands', [['palms', 'Open palms'], ['play', 'Press play']], function (k) { bar.alta.gesture(k); }],
       ['Eyes', [['', 'Resting'], ['talk', 'Talking'], ['amber', 'Steady amber'], ['cyan', 'Cyan-green bloom']], function (k) { bar.alta.eyes(k); }],
       ['Mouth', [['rest', 'Resting smile'], ['smile', 'Smile'], ['neutral', 'Neutral'], ['ah', 'Ah'], ['oh', 'Oh'], ['oo', 'Oo'], ['ee', 'Ee'], ['laugh', 'Laugh']], function (k) { bar.alta.say(k); }],
       ['Lids', [['blink', 'Blink']], function () { bar.alta.blink(); }]
