@@ -690,3 +690,9 @@ body.deep .ga-cap.ga-cap-out{background:rgba(43,179,163,.12);color:#cfe9e4}
 .alta-pick{font:600 12px var(--font-display,system-ui);color:#e8f1ef;display:inline-flex;align-items:center;gap:4px}
 .alta-pick input{width:34px;height:24px;border:0;padding:0;background:none;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.alta-chip{transition:none}}
+/* Robot Marley's cards (js/marley-cards.js): her player from the site (/css/marley.css), its buttons, and colour rows */
+.cat-scene-wrap:has(.cat-mly-card){aspect-ratio:auto;background:transparent}
+.cat-scene-wrap:has(.cat-mly-card)>svg{display:none}
+.cat-mly-card{width:100%;padding:6px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px;color:#e8f1ef}
+.cat-mly-card .marley{max-width:320px;width:100%}
+.cat-mly-card .alta-rows{margin-top:4px}
