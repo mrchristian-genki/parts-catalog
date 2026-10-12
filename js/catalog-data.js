@@ -1250,7 +1250,7 @@ const CATALOG = [
     build() {
       const box = document.createElement('div');
       box.className = 'cat-narrator-card';
-      box.innerHTML = '<section class="listen"><div><span class="listen-label">Listen</span><b>The whole machine</b></div>' +
+      box.innerHTML = '<section class="listen" data-manual><div><span class="listen-label">Listen</span><b>The whole machine</b></div>' +
         '<audio controls preload="none" src="/play/media/2026-10-06-the-whole-machine/episode.mp3"></audio></section>';
       return box;
     },
@@ -1313,7 +1313,7 @@ const CATALOG = [
     tags: ['alta', 'narrator', 'mermaid', 'gesture', 'hands', 'eyes', 'mouth', 'blink', 'underwater', 'dive', 'swim', 'glow', 'meditate', 'character'],
     zones: [],
     kind: 'composite',
-    note: 'Each of her parts on a button, live from her player. Underwater: she lets go of the ledge and sinks (dive.mp4), then hovers at the glass, glides a lap of the tank (glide.mp4) or meditates and glows (glow.mp4: the glow comes up, holds and fades back), and rises the way she went down (rise.mp4, the dive backwards). Hands: her gestures, laid over her torso: open palms, and a Thai dance lotus bloom (palms together, opening like a lotus, the fingers curved back); and "press play", her hand reaching over the front of the ledge to point down at the play button (a taller layer where only her hand shows below the ledge; only while she waits); more come from the kit\'s Round 2 and Round 7 prompts. Eyes: resting, talking (a soft cyan), a steady amber, a cyan-green bloom; the irises narrow or dilate with each. Mouth: her resting smile (part of her resting face, head-rest.webp) and the seven shapes she talks with. Lids: a blink. Every change eases.',
+    note: 'Each of her parts on a button, live from her player. Underwater: she lets go of the ledge and sinks (dive.mp4), then hovers at the glass, glides a lap of the tank (glide.mp4) or meditates and glows (glow.mp4: the glow comes up, holds and fades back), and rises the way she went down (rise.mp4, the dive backwards). Hands: her gestures, laid over her torso: open palms; and "press play", her hand reaching over the front of the ledge to point down at the play button (a taller layer where only her hand shows below the ledge; only while she waits); more come from the kit\'s Round 2 and Round 7 prompts. Eyes: resting, talking (a soft cyan), a steady amber, a cyan-green bloom; the irises narrow or dilate with each. Mouth: her resting smile (part of her resting face, head-rest.webp) and the seven shapes she talks with. Lids: a blink. On these cards nothing happens on a timer, so a button\'s move is never interrupted; on a Note she blinks, glances, gestures and dives on her own. Every change eases.',
     controls: [],
     build() { return ALTA.card('moves'); },
   },
@@ -1338,7 +1338,7 @@ const CATALOG = [
     tags: ['marley', 'robot marley', 'dog', 'hound', 'robot', 'character', 'her', 'moves', 'wag', 'tail', 'ears', 'eyes', 'charm', 'collar'],
     zones: [],
     kind: 'composite',
-    note: 'Robot Marley, the third character: a robot companion dog built after the real Marley, a mixed-breed hound. Her player is her parts in layers, cut from Christian\'s renders: her body breathing, her tail wagging in slow arcs from its base, her head on her neck (a curious tilt now and then), each ear on its own pivot, lids that blink, four mouth shapes, a gold glow on her amber lenses (dark amber or red when she isn\'t happy), and her collar and charm over the seam. Now and then she does one of her four moves, clips from her seated pose that start and end in it (a happy wag, lying down and back up, standing to look around, a tilt and a wink), each keyed off the green and drawn with its own mask, so her parts cross-fade to it and back. Files: /assets/marley/parts/, /assets/marley/moves/, /js/marley.js, /css/marley.css, /assets/marley/KIT.md (every prompt).',
+    note: 'Robot Marley, the third character: a robot companion dog built after the real Marley, a mixed-breed hound. Her player is her parts in layers, cut from Christian\'s renders: her body breathing, her tail wagging in slow arcs from its base, her head on her neck (a curious tilt), each ear on its own pivot, lids that blink, four mouth shapes, a gold glow on her amber lenses (dark amber or red when she isn\'t happy), and her collar and charm over the seam. On a Note she blinks, flicks an ear, tilts her head and now and then does one of her moves on her own; on this card each waits for its button, so nothing interrupts what you try. Her four moves are clips from her seated pose that start and end in it (a happy wag, lying down and back up, standing to look around, a tilt and a wink), each keyed off the green and drawn with its own mask, so her parts cross-fade to it and back. Files: /assets/marley/parts/, /assets/marley/moves/, /js/marley.js, /css/marley.css, /assets/marley/KIT.md (every prompt).',
     controls: [],
     build() { return MARLEY.card('player'); },
   },
