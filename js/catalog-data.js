@@ -1362,8 +1362,8 @@ const CATALOG = [
     tags: ['marley', 'dog', 'stump', 'tree', 'seat', 'wood', 'log', 'bark', 'character'],
     zones: [],
     kind: 'image',
-    src: '/assets/marley/seat-stump.webp',
-    note: 'What Robot Marley sits on, so she isn\'t floating over a Note\'s backdrop (Christian, Oct 12): his picture of an old tree stump, cut from its white ground (/assets/marley/seat-stump.webp, 1249 x 510). In her player it sits behind her and runs off the bottom and sides of her stage, so only its top and upper trunk show, with a soft shadow under her paws; she and her moves are scaled to 86% so her paws land on its top. Files: /assets/marley/seat-stump.webp, /css/marley.css (.mly-seat).',
+    src: '/assets/marley/seat-stump.webp?v=2',
+    note: 'What Robot Marley sits on, so she isn\'t floating over a Note\'s backdrop (Christian, Oct 12): his picture of an old tree stump, cut from its white ground (/assets/marley/seat-stump.webp, 1244 x 671; since Oct 14 her own, carved with spirals, runes, a key and her name: the one render with words in it, his exception for her). In her player it sits behind her and runs off the bottom and sides of her stage, so only its top and upper trunk show, with a soft shadow under her paws; she and her moves are scaled to 86% so her paws land on its top. Files: /assets/marley/seat-stump.webp, /css/marley.css (.mly-seat).',
     controls: [],
   },
 
